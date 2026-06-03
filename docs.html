@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>OpenHelix — Docs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="assets/logo-white.png">
+<style>
+:root{--void:#050310;--void-2:#0a0718;--panel:#0e0a1e;--panel-2:#120c24;--line:rgba(255,255,255,.08);--line-2:rgba(255,255,255,.14);--crimson:#e6103a;--crimson-2:#ff2050;--violet:#7b2bff;--ink:#f4eef3;--ink-2:#b9aec4;--ink-3:#7d7390;--ok:#2bd47a;--warn:#ffb020}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Sora',sans-serif;background:var(--void);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:'Chakra Petch',sans-serif;letter-spacing:-.01em}
+::selection{background:var(--crimson);color:#fff}
+a{color:var(--crimson-2);text-decoration:none}
+.bg{position:fixed;inset:0;z-index:-2;pointer-events:none}
+.bg::before{content:"";position:absolute;top:-20%;right:-10%;width:680px;height:680px;background:radial-gradient(circle,rgba(230,16,58,.32),transparent 65%);filter:blur(22px)}
+.bg::after{content:"";position:absolute;bottom:-25%;left:-15%;width:620px;height:620px;background:radial-gradient(circle,rgba(123,43,255,.2),transparent 62%);filter:blur(30px)}
+.grid{position:fixed;inset:0;z-index:-2;opacity:.35;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:60px 60px;-webkit-mask-image:radial-gradient(ellipse 80% 60% at 60% 0,#000,transparent 70%);mask-image:radial-gradient(ellipse 80% 60% at 60% 0,#000,transparent 70%)}
+.diamond{width:8px;height:8px;background:var(--crimson);transform:rotate(45deg);display:inline-block;flex:none}
+.bevel-sm{clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px)}
+.btn{font-family:'Chakra Petch';font-weight:600;font-size:13.5px;cursor:pointer;border:none;padding:11px 20px;transition:.2s;display:inline-flex;align-items:center;gap:8px}
+.btn-primary{background:var(--crimson);color:#fff}.btn-primary:hover{background:var(--crimson-2);transform:translateY(-2px)}
+.btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line-2)}.btn-ghost:hover{border-color:var(--crimson);background:rgba(230,16,58,.08)}
+/* top bar */
+.topbar{position:sticky;top:0;z-index:40;display:flex;align-items:center;justify-content:space-between;height:66px;padding:0 24px;border-bottom:1px solid var(--line);background:rgba(8,5,18,.72);backdrop-filter:blur(14px)}
+.brand{display:flex;align-items:center;gap:11px;font-family:'Chakra Petch';font-weight:700;font-size:18px}
+.brand img{width:26px;height:26px;filter:drop-shadow(0 0 8px rgba(230,16,58,.5))}
+.brand b{color:var(--crimson-2)}.brand .tag{font-size:10px;letter-spacing:.2em;color:var(--ink-3);border:1px solid var(--line);padding:3px 8px;text-transform:uppercase}
+.topnav{display:flex;gap:22px;margin-left:auto;margin-right:18px}
+.topnav a{color:var(--ink-2);font-family:'Chakra Petch';font-weight:500;font-size:14px}.topnav a:hover{color:#fff}
+/* layout */
+.shell{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:240px 1fr;gap:46px;padding:40px 24px 90px}
+.toc{position:sticky;top:96px;align-self:start;border-left:1px solid var(--line);padding-left:18px;max-height:calc(100vh - 130px);overflow:auto}
+.toc .lbl{font-family:'Chakra Petch';font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3);margin-bottom:14px}
+.toc a{display:block;color:var(--ink-2);font-size:13.5px;padding:7px 0;transition:.2s}
+.toc a:hover{color:#fff}
+.content{min-width:0}
+.content h1{font-size:34px;margin-bottom:10px}
+.content .lead{color:var(--ink-2);font-size:16px;margin-bottom:10px}
+.sec{padding:30px 0;border-top:1px solid var(--line);scroll-margin-top:90px}
+.sec:first-of-type{border-top:none}
+.sec h2{font-size:23px;margin-bottom:14px;display:flex;align-items:center;gap:11px}
+.sec h3{font-size:16px;margin:22px 0 8px;color:#fff}
+.sec p{color:var(--ink-2);font-size:14.5px;margin-bottom:12px}
+.sec ul,.sec ol{color:var(--ink-2);font-size:14.5px;margin:0 0 12px 20px}
+.sec li{margin-bottom:8px}
+.sec code{font-family:ui-monospace,Menlo,monospace;font-size:12.5px;background:var(--void-2);border:1px solid var(--line);padding:2px 7px;color:var(--ink)}
+.note{border:1px solid var(--line-2);background:var(--panel);padding:14px 16px;margin:14px 0;font-size:13.5px;color:var(--ink-2);display:flex;gap:11px;align-items:flex-start}
+.note .diamond{margin-top:5px}
+.note.warn{border-color:rgba(255,176,32,.35);background:rgba(255,176,32,.07);color:#f3d9a8}.note.warn .diamond{background:var(--warn)}
+.note.danger{border-color:rgba(255,32,80,.35);background:rgba(255,32,80,.07);color:#ffd0d8}.note.danger .diamond{background:var(--crimson-2)}
+.note b{font-family:'Chakra Petch'}
+table{width:100%;border-collapse:collapse;margin:8px 0 14px;font-size:13px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line)}
+th{font-family:'Chakra Petch';color:var(--ink-3);font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+td{color:var(--ink-2)}
+@media(max-width:860px){.shell{grid-template-columns:1fr;gap:24px}.toc{position:static;border-left:none;border-top:1px solid var(--line);padding:16px 0 0;max-height:none}.topnav{display:none}}
+</style>
+</head>
+<body>
+<div class="bg"></div><div class="grid"></div>
+
+<div class="topbar">
+  <a href="index.html" class="brand"><img src="assets/logo-white.png" alt=""/>Open<b>Helix</b><span class="tag">Docs</span></a>
+  <nav class="topnav"><a href="index.html">Home</a><a href="index.html#faq">FAQ</a><a href="studio.html">Studio</a></nav>
+  <a href="studio.html" class="btn btn-primary bevel-sm">Launch App →</a>
+</div>
+
+<div class="shell">
+  <aside class="toc">
+    <div class="lbl">On this page</div>
+    <a href="#intro">Introduction</a>
+    <a href="#start">Getting started</a>
+    <a href="#wallet">Connecting a wallet</a>
+    <a href="#networks">Supported networks</a>
+    <a href="#token">Creating a token</a>
+    <a href="#lock">Locking</a>
+    <a href="#vesting">Vesting</a>
+    <a href="#verify">Verifying source</a>
+    <a href="#security">Security &amp; safety</a>
+    <a href="#trouble">Troubleshooting</a>
+  </aside>
+
+  <main class="content">
+    <h1>OpenHelix Docs</h1>
+    <p class="lead">Everything you need to create and manage tokens with OpenHelix Studio — no code required.</p>
+
+    <section id="intro" class="sec">
+      <h2><span class="diamond"></span> Introduction</h2>
+      <p>OpenHelix is a browser-based Web3 toolkit. From the Studio you can create tokens, lock tokens/LP, set up vesting, and verify contract source — across several EVM chains and Solana. You sign every action in your own wallet; OpenHelix never holds your keys or funds.</p>
+    </section>
+
+    <section id="start" class="sec">
+      <h2><span class="diamond"></span> Getting started</h2>
+      <p>You need three things:</p>
+      <ul>
+        <li>A wallet extension — <b>MetaMask</b> for EVM chains, <b>Phantom</b> for Solana.</li>
+        <li>A little of the network's native coin for gas (free on testnets via a faucet).</li>
+        <li>The Studio open in your browser. <a href="studio.html">Open the Studio →</a></li>
+      </ul>
+      <div class="note"><span class="diamond"></span><div><b>Always practice on a testnet first.</b> Testnets behave like the real chains but use free, valueless coins, so you can do a full dry run before spending anything.</div></div>
+    </section>
+
+    <section id="wallet" class="sec">
+      <h2><span class="diamond"></span> Connecting a wallet</h2>
+      <ol>
+        <li>Pick your network from the dropdown in the top-left of the Studio.</li>
+        <li>Click <b>Connect Wallet</b>. EVM networks prompt MetaMask; Solana networks prompt Phantom.</li>
+        <li>Approve the connection. The button shows your shortened address when connected, and the status dot turns green.</li>
+      </ol>
+      <p>Switching to a network of the other type (e.g. from BNB to Solana) will ask you to reconnect with the matching wallet.</p>
+    </section>
+
+    <section id="networks" class="sec">
+      <h2><span class="diamond"></span> Supported networks</h2>
+      <table>
+        <tr><th>Family</th><th>Testnet</th><th>Mainnet</th></tr>
+        <tr><td>BNB Chain</td><td>BNB Testnet</td><td>BNB Smart Chain</td></tr>
+        <tr><td>Ethereum</td><td>Sepolia</td><td>Ethereum</td></tr>
+        <tr><td>Base</td><td>Base Sepolia</td><td>Base</td></tr>
+        <tr><td>Arbitrum</td><td>Arbitrum Sepolia</td><td>Arbitrum One</td></tr>
+        <tr><td>Optimism</td><td>OP Sepolia</td><td>Optimism</td></tr>
+        <tr><td>Polygon</td><td>Amoy</td><td>Polygon</td></tr>
+        <tr><td>Avalanche</td><td>Fuji</td><td>Avalanche</td></tr>
+        <tr><td>Solana</td><td>Devnet</td><td>Solana</td></tr>
+      </table>
+      <p>Token creation is available on all of them. Locking, vesting and verification have network limits — see those sections below.</p>
+    </section>
+
+    <section id="token" class="sec">
+      <h2><span class="diamond"></span> Creating a token</h2>
+      <p>Open the <b>Create Token</b> tab, fill in the form, and deploy:</p>
+      <ol>
+        <li><b>Name</b> — the full display name (e.g. "OpenHelix Demo").</li>
+        <li><b>Symbol</b> — the ticker (2–6 characters).</li>
+        <li><b>Decimals</b> — how divisible the token is. <code>18</code> is standard on EVM; Solana allows <code>0–9</code>.</li>
+        <li><b>Total supply</b> — whole tokens, minted in full to your wallet at creation.</li>
+      </ol>
+      <p>Click <b>Deploy Token</b> and approve in your wallet. On success you get the contract/mint address, an explorer link, and (on EVM) an "Add to Wallet" button.</p>
+      <h3>EVM vs Solana</h3>
+      <p>On EVM chains, each token is its own ERC-20 contract. On Solana, the token is an SPL mint created through Solana's Token Program — there's no per-token contract to deploy.</p>
+      <div class="note warn"><span class="diamond"></span><div>On mainnet, creating a token spends real gas (or SOL for rent). Do a free testnet run first to confirm the flow in your wallet.</div></div>
+    </section>
+
+    <section id="lock" class="sec">
+      <h2><span class="diamond"></span> Locking tokens / LP</h2>
+      <p>The <b>Lock</b> tab time-locks any token (including LP tokens) until a date you choose — a common trust signal for investors. Deploy a locker once (or paste an existing one), enter the token, amount and unlock date, then approve and lock. After the unlock time you can withdraw by lock id.</p>
+      <div class="note danger"><span class="diamond"></span><div><b>EVM testnets only for now.</b> This contract holds real value, so it's disabled on every mainnet until it has a professional security audit. It's not applicable to Solana (that's an EVM contract).</div></div>
+    </section>
+
+    <section id="vesting" class="sec">
+      <h2><span class="diamond"></span> Vesting</h2>
+      <p>The <b>Vesting</b> tab releases tokens to a beneficiary gradually over time, with an optional cliff. Deploy a vesting contract, set token, beneficiary, amount, start, cliff (days) and duration (days), then approve and create. The beneficiary calls <b>Release</b> to claim what has vested.</p>
+      <div class="note danger"><span class="diamond"></span><div><b>EVM testnets only for now.</b> Like locking, this holds funds and stays off mainnet until audited.</div></div>
+    </section>
+
+    <section id="verify" class="sec">
+      <h2><span class="diamond"></span> Verifying source</h2>
+      <p>The <b>Verify</b> tab publishes your token's source code on the block explorer (the "Verified" badge), so anyone can read exactly what it does. Paste a free Etherscan API key (works across EVM chains), confirm the constructor values, and submit.</p>
+      <div class="note"><span class="diamond"></span><div>Verification is an EVM/explorer feature. Solana SPL tokens use on-chain metadata (Metaplex) instead, so this tab is EVM-only. If your browser blocks the call (CORS), use the repo's <code>verifier</code> service, which does the same job reliably.</div></div>
+    </section>
+
+    <section id="security" class="sec">
+      <h2><span class="diamond"></span> Security &amp; safety</h2>
+      <ul>
+        <li><b>Your keys stay yours.</b> Every action is signed in your wallet. OpenHelix never sees your seed phrase or private key — and you should never paste it anywhere.</li>
+        <li><b>Use a dev/burner wallet</b> while testing.</li>
+        <li><b>Testnet first, always.</b> Confirm the whole flow for free before touching mainnet.</li>
+        <li><b>Audits before mainnet money.</b> Fund-holding contracts (lock, vesting) need a professional audit before they go live with real value.</li>
+        <li><b>Not legal or financial advice.</b> Launching tokens or raising funds can carry legal and tax duties that vary by country — consult professionals.</li>
+      </ul>
+    </section>
+
+    <section id="trouble" class="sec">
+      <h2><span class="diamond"></span> Troubleshooting</h2>
+      <h3>"No wallet found"</h3>
+      <p>Install MetaMask (EVM) or Phantom (Solana), then reload the page.</p>
+      <h3>"Wrong network"</h3>
+      <p>The Studio tries to switch your wallet automatically; if it doesn't, approve the network-switch prompt, or add the network manually in your wallet.</p>
+      <h3>Transaction fails or "insufficient funds"</h3>
+      <p>You need the network's native coin for gas. On testnets, get free coins from that network's faucet and try again.</p>
+      <h3>Something else</h3>
+      <p>Check the <b>Activity log</b> at the bottom of the Studio — it shows the exact error message, which is the fastest way to diagnose the issue.</p>
+    </section>
+  </main>
+</div>
+</body>
+</html>
