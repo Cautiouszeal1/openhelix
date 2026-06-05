@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>OpenHelix — Trust Center</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="logo-white.png">
+<style>
+:root{--void:#050310;--void-2:#0a0718;--panel:#0e0a1e;--panel-2:#120c24;--line:rgba(255,255,255,.08);--line-2:rgba(255,255,255,.14);--crimson:#e6103a;--crimson-2:#ff2050;--violet:#7b2bff;--ink:#f4eef3;--ink-2:#b9aec4;--ink-3:#7d7390;--ok:#2bd47a;--warn:#ffb020}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Sora',sans-serif;background:var(--void);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:'Chakra Petch',sans-serif;letter-spacing:-.01em}
+::selection{background:var(--crimson);color:#fff}
+a{color:var(--crimson-2);text-decoration:none}
+.bg{position:fixed;inset:0;z-index:-2;pointer-events:none}
+.bg::before{content:"";position:absolute;top:-20%;right:-10%;width:680px;height:680px;background:radial-gradient(circle,rgba(230,16,58,.32),transparent 65%);filter:blur(22px)}
+.bg::after{content:"";position:absolute;bottom:-25%;left:-15%;width:620px;height:620px;background:radial-gradient(circle,rgba(123,43,255,.2),transparent 62%);filter:blur(30px)}
+.grid{position:fixed;inset:0;z-index:-2;opacity:.35;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:60px 60px;-webkit-mask-image:radial-gradient(ellipse 80% 60% at 60% 0,#000,transparent 70%);mask-image:radial-gradient(ellipse 80% 60% at 60% 0,#000,transparent 70%)}
+.diamond{width:8px;height:8px;background:var(--crimson);transform:rotate(45deg);display:inline-block;flex:none}
+.bevel-sm{clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px)}
+.btn{font-family:'Chakra Petch';font-weight:600;font-size:13.5px;cursor:pointer;border:none;padding:11px 20px;transition:.2s;display:inline-flex;align-items:center;gap:8px}
+.btn-primary{background:var(--crimson);color:#fff}.btn-primary:hover{background:var(--crimson-2);transform:translateY(-2px)}
+.btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line-2)}.btn-ghost:hover{border-color:var(--crimson);background:rgba(230,16,58,.08)}
+.topbar{position:sticky;top:0;z-index:40;display:flex;align-items:center;justify-content:space-between;height:66px;padding:0 24px;border-bottom:1px solid var(--line);background:rgba(8,5,18,.72);backdrop-filter:blur(14px)}
+.brand{display:flex;align-items:center;gap:11px;font-family:'Chakra Petch';font-weight:700;font-size:18px}
+.brand img{width:26px;height:26px;filter:drop-shadow(0 0 8px rgba(230,16,58,.5))}
+.brand b{color:var(--crimson-2)}.brand .tag{font-size:10px;letter-spacing:.2em;color:var(--ink-3);border:1px solid var(--line);padding:3px 8px;text-transform:uppercase}
+.topnav{display:flex;gap:22px;margin-left:auto;margin-right:18px}
+.topnav a{color:var(--ink-2);font-family:'Chakra Petch';font-weight:500;font-size:14px}.topnav a:hover{color:#fff}
+.wrap{max-width:920px;margin:0 auto;padding:46px 24px 90px}
+.hero{text-align:center;margin-bottom:14px}
+.hero .eyebrow{font-family:'Chakra Petch';font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--crimson-2);margin-bottom:14px}
+.hero h1{font-size:40px;line-height:1.05;margin-bottom:14px}
+.hero p{color:var(--ink-2);font-size:16px;max-width:620px;margin:0 auto}
+.card{border:1px solid var(--line);background:var(--panel);padding:26px;margin-top:26px}
+.card h2{font-size:21px;display:flex;align-items:center;gap:11px;margin-bottom:8px}
+.card p.sub{color:var(--ink-2);font-size:14px;margin-bottom:18px}
+.field label{display:block;font-family:'Chakra Petch';font-size:12px;letter-spacing:.04em;color:var(--ink-2);margin-bottom:7px}
+.field input,.field select{width:100%;background:var(--void-2);border:1px solid var(--line-2);color:var(--ink);font-family:inherit;font-size:14px;padding:12px 14px;outline:none}
+.field input:focus,.field select:focus{border-color:var(--crimson)}
+.row{display:grid;grid-template-columns:1fr 1.4fr;gap:14px}
+.tool-actions{margin-top:16px;display:flex;gap:10px;flex-wrap:wrap}
+.result{margin-top:16px;border:1px solid var(--line-2);background:var(--void-2);padding:16px;font-size:14px;display:none}
+.result.show{display:block}
+.result a{word-break:break-all}
+.check{display:flex;gap:12px;align-items:flex-start;padding:11px 0;border-top:1px solid var(--line)}
+.check:first-of-type{border-top:none}
+.check .dot{width:9px;height:9px;background:var(--ok);transform:rotate(45deg);margin-top:7px;flex:none}
+.check.bad .dot{background:var(--crimson-2)}
+.check b{font-family:'Chakra Petch';font-size:14.5px}
+.check p{color:var(--ink-2);font-size:13.5px;margin-top:2px}
+.note{border:1px solid var(--line-2);background:var(--panel-2);padding:14px 16px;margin-top:18px;font-size:13.5px;color:var(--ink-2);display:flex;gap:11px;align-items:flex-start}
+.note .diamond{margin-top:5px}
+.note.warn{border-color:rgba(255,176,32,.35);background:rgba(255,176,32,.07);color:#f3d9a8}.note.warn .diamond{background:var(--warn)}
+.status-line{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-top:1px solid var(--line);font-size:14px}
+.status-line:first-of-type{border-top:none}
+.status-line .v{font-family:'Chakra Petch'}
+.badge{font-family:'Chakra Petch';font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:3px 9px;border:1px solid var(--line-2);color:var(--ink-3)}
+.badge.ok{color:var(--ok);border-color:rgba(43,212,122,.4)}
+.badge.warn{color:var(--warn);border-color:rgba(255,176,32,.4)}
+@media(max-width:680px){.row{grid-template-columns:1fr}.topnav{display:none}.hero h1{font-size:32px}}
+</style>
+</head>
+<body>
+<div class="bg"></div><div class="grid"></div>
+
+<div class="topbar">
+  <a href="index.html" class="brand"><img src="logo-white.png" alt=""/>Open<b>Helix</b><span class="tag">Trust</span></a>
+  <nav class="topnav"><a href="index.html">Home</a><a href="docs.html">Docs</a><a href="index.html#faq">FAQ</a></nav>
+  <a href="index.html" class="btn btn-ghost bevel-sm">← Home</a>
+</div>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="eyebrow">Trust Center</div>
+    <h1>Don't trust. Verify.</h1>
+    <p>Anyone can check a token for themselves. Paste an address below to open it on the official block explorer, then run the safety checklist. No wallet, no sign-in, nothing leaves your browser.</p>
+  </div>
+
+  <!-- VERIFY TOOL -->
+  <div class="card">
+    <h2><span class="diamond"></span> Look up a token</h2>
+    <p class="sub">Choose the network, paste the token's contract address (EVM) or mint address (Solana), and open it on the trusted explorer.</p>
+    <div class="row">
+      <div class="field">
+        <label>Network</label>
+        <select id="net"></select>
+      </div>
+      <div class="field">
+        <label>Token address</label>
+        <input id="addr" placeholder="0x…  or  Solana mint address"/>
+      </div>
+    </div>
+    <div class="tool-actions">
+      <button class="btn btn-primary bevel-sm" onclick="lookup()">Open on explorer →</button>
+      <button class="btn btn-ghost bevel-sm" onclick="document.getElementById('addr').value='';hideRes()">Clear</button>
+    </div>
+    <div class="result" id="res"></div>
+    <div class="note"><span class="diamond"></span><div>This opens the official explorer for that network. OpenHelix doesn't score or rate tokens — it points you to the source of truth so you can judge for yourself using the checklist below.</div></div>
+  </div>
+
+  <!-- CHECKLIST -->
+  <div class="card">
+    <h2><span class="diamond"></span> Safety checklist</h2>
+    <p class="sub">On the explorer page, look for these. The more that are true, the lower the risk — but nothing guarantees safety.</p>
+    <div class="check"><span class="dot"></span><div><b>Source code is verified</b><p>EVM: a green "Verified" tick means you can read exactly what the contract does. Solana: look for on-chain metadata (name, symbol, logo).</p></div></div>
+    <div class="check"><span class="dot"></span><div><b>Ownership is renounced (or clearly justified)</b><p>If the owner can still mint unlimited tokens or change rules, that's a risk. Renounced ownership removes that power.</p></div></div>
+    <div class="check"><span class="dot"></span><div><b>Liquidity is locked</b><p>Locked LP means the team can't pull the money out of the trading pool. Check for a lock with a future unlock date.</p></div></div>
+    <div class="check"><span class="dot"></span><div><b>Holder distribution looks healthy</b><p>If one or two wallets hold most of the supply, they can crash the price. Check the Holders tab.</p></div></div>
+    <div class="check"><span class="dot"></span><div><b>Contract age & activity</b><p>Brand-new contracts with no history carry more risk. See when it was created and how it's been used.</p></div></div>
+  </div>
+
+  <!-- RED FLAGS -->
+  <div class="card">
+    <h2><span class="diamond"></span> Red flags</h2>
+    <p class="sub">Walk away — or at least dig much deeper — if you see these.</p>
+    <div class="check bad"><span class="dot"></span><div><b>Unverified source you can't read</b><p>If you can't see what the code does, you can't know what it does to your funds.</p></div></div>
+    <div class="check bad"><span class="dot"></span><div><b>Owner can mint freely or block selling</b><p>"Honeypot" tokens let you buy but not sell. Unlimited mint dilutes you to zero.</p></div></div>
+    <div class="check bad"><span class="dot"></span><div><b>Unlocked or tiny liquidity</b><p>The team can remove the pool at any moment (a "rug pull").</p></div></div>
+    <div class="check bad"><span class="dot"></span><div><b>Pressure to buy fast</b><p>Urgency and guaranteed-return promises are classic manipulation. Real projects can withstand your questions.</p></div></div>
+  </div>
+
+  <!-- OPENHELIX TRANSPARENCY -->
+  <div class="card">
+    <h2><span class="diamond"></span> OpenHelix's own transparency</h2>
+    <p class="sub">We hold ourselves to the same standard. Here's the honest status of this platform right now.</p>
+    <div class="status-line"><span>Token creation (EVM + Solana)</span><span class="v"><span class="badge ok">Live</span></span></div>
+    <div class="status-line"><span>Automatic source verification (EVM)</span><span class="v"><span class="badge ok">Live</span></span></div>
+    <div class="status-line"><span>Locking &amp; vesting contracts</span><span class="v"><span class="badge warn">Testnet only</span></span></div>
+    <div class="status-line"><span>Security audit of fund-holding contracts</span><span class="v"><span class="badge warn">Planned</span></span></div>
+    <div class="status-line"><span>Public fundraising / token sales</span><span class="v"><span class="badge warn">Not live — pending legal + audit</span></span></div>
+    <div class="note warn"><span class="diamond"></span><div>Lock and vesting hold real value, so they stay on test networks until a professional audit is complete. We won't enable them on mainnet before then — and we'll say so plainly here when that changes.</div></div>
+    <div class="note"><span class="diamond"></span><div>None of this is financial or legal advice. Always do your own research and never invest more than you can afford to lose.</div></div>
+  </div>
+</div>
+
+<script>
+// Official explorers. EVM -> /token/<addr>, Solana -> explorer.solana.com/address/<addr>
+const NETS=[
+  {name:"BNB Smart Chain",kind:"evm",ex:"https://bscscan.com/token/"},
+  {name:"BNB Testnet",kind:"evm",ex:"https://testnet.bscscan.com/token/"},
+  {name:"Ethereum",kind:"evm",ex:"https://etherscan.io/token/"},
+  {name:"Sepolia (test)",kind:"evm",ex:"https://sepolia.etherscan.io/token/"},
+  {name:"Base",kind:"evm",ex:"https://basescan.org/token/"},
+  {name:"Arbitrum One",kind:"evm",ex:"https://arbiscan.io/token/"},
+  {name:"Optimism",kind:"evm",ex:"https://optimistic.etherscan.io/token/"},
+  {name:"Polygon",kind:"evm",ex:"https://polygonscan.com/token/"},
+  {name:"Avalanche",kind:"evm",ex:"https://snowtrace.io/token/"},
+  {name:"Solana",kind:"sol",ex:"https://explorer.solana.com/address/"},
+  {name:"Solana Devnet",kind:"sol",ex:"https://explorer.solana.com/address/",q:"?cluster=devnet"}
+];
+const sel=document.getElementById('net');
+NETS.forEach((n,i)=>{const o=document.createElement('option');o.value=i;o.textContent=n.name;sel.appendChild(o);});
+function hideRes(){document.getElementById('res').classList.remove('show');}
+function lookup(){
+  const n=NETS[+sel.value];const a=document.getElementById('addr').value.trim();const res=document.getElementById('res');
+  if(!a){res.innerHTML='<span style="color:var(--crimson-2)">Paste a token address first.</span>';res.classList.add('show');return;}
+  let valid = n.kind==='evm' ? /^0x[a-fA-F0-9]{40}$/.test(a) : /^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(a);
+  if(!valid){res.innerHTML='<span style="color:var(--warn)">That doesn\'t look like a valid '+(n.kind==='evm'?'EVM (0x…)':'Solana')+' address. Double-check it.</span>';res.classList.add('show');return;}
+  const url=n.ex+a+(n.q||'');
+  res.innerHTML='Opening on <b>'+n.name+'</b>:<br><a href="'+url+'" target="_blank" rel="noopener">'+url+'</a><br><br>Run the checklist below on that page.';
+  res.classList.add('show');
+  window.open(url,'_blank','noopener');
+}
+</script>
+</body>
+</html>
