@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>OpenHelix — Add Liquidity</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="logo-white.png">
+<style>
+:root{--void:#050310;--void-2:#0a0718;--panel:#0e0a1e;--panel-2:#120c24;--line:rgba(255,255,255,.08);--line-2:rgba(255,255,255,.14);--crimson:#e6103a;--crimson-2:#ff2050;--violet:#7b2bff;--ink:#f4eef3;--ink-2:#b9aec4;--ink-3:#7d7390;--ok:#2bd47a;--warn:#ffb020}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Sora',sans-serif;background:var(--void);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:'Chakra Petch',sans-serif;letter-spacing:-.01em}
+::selection{background:var(--crimson);color:#fff}
+a{color:var(--crimson-2);text-decoration:none}
+.bg{position:fixed;inset:0;z-index:-2;pointer-events:none}
+.bg::before{content:"";position:absolute;top:-20%;right:-10%;width:680px;height:680px;background:radial-gradient(circle,rgba(230,16,58,.32),transparent 65%);filter:blur(22px)}
+.bg::after{content:"";position:absolute;bottom:-25%;left:-15%;width:620px;height:620px;background:radial-gradient(circle,rgba(123,43,255,.2),transparent 62%);filter:blur(30px)}
+.grid{position:fixed;inset:0;z-index:-2;opacity:.35;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:60px 60px;-webkit-mask-image:radial-gradient(ellipse 80% 60% at 60% 0,#000,transparent 70%);mask-image:radial-gradient(ellipse 80% 60% at 60% 0,#000,transparent 70%)}
+.diamond{width:8px;height:8px;background:var(--crimson);transform:rotate(45deg);display:inline-block;flex:none}
+.bevel-sm{clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px)}
+.btn{font-family:'Chakra Petch';font-weight:600;font-size:13.5px;cursor:pointer;border:none;padding:11px 20px;transition:.2s;display:inline-flex;align-items:center;gap:8px;text-decoration:none}
+.btn-primary{background:var(--crimson);color:#fff}.btn-primary:hover{background:var(--crimson-2);transform:translateY(-2px)}
+.btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line-2)}.btn-ghost:hover{border-color:var(--crimson);background:rgba(230,16,58,.08)}
+.btn[disabled]{opacity:.4;cursor:not-allowed}
+.topbar{position:sticky;top:0;z-index:40;display:flex;align-items:center;justify-content:space-between;height:66px;padding:0 24px;border-bottom:1px solid var(--line);background:rgba(8,5,18,.72);backdrop-filter:blur(14px)}
+.brand{display:flex;align-items:center;gap:11px;font-family:'Chakra Petch';font-weight:700;font-size:18px}
+.brand img{width:26px;height:26px;filter:drop-shadow(0 0 8px rgba(230,16,58,.5))}
+.brand b{color:var(--crimson-2)}.brand .tag{font-size:10px;letter-spacing:.2em;color:var(--ink-3);border:1px solid var(--line);padding:3px 8px;text-transform:uppercase}
+.topnav{display:flex;gap:22px;margin-left:auto;margin-right:18px}
+.topnav a{color:var(--ink-2);font-family:'Chakra Petch';font-weight:500;font-size:14px}.topnav a:hover{color:#fff}
+.wrap{max-width:760px;margin:0 auto;padding:46px 24px 90px}
+.hero{text-align:center;margin-bottom:10px}
+.hero .eyebrow{font-family:'Chakra Petch';font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--crimson-2);margin-bottom:14px}
+.hero h1{font-size:38px;line-height:1.05;margin-bottom:14px}
+.hero p{color:var(--ink-2);font-size:15.5px;max-width:560px;margin:0 auto}
+.card{border:1px solid var(--line);background:var(--panel);padding:26px;margin-top:26px}
+.card h2{font-size:20px;display:flex;align-items:center;gap:11px;margin-bottom:6px}
+.card p.sub{color:var(--ink-2);font-size:14px;margin-bottom:18px}
+.field{margin-bottom:15px}
+.field label{display:block;font-family:'Chakra Petch';font-size:12px;letter-spacing:.04em;color:var(--ink-2);margin-bottom:7px}
+.field input,.field select{width:100%;background:var(--void-2);border:1px solid var(--line-2);color:var(--ink);font-family:inherit;font-size:14px;padding:12px 14px;outline:none}
+.field input:focus,.field select:focus{border-color:var(--crimson)}
+.field .hint{font-size:12px;color:var(--ink-3);margin-top:6px}
+.steps{counter-reset:s;margin-top:8px}
+.step{counter-increment:s;position:relative;padding:14px 0 14px 44px;border-top:1px solid var(--line)}
+.step:first-child{border-top:none}
+.step::before{content:counter(s);position:absolute;left:0;top:13px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;background:var(--void-2);border:1px solid var(--line-2);font-family:'Chakra Petch';font-size:13px;color:var(--crimson-2)}
+.step b{font-family:'Chakra Petch';font-size:14.5px}
+.step p{color:var(--ink-2);font-size:13.5px;margin-top:3px}
+.note{border:1px solid var(--line-2);background:var(--panel-2);padding:14px 16px;margin-top:18px;font-size:13.5px;color:var(--ink-2);display:flex;gap:11px;align-items:flex-start}
+.note .diamond{margin-top:5px}
+.note.warn{border-color:rgba(255,176,32,.35);background:rgba(255,176,32,.07);color:#f3d9a8}.note.warn .diamond{background:var(--warn)}
+.actions{margin-top:18px;display:flex;gap:10px;flex-wrap:wrap}
+.toggle{display:inline-flex;border:1px solid var(--line-2);overflow:hidden;margin-bottom:18px}
+.toggle button{background:transparent;color:var(--ink-2);border:none;padding:9px 18px;font-family:'Chakra Petch';font-size:13px;cursor:pointer}
+.toggle button.on{background:var(--crimson);color:#fff}
+@media(max-width:680px){.topnav{display:none}.hero h1{font-size:30px}}
+</style>
+</head>
+<body>
+<div class="bg"></div><div class="grid"></div>
+
+<div class="topbar">
+  <a href="index.html" class="brand"><img src="logo-white.png" alt=""/>Open<b>Helix</b><span class="tag">Liquidity</span></a>
+  <nav class="topnav"><a href="index.html">Home</a><a href="docs.html">Docs</a><a href="trust.html">Trust</a></nav>
+  <a href="index.html" class="btn btn-ghost bevel-sm">← Home</a>
+</div>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="eyebrow">Add Liquidity</div>
+    <h1>Make your token tradeable.</h1>
+    <p>Pair your token with the network's coin to create a trading pool. OpenHelix prepares everything and hands you off to the official, audited exchange to confirm — your funds only ever move on the DEX you already trust.</p>
+  </div>
+
+  <div class="card">
+    <h2><span class="diamond"></span> Set up your pool</h2>
+    <p class="sub">Pick the network and paste your token address. We'll open the right exchange with your token loaded.</p>
+
+    <div class="toggle">
+      <button id="tNet" class="on" onclick="setMode('net')">Test networks</button>
+      <button id="tMain" onclick="setMode('main')">Mainnet</button>
+    </div>
+
+    <div class="field">
+      <label>Network</label>
+      <select id="net"></select>
+    </div>
+    <div class="field">
+      <label>Your token address</label>
+      <input id="addr" placeholder="0x…  or  Solana mint address"/>
+      <div class="hint">The contract/mint address from when you created the token in Studio.</div>
+    </div>
+
+    <div class="actions">
+      <a id="go" class="btn btn-primary bevel-sm" target="_blank" rel="noopener">Open the exchange →</a>
+      <a id="lockBtn" class="btn btn-ghost bevel-sm" href="studio.html" >Lock LP after (Studio)</a>
+    </div>
+    <div class="note" id="mainWarn" style="display:none"><span class="diamond"></span><div><b>Mainnet uses real money.</b> Always create your pool on a test network first and confirm the whole flow before doing it for real.</div></div>
+  </div>
+
+  <div class="card">
+    <h2><span class="diamond"></span> How it works</h2>
+    <div class="steps">
+      <div class="step"><b>Open the exchange</b><p>The button takes you to PancakeSwap (BNB), Uniswap (other EVM), or Raydium (Solana) with your token pre-loaded.</p></div>
+      <div class="step"><b>Choose the amounts</b><p>Decide how many of your tokens and how much of the network coin (BNB/ETH/SOL) to put in. This sets the starting price.</p></div>
+      <div class="step"><b>Approve &amp; confirm</b><p>Approve the token, then confirm "Add Liquidity" in your wallet. You receive LP tokens representing your share of the pool.</p></div>
+      <div class="step"><b>Lock your LP (recommended)</b><p>Lock those LP tokens so buyers know the pool can't be pulled. Use the Lock tab in Studio (EVM testnet for now).</p></div>
+    </div>
+    <div class="note warn"><span class="diamond"></span><div>Locking and vesting are on test networks until OpenHelix's contracts are audited. On mainnet, use a reputable third-party locker until then.</div></div>
+  </div>
+
+  <div class="card">
+    <h2><span class="diamond"></span> Before you add real liquidity</h2>
+    <div class="note"><span class="diamond"></span><div>Whatever you pair becomes the starting price and is exposed to traders. Start small, lock your LP, and never add more than you can afford to lose. None of this is financial advice.</div></div>
+  </div>
+</div>
+
+<script>
+// Official DEX "add liquidity" deep links. {addr} replaced with token address.
+const NETS=[
+  // ---- test networks ----
+  {g:"test",name:"BNB Testnet",kind:"evm",url:"https://pancakeswap.finance/add/BNB/{addr}?chain=bscTestnet"},
+  {g:"test",name:"Sepolia (Ethereum test)",kind:"evm",url:"https://app.uniswap.org/add/ETH/{addr}?chain=sepolia"},
+  {g:"test",name:"Base Sepolia (test)",kind:"evm",url:"https://app.uniswap.org/add/ETH/{addr}?chain=base_sepolia"},
+  {g:"test",name:"Solana Devnet",kind:"sol",url:"https://raydium.io/liquidity/create-pool/"},
+  // ---- mainnet ----
+  {g:"main",name:"BNB Smart Chain",kind:"evm",url:"https://pancakeswap.finance/add/BNB/{addr}"},
+  {g:"main",name:"Ethereum",kind:"evm",url:"https://app.uniswap.org/add/ETH/{addr}?chain=mainnet"},
+  {g:"main",name:"Base",kind:"evm",url:"https://app.uniswap.org/add/ETH/{addr}?chain=base"},
+  {g:"main",name:"Arbitrum",kind:"evm",url:"https://app.uniswap.org/add/ETH/{addr}?chain=arbitrum"},
+  {g:"main",name:"Polygon",kind:"evm",url:"https://app.uniswap.org/add/ETH/{addr}?chain=polygon"},
+  {g:"main",name:"Solana",kind:"sol",url:"https://raydium.io/liquidity/create-pool/"}
+];
+let mode='net';
+const sel=document.getElementById('net'),go=document.getElementById('go');
+function fill(){
+  sel.innerHTML='';
+  NETS.filter(n=>n.g===(mode==='net'?'test':'main')).forEach((n)=>{
+    const o=document.createElement('option');o.value=NETS.indexOf(n);o.textContent=n.name;sel.appendChild(o);
+  });
+  update();
+}
+function setMode(m){
+  mode=m;
+  document.getElementById('tNet').classList.toggle('on',m==='net');
+  document.getElementById('tMain').classList.toggle('on',m==='main');
+  document.getElementById('mainWarn').style.display = m==='main'?'flex':'none';
+  fill();
+}
+function update(){
+  const n=NETS[+sel.value];const a=document.getElementById('addr').value.trim();
+  if(!n){return;}
+  if(n.kind==='sol'){
+    // Raydium create-pool doesn't take a token in the URL; send them to the create-pool page.
+    go.href=n.url; go.textContent='Open Raydium →'; go.removeAttribute('disabled'); return;
+  }
+  const valid=/^0x[a-fA-F0-9]{40}$/.test(a);
+  if(!valid){go.removeAttribute('href');go.setAttribute('disabled','');go.textContent='Paste a valid 0x token address';return;}
+  go.href=n.url.replace('{addr}',a); go.textContent='Open the exchange →'; go.removeAttribute('disabled');
+}
+sel.addEventListener('change',update);
+document.getElementById('addr').addEventListener('input',update);
+fill();
+</script>
+</body>
+</html>
