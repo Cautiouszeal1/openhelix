@@ -6,7 +6,7 @@
 <title>OpenHelix — Docs</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="icon" type="image/png" href="logo-white.png">
+<link rel="icon" type="image/png" href="assets/logo-white.png">
 <style>
 :root{--void:#050310;--void-2:#0a0718;--panel:#0e0a1e;--panel-2:#120c24;--line:rgba(255,255,255,.08);--line-2:rgba(255,255,255,.14);--crimson:#e6103a;--crimson-2:#ff2050;--violet:#7b2bff;--ink:#f4eef3;--ink-2:#b9aec4;--ink-3:#7d7390;--ok:#2bd47a;--warn:#ffb020}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -64,7 +64,7 @@ td{color:var(--ink-2)}
 <div class="bg"></div><div class="grid"></div>
 
 <div class="topbar">
-  <a href="index.html" class="brand"><img src="logo-white.png" alt=""/>Open<b>Helix</b><span class="tag">Docs</span></a>
+  <a href="index.html" class="brand"><img src="assets/logo-white.png" alt=""/>Open<b>Helix</b><span class="tag">Docs</span></a>
   <nav class="topnav"><a href="index.html">Home</a><a href="index.html#faq">FAQ</a><a href="studio.html">Studio</a></nav>
   <a href="studio.html" class="btn btn-primary bevel-sm">Launch App →</a>
 </div>
@@ -148,13 +148,13 @@ td{color:var(--ink-2)}
     <section id="lock" class="sec">
       <h2><span class="diamond"></span> Locking tokens / LP</h2>
       <p>The <b>Lock</b> tab time-locks any token (including LP tokens) until a date you choose — a common trust signal for investors. Deploy a locker once (or paste an existing one), enter the token, amount and unlock date, then approve and lock. After the unlock time you can withdraw by lock id.</p>
-      <div class="note danger"><span class="diamond"></span><div><b>EVM testnets only for now.</b> This contract holds real value, so it's disabled on every mainnet until it has a professional security audit. It's not applicable to Solana (that's an EVM contract).</div></div>
+      <div class="note"><span class="diamond"></span><div><b>Available on test networks today.</b> Because this contract safeguards real funds, it goes live on mainnet once its security audit is complete — a standard step we take seriously. (EVM feature; not applicable to Solana.)</div></div>
     </section>
 
     <section id="vesting" class="sec">
       <h2><span class="diamond"></span> Vesting</h2>
       <p>The <b>Vesting</b> tab releases tokens to a beneficiary gradually over time, with an optional cliff. Deploy a vesting contract, set token, beneficiary, amount, start, cliff (days) and duration (days), then approve and create. The beneficiary calls <b>Release</b> to claim what has vested.</p>
-      <div class="note danger"><span class="diamond"></span><div><b>EVM testnets only for now.</b> Like locking, this holds funds and stays off mainnet until audited.</div></div>
+      <div class="note"><span class="diamond"></span><div><b>Available on test networks today.</b> Like locking, it handles real funds, so it ships to mainnet right after audit.</div></div>
     </section>
 
     <section id="verify" class="sec">
