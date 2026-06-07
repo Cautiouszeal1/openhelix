@@ -388,12 +388,14 @@ async function createToken(){
   if(!name||!sym){log("Name and symbol required.","log-err");return;}
   $("cDeploy").disabled=true;$("cDeploy").textContent="Deploying…";$("cResult").innerHTML="";
   try{
-    const cgId=coingeckoId(CHAIN);const px=await coinUsd(cgId);
-    const coins=FEE.evmUsd/px;const feeWei=ethers.parseEther(coins.toFixed(8));
-    const symN=CHAIN.params.nativeCurrency.symbol;
-    log(`Platform fee ~$${FEE.evmUsd} ≈ ${coins.toFixed(6)} ${symN} — approve in wallet…`,"log-info");
-    const ftx=await signer.sendTransaction({to:FEE.evmTo,value:feeWei});
-    log("Fee tx: "+ftx.hash,"log-info");await ftx.wait();log("✓ Fee paid.","log-ok");
+    if(CHAIN.mainnet){
+      const cgId=coingeckoId(CHAIN);const px=await coinUsd(cgId);
+      const coins=FEE.evmUsd/px;const feeWei=ethers.parseEther(coins.toFixed(8));
+      const symN=CHAIN.params.nativeCurrency.symbol;
+      log(`Platform fee ~$${FEE.evmUsd} ≈ ${coins.toFixed(6)} ${symN} — approve in wallet…`,"log-info");
+      const ftx=await signer.sendTransaction({to:FEE.evmTo,value:feeWei});
+      log("Fee tx: "+ftx.hash,"log-info");await ftx.wait();log("✓ Fee paid.","log-ok");
+    }else{ log("Test network — no platform fee (fees apply on mainnet only).","log-info"); }
     log(`Deploying token "${name}" (${sym})…`,"log-info");
     const f=new ethers.ContractFactory(TOKEN_ABI,TOKEN_BYTE,signer);
     const c=await f.deploy(name,sym,dec,sup,account);
@@ -407,7 +409,9 @@ async function createToken(){
         <button class="btn btn-ghost btn-sm" onclick="addToken('${addr}','${sym}',${dec})">Add to Wallet</button>
         <button class="btn btn-primary btn-sm" onclick="toVerify('${addr}','${name}','${sym}',${dec},'${$("cSup").value}')">Verify it →</button>
       </div></div>`;
-  }catch(e){log("✗ "+(e.shortMessage||e.message),"log-err");}
+  }catch(e){let m=e.shortMessage||e.message||String(e);
+    if(/insufficient funds|missing revert data/i.test(m)) m="Not enough "+(CHAIN.params?CHAIN.params.nativeCurrency.symbol:"coin")+" for gas. Top up your wallet (use the faucet on testnets) and try again.";
+    log("✗ "+m,"log-err");}
   finally{$("cDeploy").disabled=false;$("cDeploy").textContent="Deploy Token";}
 }
 async function addToken(address,symbol,decimals){try{await window.ethereum.request({method:"wallet_watchAsset",params:{type:"ERC20",options:{address,symbol,decimals}}});}catch(e){}}
@@ -584,11 +588,15 @@ async function createTokenSOL(){
       {pubkey:owner,isSigner:false,isWritable:false},
       {pubkey:w.SystemProgram.programId,isSigner:false,isWritable:false}
     ],programId:META_PROGRAM,data:metaData});
-    // ---- platform fee (~$25 in SOL) ----
-    const solPx=await coinUsd("solana");const feeSol=FEE.solUsd/solPx;const feeLamports=Math.round(feeSol*1e9);
-    log(`Platform fee ~$${FEE.solUsd} ≈ ${feeSol.toFixed(5)} SOL.`,"log-info");
-    const feeIx=w.SystemProgram.transfer({fromPubkey:owner,toPubkey:new w.PublicKey(FEE.solTo),lamports:feeLamports});
-    const tx=new w.Transaction().add(createAcc,initIx,metaIx,ataIx,mintIx,feeIx);
+    // ---- platform fee (~$25 in SOL, mainnet only) ----
+    let feeIx=null;
+    if(CHAIN.mainnet){
+      const solPx=await coinUsd("solana");const feeSol=FEE.solUsd/solPx;const feeLamports=Math.round(feeSol*1e9);
+      log(`Platform fee ~$${FEE.solUsd} ≈ ${feeSol.toFixed(5)} SOL.`,"log-info");
+      feeIx=w.SystemProgram.transfer({fromPubkey:owner,toPubkey:new w.PublicKey(FEE.solTo),lamports:feeLamports});
+    }else{ log("Test network — no platform fee (fees apply on mainnet only).","log-info"); }
+    const tx=new w.Transaction().add(createAcc,initIx,metaIx,ataIx,mintIx);
+    if(feeIx) tx.add(feeIx);
     tx.feePayer=owner;
     const {blockhash}=await conn.getLatestBlockhash();tx.recentBlockhash=blockhash;
     tx.partialSign(mint);
