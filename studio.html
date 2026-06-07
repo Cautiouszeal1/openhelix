@@ -7,6 +7,20 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="icon" type="image/png" href="logo-white.png">
+<script>
+// Fallback global Buffer via bundle.run (in case the module import below is blocked).
+(function(){
+  if(window.Buffer) return;
+  var s=document.createElement('script');
+  s.src="https://bundle.run/buffer@6.0.3";
+  s.onload=function(){ try{ if(!window.Buffer&&window.buffer) window.Buffer=window.buffer.Buffer; }catch(e){} };
+  document.head.appendChild(s);
+})();
+</script>
+<script type="module">
+  // Primary, reliable Buffer polyfill for Solana web3.js in the browser.
+  try{ const m=await import('https://esm.sh/buffer@6.0.3'); window.Buffer=window.Buffer||m.Buffer; }catch(e){}
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.4/ethers.umd.min.js"></script>
 <script src="https://unpkg.com/@solana/web3.js@1.95.8/lib/index.iife.min.js"></script>
 <style>
@@ -517,6 +531,8 @@ async function createTokenSOL(){
   const ph=getPhantom();
   if(!solPubkey||!ph){log("Connect Phantom first.","log-err");return;}
   if(!window.solanaWeb3){log("Solana library not loaded.","log-err");return;}
+  if(!window.Buffer){for(let i=0;i<15&&!window.Buffer;i++){await new Promise(r=>setTimeout(r,200));}}
+  if(!window.Buffer){log("A required component (Buffer) didn't load — refresh and try again.","log-err");return;}
   const w=window.solanaWeb3;
   const name=$("cName").value.trim(),sym=$("cSym").value.trim(),dec=parseInt($("cDec").value);
   if(!name||!sym){log("Name and symbol required.","log-err");return;}
