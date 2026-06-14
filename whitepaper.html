@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>OpenHelix — Whitepaper</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--void:#050310;--void-2:#0a0718;--panel:#0e0a1e;--panel-2:#120c24;--line:rgba(255,255,255,.08);--line-2:rgba(255,255,255,.14);--crimson:#e6103a;--crimson-2:#ff2050;--violet:#7b2bff;--ink:#f4eef3;--ink-2:#b9aec4;--ink-3:#7d7390;--ok:#2bd47a;--warn:#ffb020}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Sora',sans-serif;background:var(--void);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:'Chakra Petch',sans-serif;letter-spacing:-.01em}
+::selection{background:var(--crimson);color:#fff}
+a{color:var(--crimson-2);text-decoration:none}
+.bg{position:fixed;inset:0;z-index:-2;pointer-events:none}
+.bg::before{content:"";position:absolute;top:-20%;right:-10%;width:680px;height:680px;background:radial-gradient(circle,rgba(230,16,58,.32),transparent 65%);filter:blur(22px)}
+.bg::after{content:"";position:absolute;bottom:-25%;left:-15%;width:620px;height:620px;background:radial-gradient(circle,rgba(123,43,255,.2),transparent 62%);filter:blur(30px)}
+.grid{position:fixed;inset:0;z-index:-2;opacity:.35;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:60px 60px;-webkit-mask-image:radial-gradient(ellipse 80% 60% at 60% 0,#000,transparent 70%);mask-image:radial-gradient(ellipse 80% 60% at 60% 0,#000,transparent 70%)}
+.diamond{width:8px;height:8px;background:var(--crimson);transform:rotate(45deg);display:inline-block;flex:none}
+.bevel-sm{clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px)}
+.btn{font-family:'Chakra Petch';font-weight:600;font-size:13.5px;cursor:pointer;border:none;padding:11px 20px;transition:.2s;display:inline-flex;align-items:center;gap:8px;text-decoration:none}
+.btn-primary{background:var(--crimson);color:#fff}.btn-primary:hover{background:var(--crimson-2);transform:translateY(-2px)}
+.btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line-2)}.btn-ghost:hover{border-color:var(--crimson);background:rgba(230,16,58,.08)}
+.topbar{position:sticky;top:0;z-index:40;display:flex;align-items:center;justify-content:space-between;height:66px;padding:0 24px;border-bottom:1px solid var(--line);background:rgba(8,5,18,.72);backdrop-filter:blur(14px)}
+.brand{display:flex;align-items:center;gap:11px;font-family:'Chakra Petch';font-weight:700;font-size:18px}
+.brand img{width:26px;height:26px;filter:drop-shadow(0 0 8px rgba(230,16,58,.5))}
+.brand b{color:var(--crimson-2)}.brand .tag{font-size:10px;letter-spacing:.2em;color:var(--ink-3);border:1px solid var(--line);padding:3px 8px;text-transform:uppercase}
+.topnav{display:flex;gap:22px;margin-left:auto;margin-right:18px}
+.topnav a{color:var(--ink-2);font-family:'Chakra Petch';font-weight:500;font-size:14px}.topnav a:hover{color:#fff}
+.wrap{max-width:880px;margin:0 auto;padding:40px 24px 90px}
+/* hero */
+.hero{border:1px solid var(--line);background:linear-gradient(160deg,rgba(230,16,58,.14),rgba(123,43,255,.06));padding:38px 30px;position:relative;overflow:hidden}
+.hero .eyebrow{font-family:'Chakra Petch';font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--crimson-2);border:1px solid var(--line-2);display:inline-block;padding:5px 12px;border-radius:30px;margin-bottom:18px}
+.hero h1{font-size:38px;line-height:1.05;margin-bottom:16px}
+.hero p{color:var(--ink-2);font-size:15.5px;max-width:680px}
+.hero .actions{margin-top:22px;display:flex;gap:10px;flex-wrap:wrap}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:26px}
+.stat{border:1px solid var(--line);background:var(--panel);padding:16px}
+.stat .n{font-family:'Chakra Petch';font-weight:700;font-size:26px;color:#fff}
+.stat .l{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);margin-top:4px}
+/* sections */
+.sec{padding:36px 0 6px;border-top:1px solid var(--line);margin-top:30px;scroll-margin-top:80px}
+.sec .num{font-family:'Chakra Petch';font-size:11px;letter-spacing:.2em;color:var(--crimson-2)}
+.sec .num::before{content:"";display:block;width:46px;height:3px;background:var(--crimson);margin-bottom:10px}
+.sec h2{font-size:27px;line-height:1.12;margin:6px 0 12px}
+.sec .lead{color:var(--ink-2);font-size:15px;margin-bottom:18px}
+.block{border:1px solid var(--line);background:var(--panel);padding:22px;margin-top:16px}
+.block h3{font-size:18px;margin-bottom:8px}
+.block p{color:var(--ink-2);font-size:14.5px}
+.tag2{font-family:'Chakra Petch';font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--crimson-2);border:1px solid var(--line-2);display:inline-block;padding:4px 11px;border-radius:30px;margin-bottom:12px}
+.li{display:flex;gap:11px;align-items:flex-start;margin:10px 0;color:var(--ink-2);font-size:14.5px}
+.li .diamond{margin-top:6px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+.card{border:1px solid var(--line);background:var(--panel);padding:20px}
+.card h4{font-size:16px;margin-bottom:6px}
+.card .role{font-family:'Chakra Petch';font-size:12.5px;color:var(--crimson-2);margin-bottom:8px}
+.card p{color:var(--ink-2);font-size:14px}
+.pill-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+.pill{border:1px solid var(--line);background:var(--panel);padding:18px}
+.pill .big{font-family:'Chakra Petch';font-weight:700;font-size:22px;color:var(--crimson-2)}
+.pill .l{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:4px}
+/* token bars */
+.bar-row{margin:12px 0}
+.bar-row .top{display:flex;justify-content:space-between;font-size:14px;margin-bottom:6px}
+.bar-row .top b{font-family:'Chakra Petch'}
+.bar-row .top .pct{color:var(--crimson-2);font-family:'Chakra Petch'}
+.bar{height:9px;background:var(--void-2);border:1px solid var(--line);overflow:hidden}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--crimson),var(--crimson-2))}
+/* roadmap */
+.road{margin-top:16px}
+.road-item{display:grid;grid-template-columns:90px 1fr;gap:16px;border:1px solid var(--line);background:var(--panel);padding:16px 18px;margin-bottom:10px;align-items:center}
+.road-item .yr{font-family:'Chakra Petch';font-weight:700;font-size:22px;color:var(--crimson-2)}
+.road-item p{color:var(--ink-2);font-size:14px}
+.steps-num{counter-reset:s;margin-top:6px}
+.snum{counter-increment:s;position:relative;padding:9px 0 9px 40px;color:var(--ink-2);font-size:14.5px}
+.snum::before{content:counter(s,decimal-leading-zero);position:absolute;left:0;top:8px;font-family:'Chakra Petch';font-size:13px;color:var(--crimson-2)}
+.legal{border:1px solid var(--line-2);background:var(--panel-2);padding:22px;margin-top:16px}
+.legal h4{font-family:'Chakra Petch';font-size:14px;margin:16px 0 6px;color:#fff}
+.legal h4:first-child{margin-top:0}
+.legal p{color:var(--ink-2);font-size:13.5px;margin-bottom:8px}
+.note{border:1px solid var(--line-2);background:var(--panel-2);padding:14px 16px;margin-top:16px;font-size:13px;color:var(--ink-2);display:flex;gap:11px;align-items:flex-start}
+.note .diamond{margin-top:5px}
+.footer{text-align:center;color:var(--ink-3);font-size:12.5px;margin-top:40px;padding-top:20px;border-top:1px solid var(--line)}
+@media(max-width:680px){.topnav{display:none}.hero h1{font-size:29px}.stats{grid-template-columns:1fr}.grid2,.pill-grid{grid-template-columns:1fr}.road-item{grid-template-columns:70px 1fr}}
+/* print -> clean light PDF */
+@media print{
+  .bg,.grid,.topbar,.no-print{display:none!important}
+  body{background:#fff;color:#111}
+  .wrap{max-width:100%;padding:0}
+  .hero{background:#fff;border:1px solid #ddd}
+  .hero h1,.sec h2,.block h3,.card h4,.stat .n{color:#111}
+  .hero p,.sec .lead,.block p,.card p,.li,.bar-row .top,.road-item p,.legal p,.snum{color:#333}
+  .block,.card,.pill,.stat,.road-item,.legal,.note{border:1px solid #ddd;background:#fafafa;break-inside:avoid}
+  .sec{break-inside:avoid-page}
+  a{color:#b00d2e}
+  .eyebrow,.tag2,.num{color:#b00d2e!important}
+}
+</style>
+</head>
+<body>
+<div class="bg"></div><div class="grid"></div>
+
+<div class="topbar">
+  <a href="index.html" class="brand"><img src="data:image/png;base64,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" alt=""/>Open<b>Helix</b><span class="tag">Whitepaper</span></a>
+  <nav class="topnav"><a href="index.html">Home</a><a href="docs.html">Docs</a><a href="trust.html">Trust</a><a href="liquidity.html">Liquidity</a></nav>
+  <button class="btn btn-primary bevel-sm no-print" onclick="window.print()">Download PDF ↓</button>
+</div>
+
+<div class="wrap">
+  <!-- HERO -->
+  <section class="hero">
+    <span class="eyebrow">OpenHelix Comprehensive Whitepaper</span>
+    <h1>One operating layer for launching and growing Web3 ecosystems.</h1>
+    <p>OpenHelix is a modular launch and growth platform for founders, DAOs, startups, and ecosystem teams — unifying token deployment, governance coordination, treasury oversight, and analytics across Solana and BNB Chain.</p>
+    <div class="actions no-print">
+      <button class="btn btn-primary bevel-sm" onclick="window.print()">Download PDF ↓</button>
+      <a href="#roadmap" class="btn btn-ghost bevel-sm">View roadmap</a>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="n">10B</div><div class="l">HLIX Max Supply</div></div>
+      <div class="stat"><div class="n">4</div><div class="l">Core Operating Hubs</div></div>
+      <div class="stat"><div class="n">2030</div><div class="l">Expansion Horizon</div></div>
+    </div>
+  </section>
+
+  <!-- 01 EXECUTIVE -->
+  <section class="sec" id="executive">
+    <div class="num">01 / Executive</div>
+    <h2>A modular Web3 launch and growth platform.</h2>
+    <p class="lead">OpenHelix keeps the discipline of a formal whitepaper while presenting the project as a polished digital platform — structured, auditable, and governance-first.</p>
+    <div class="block">
+      <span class="tag2">Executive Summary</span>
+      <p>OpenHelix is built to help founders, DAOs, startups, and ecosystem teams deploy tokens, coordinate governance, manage treasuries, and measure performance in one place. Instead of forcing teams to stitch together fragmented systems, OpenHelix brings token deployment, proposal workflows, treasury controls, and analytics into a unified operating layer.</p>
+    </div>
+    <div class="block">
+      <span class="tag2">Problem Statement</span>
+      <h3>Fragmented tooling slows projects and erodes trust.</h3>
+      <div class="li"><span class="diamond"></span><div>Token creation, liquidity, governance, treasury, and reporting are usually split across multiple products.</div></div>
+      <div class="li"><span class="diamond"></span><div>Disconnected systems increase operational risk and make execution harder to audit.</div></div>
+      <div class="li"><span class="diamond"></span><div>OpenHelix organizes launch and growth into a structured, coherent framework.</div></div>
+    </div>
+    <div class="pill-grid">
+      <div class="pill"><div class="big">Unified</div><div class="l">Launch Operations</div></div>
+      <div class="pill"><div class="big">Governance-first</div><div class="l">Decision Model</div></div>
+      <div class="pill"><div class="big">Auditable</div><div class="l">Treasury Visibility</div></div>
+      <div class="pill"><div class="big">Modular</div><div class="l">Scalable Architecture</div></div>
+    </div>
+  </section>
+
+  <!-- 02 OPPORTUNITY -->
+  <section class="sec" id="opportunity">
+    <div class="num">02 / Opportunity</div>
+    <h2>Launch infrastructure demand rises with every tokenized community.</h2>
+    <p class="lead">OpenHelix targets teams that need launch infrastructure, operating controls, and visibility without building everything from scratch — simplifying launch while preserving governance discipline, security, and transparency.</p>
+    <div class="grid2">
+      <div class="card"><h4>Founders &amp; startups</h4><p>Fast launch execution without recruiting contract engineers for every step of the lifecycle.</p></div>
+      <div class="card"><h4>DAOs &amp; communities</h4><p>Transparent proposal workflows, treasury oversight, and public accountability mechanisms.</p></div>
+      <div class="card"><h4>Ecosystem teams</h4><p>One operating layer to coordinate growth, grants, governance, analytics, and treasury reporting.</p></div>
+    </div>
+  </section>
+
+  <!-- 03 ARCHITECTURE -->
+  <section class="sec" id="architecture">
+    <div class="num">03 / Architecture</div>
+    <h2>Four hubs, one coherent operating system.</h2>
+    <p class="lead">Users connect through the OpenHelix Portal, which routes activity into specialized modules that preserve clarity, operational control, and future scalability.</p>
+    <div class="block"><span class="tag2">Portal Layer</span><h3>OpenHelix Portal</h3><p>The primary operating surface where teams access deployment, governance, treasury, and analytics workflows.</p></div>
+    <div class="grid2">
+      <div class="card"><div class="role">Module 01</div><h4>Token Studio</h4><p>Digital asset deployment, supply setup, token configuration, and launch preparation.</p></div>
+      <div class="card"><div class="role">Module 02</div><h4>Governance Hub</h4><p>Proposal management, voting, discussion flows, and structured decision-making.</p></div>
+      <div class="card"><div class="role">Module 03</div><h4>Treasury Hub</h4><p>Oversight, controlled allocation, reserve tracking, and reporting for accountability and sustainability.</p></div>
+      <div class="card"><div class="role">Module 04</div><h4>Analytics Hub</h4><p>Ecosystem intelligence, operational performance visibility, and long-range decision support.</p></div>
+    </div>
+  </section>
+
+  <!-- 04 TOKENOMICS -->
+  <section class="sec" id="tokenomics">
+    <div class="num">04 / Tokenomics</div>
+    <h2>HLIX is designed around governance, incentives, and participation.</h2>
+    <p class="lead">HLIX is the native token for governance participation, ecosystem incentives, premium access, treasury coordination, and community programs. Vesting and transparency reporting are intended to align incentives with durable ecosystem growth. Maximum supply: <b>10,000,000,000 HLIX</b>.</p>
+    <div class="block">
+      <div class="bar-row"><div class="top"><b>Ecosystem Growth</b><span class="pct">35%</span></div><div class="bar"><i style="width:35%"></i></div></div>
+      <div class="bar-row"><div class="top"><b>Community Incentives</b><span class="pct">20%</span></div><div class="bar"><i style="width:20%"></i></div></div>
+      <div class="bar-row"><div class="top"><b>Treasury</b><span class="pct">15%</span></div><div class="bar"><i style="width:15%"></i></div></div>
+      <div class="bar-row"><div class="top"><b>Team &amp; Advisors</b><span class="pct">15%</span></div><div class="bar"><i style="width:15%"></i></div></div>
+      <div class="bar-row"><div class="top"><b>Strategic Partners</b><span class="pct">10%</span></div><div class="bar"><i style="width:10%"></i></div></div>
+      <div class="bar-row"><div class="top"><b>Liquidity Reserve</b><span class="pct">5%</span></div><div class="bar"><i style="width:5%"></i></div></div>
+    </div>
+  </section>
+
+  <!-- 05 GOVERNANCE -->
+  <section class="sec" id="governance">
+    <div class="num">05 / Governance</div>
+    <h2>Documented decision-making with public disclosure and treasury review.</h2>
+    <p class="lead">OpenHelix adopts a governance-first model where community members can submit proposals, discuss initiatives, vote, and review treasury decisions. Major actions — grants, partnerships, treasury usage, material upgrades — should follow transparent, auditable procedures.</p>
+    <div class="grid2">
+      <div class="card"><h4>Proposal review</h4><p>Every major initiative should pass through a documented intake and review framework before voting.</p></div>
+      <div class="card"><h4>Voting rules</h4><p>Decision thresholds and participation rules should be explicit, reviewable, and consistently applied.</p></div>
+      <div class="card"><h4>Outcome disclosure</h4><p>Results, treasury movements, and implemented decisions should be published for community verification.</p></div>
+    </div>
+  </section>
+
+  <!-- 06 TREASURY -->
+  <section class="sec" id="treasury">
+    <div class="num">06 / Treasury</div>
+    <h2>A treasury framework built for sustainability, not short-term optics.</h2>
+    <p class="lead">The treasury is the long-term funding engine for audits, grants, infrastructure, research, partnerships, and ecosystem growth. Revenue should route into a controlled pool, allocation should face governance review, and reporting should disclose usage and remaining reserves.</p>
+    <div class="block">
+      <h3>Operating principles</h3>
+      <div class="steps-num">
+        <div class="snum">Capital preservation over unsupervised spending.</div>
+        <div class="snum">Allocations tied to measurable ecosystem outcomes.</div>
+        <div class="snum">Governance review before material distribution.</div>
+      </div>
+    </div>
+    <div class="block"><h3>Reporting standard</h3><p>Transparent reporting should cover treasury inflows, approvals, use of funds, reserve balances, and the measurable impact of funded initiatives.</p></div>
+  </section>
+
+  <!-- 07 SAFEGUARDS -->
+  <section class="sec" id="safeguards">
+    <div class="num">07 / Safeguards</div>
+    <h2>Security and privacy are operating requirements, not marketing claims.</h2>
+    <p class="lead">OpenHelix is intended to use non-custodial architecture where possible, maintain smart contract review and testing, define incident response procedures, minimize data collection, and prefer cryptographic verification where practical.</p>
+    <div class="grid2">
+      <div class="card"><h4>Security framework</h4><p>Non-custodial user control, contract review, testing discipline, monitoring, and incident response readiness.</p></div>
+      <div class="card"><h4>Privacy policy</h4><p>Privacy-by-design, limited data collection, narrow processing purposes, and clear explanations of use and protection.</p></div>
+    </div>
+  </section>
+
+  <!-- 08 POSITIONING -->
+  <section class="sec" id="positioning">
+    <div class="num">08 / Positioning</div>
+    <h2>Workflow coherence is the differentiator.</h2>
+    <p class="lead">Compared with tools such as TrustSwap, Team Finance, and UNCX, OpenHelix differentiates by combining token deployment, governance, treasury oversight, analytics, and ecosystem growth tooling within one framework.</p>
+    <div class="block"><h3>Integrated advantage</h3><p>The edge is not feature count alone. It is the reduction of handoffs between disconnected systems, the preservation of operational context, and the creation of a more auditable end-to-end experience for founders and communities.</p></div>
+  </section>
+
+  <!-- 09 ROADMAP -->
+  <section class="sec" id="roadmap">
+    <div class="num">09 / Roadmap</div>
+    <h2>2026 to 2030, tied to measurable deliverables.</h2>
+    <p class="lead">Each phase should be evaluated against concrete execution milestones rather than aspirational slogans.</p>
+    <div class="road">
+      <div class="road-item"><div class="yr">2026</div><p>Core platform launch, Token Studio, onboarding systems, and governance foundations.</p></div>
+      <div class="road-item"><div class="yr">2027</div><p>Liquidity tools, developer resources, and multi-chain expansion.</p></div>
+      <div class="road-item"><div class="yr">2028</div><p>Fundraising infrastructure, grants program, and governance maturity.</p></div>
+      <div class="road-item"><div class="yr">2029</div><p>Enterprise integrations, advanced analytics, and strategic partnerships.</p></div>
+      <div class="road-item"><div class="yr">2030</div><p>Global ecosystem expansion, AI-assisted insights, and cross-chain governance.</p></div>
+    </div>
+  </section>
+
+  <!-- 10 LEADERSHIP -->
+  <section class="sec" id="leadership">
+    <div class="num">10 / Leadership</div>
+    <h2>Accountability anchored in named execution ownership.</h2>
+    <p class="lead">The leadership team is accountable for execution, transparency, and product delivery across strategy, infrastructure, operations, and growth.</p>
+    <div class="grid2">
+      <div class="card"><h4>Hiroshi Takeda</h4><div class="role">Chief Executive Officer</div><p>Leads vision, partnerships, and ecosystem strategy.</p></div>
+      <div class="card"><h4>Daniel Brooks</h4><div class="role">Chief Technology Officer</div><p>Oversees architecture, infrastructure, and security.</p></div>
+      <div class="card"><h4>Michael Reed</h4><div class="role">Chief Operating Officer</div><p>Manages operations, execution, and growth initiatives.</p></div>
+      <div class="card"><h4>Sophia Bennett</h4><div class="role">Head of Growth</div><p>Leads ecosystem expansion, partnerships, and community development.</p></div>
+    </div>
+  </section>
+
+  <!-- LEGAL & COMPLIANCE -->
+  <section class="sec" id="legal">
+    <div class="num">11 / Legal &amp; Compliance</div>
+    <h2>Built for responsible participation.</h2>
+    <p class="lead">Compliance is jurisdiction-specific and evolving. Users remain responsible for understanding local obligations, while the platform commits to transparent practices, responsible participation, and policies that protect platform integrity and ecosystem participants.</p>
+  </section>
+
+  <!-- TERMS & CONDITIONS -->
+  <section class="sec" id="terms">
+    <div class="num">12 / Terms &amp; Conditions</div>
+    <h2>Terms &amp; Conditions.</h2>
+    <p class="lead">Last updated: 2026. These terms govern use of the OpenHelix platform, website, and related tools (the "Services"). By accessing or using the Services, you agree to these terms.</p>
+    <div class="legal">
+      <h4>1. Acceptance of terms</h4>
+      <p>By accessing the Services you confirm you have read, understood, and agree to be bound by these Terms. If you do not agree, do not use the Services.</p>
+
+      <h4>2. Eligibility</h4>
+      <p>You must be of legal age and legally permitted to use blockchain-based tools in your jurisdiction. You are responsible for ensuring your use complies with all applicable local laws, including securities, tax, and financial-promotion rules.</p>
+
+      <h4>3. No financial advice</h4>
+      <p>Nothing on the platform constitutes financial, investment, legal, or tax advice. OpenHelix does not guarantee any financial return, token appreciation, liquidity, or project success. You participate at your own risk.</p>
+
+      <h4>4. Non-custodial &amp; user responsibility</h4>
+      <p>OpenHelix is designed to be non-custodial where possible. You are solely responsible for your wallet, private keys, seed phrases, and the transactions you sign. OpenHelix cannot reverse, recover, or refund on-chain transactions.</p>
+
+      <h4>5. Platform fees</h4>
+      <p>Certain actions may incur a platform fee, disclosed at the time of use and charged in cryptocurrency in addition to network gas. Fees are non-refundable once a transaction is broadcast.</p>
+
+      <h4>6. Third-party services</h4>
+      <p>The Services may route to or integrate third-party protocols (e.g. decentralized exchanges, explorers, wallets). OpenHelix does not control and is not responsible for third-party services, and their use is subject to their own terms.</p>
+
+      <h4>7. Risk disclosure</h4>
+      <p>Digital assets are volatile and experimental. Smart contracts may contain vulnerabilities. You may lose some or all value. Unaudited or testnet features are provided for evaluation only and should not be relied upon with real funds until audited.</p>
+
+      <h4>8. Token disclaimer</h4>
+      <p>HLIX, where referenced, is intended for platform participation, governance, and ecosystem utility. It is not offered as an investment or a promise of profit. Availability and utility depend on development progress and applicable regulation.</p>
+
+      <h4>9. Prohibited use</h4>
+      <p>You agree not to use the Services for unlawful activity, including fraud, money laundering, sanctions evasion, market manipulation, or any activity that violates applicable law.</p>
+
+      <h4>10. "As-is" basis &amp; limitation of liability</h4>
+      <p>The Services are provided "as is" and "as available," without warranties of any kind. To the maximum extent permitted by law, OpenHelix and its contributors are not liable for any direct, indirect, incidental, or consequential damages arising from use of the Services.</p>
+
+      <h4>11. Changes</h4>
+      <p>These Terms and the Services may be updated at any time. Continued use after changes constitutes acceptance of the updated Terms.</p>
+
+      <h4>12. Governing principles</h4>
+      <p>These Terms should be interpreted under applicable law for your jurisdiction. Where required, disputes should follow the procedures set by competent authorities. This document is a template and should be reviewed by qualified legal counsel before relying on it.</p>
+    </div>
+    <div class="note no-print"><span class="diamond"></span><div>This whitepaper and Terms are a working standard, not legal advice. Before any public token sale or fundraising, have a qualified crypto/securities lawyer in your jurisdiction review them.</div></div>
+  </section>
+
+  <!-- PRIVACY POLICY -->
+  <section class="sec" id="privacy">
+    <div class="num">13 / Privacy Policy</div>
+    <h2>Privacy Policy.</h2>
+    <p class="lead">Last updated: 2026. OpenHelix is built privacy-by-design: we aim to collect as little personal data as possible and to be transparent about what is processed and why.</p>
+    <div class="legal">
+      <h4>1. Our approach</h4>
+      <p>OpenHelix is a primarily non-custodial, on-chain toolset. Most actions happen directly between your wallet and public blockchains — we don't require accounts, names, or identity documents to use the core tools.</p>
+
+      <h4>2. What we process</h4>
+      <p>Public blockchain data: wallet addresses and transactions you sign are recorded on public blockchains by design and are not private to OpenHelix. Technical data: like most websites, our hosting may process basic technical information (e.g. IP address, browser type, timestamps) to deliver and secure the site. Optional data: if you choose to contact us or sign up for updates, we process the details you provide (e.g. email).</p>
+
+      <h4>3. What we don't do</h4>
+      <p>We do not take custody of your funds, ask for your seed phrase or private keys, or sell your personal data. We avoid collecting sensitive personal information.</p>
+
+      <h4>4. Wallet connections</h4>
+      <p>Connecting a wallet shares your public address with the site so it can prepare transactions for you to approve. You always confirm transactions in your own wallet; the site cannot move funds on its own.</p>
+
+      <h4>5. Third-party services</h4>
+      <p>The platform may rely on third parties such as hosting providers, block explorers, price data sources, RPC endpoints, and decentralized exchanges. These parties process data under their own privacy policies, which we encourage you to review.</p>
+
+      <h4>6. Cookies &amp; analytics</h4>
+      <p>We aim to keep tracking minimal. If analytics or cookies are introduced, their purpose and any choices available to you will be disclosed here.</p>
+
+      <h4>7. Your rights</h4>
+      <p>Depending on your jurisdiction (for example under the EU GDPR), you may have rights to access, correct, or delete personal data we hold about you, and to object to certain processing. To exercise these, contact us through the project's official channels. Note that data already published on public blockchains cannot be altered or deleted by OpenHelix.</p>
+
+      <h4>8. Data retention</h4>
+      <p>We retain optional data you provide (such as an email) only as long as needed for the purpose it was given, or as required by law.</p>
+
+      <h4>9. Children</h4>
+      <p>The Services are not directed to anyone below the legal age required to use blockchain tools in their jurisdiction.</p>
+
+      <h4>10. Changes</h4>
+      <p>This Privacy Policy may be updated as the platform evolves. Material changes will be reflected here with an updated date.</p>
+
+      <h4>11. Contact</h4>
+      <p>For privacy questions, reach us through OpenHelix's official channels (X and Telegram linked from the homepage).</p>
+    </div>
+    <div class="note no-print"><span class="diamond"></span><div>This Privacy Policy is a template reflecting privacy-by-design intent. Have it reviewed by qualified counsel for your specific data practices and jurisdiction (e.g. GDPR compliance) before relying on it.</div></div>
+  </section>
+
+  <div class="footer">© 2026 OpenHelix · Live on BNB Chain &amp; Solana · <a href="index.html">openhelix</a></div>
+</div>
+</body>
+</html>
