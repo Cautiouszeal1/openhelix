@@ -118,25 +118,25 @@ a{color:var(--crimson-2);text-decoration:none}
   <nav class="topnav"><a href="index.html">Home</a><a href="docs.html">Docs</a><a href="index.html#faq">FAQ</a></nav>
   <div class="bar-right">
     <select class="net-sel" id="netSel">
-      <optgroup label="Testnets (free)">
-        <option value="bnb-testnet">BNB Testnet</option>
-        <option value="eth-sepolia">Ethereum Sepolia</option>
-        <option value="base-sepolia">Base Sepolia</option>
-        <option value="arb-sepolia">Arbitrum Sepolia</option>
-        <option value="op-sepolia">Optimism Sepolia</option>
-        <option value="polygon-amoy">Polygon Amoy</option>
-        <option value="avax-fuji">Avalanche Fuji</option>
-        <option value="sol-devnet">Solana Devnet</option>
-      </optgroup>
       <optgroup label="Mainnets (real funds)">
-        <option value="bnb-mainnet">BNB Mainnet</option>
+        <option value="bnb-mainnet" selected>BNB Smart Chain</option>
+        <option value="sol-mainnet">Solana</option>
         <option value="eth-mainnet">Ethereum</option>
         <option value="base-mainnet">Base</option>
         <option value="arb-mainnet">Arbitrum One</option>
         <option value="op-mainnet">Optimism</option>
         <option value="polygon-mainnet">Polygon</option>
         <option value="avax-mainnet">Avalanche</option>
-        <option value="sol-mainnet">Solana</option>
+      </optgroup>
+      <optgroup label="Testnets (free practice)">
+        <option value="bnb-testnet">BNB Testnet</option>
+        <option value="sol-devnet">Solana Devnet</option>
+        <option value="eth-sepolia">Ethereum Sepolia</option>
+        <option value="base-sepolia">Base Sepolia</option>
+        <option value="arb-sepolia">Arbitrum Sepolia</option>
+        <option value="op-sepolia">Optimism Sepolia</option>
+        <option value="polygon-amoy">Polygon Amoy</option>
+        <option value="avax-fuji">Avalanche Fuji</option>
       </optgroup>
     </select>
     <div class="net-pill" id="netPill"><span class="dot"></span><span id="netText">Not connected</span></div>
@@ -147,7 +147,7 @@ a{color:var(--crimson-2);text-decoration:none}
 <div class="wrap">
   <div class="h1">Studio</div>
   <div class="sub">Create tokens across BNB, Ethereum, Base, Arbitrum, Optimism, Polygon, Avalanche and Solana — straight from your browser. Pick your network top-left. Your wallet signs everything.</div>
-  <div class="warnbar"><span class="diamond"></span><div><b style="font-family:'Chakra Petch'">Heads up.</b> <b>Mainnets use real funds.</b> Token creation works on every network; Lock &amp; Vesting are EVM testnet-only until audited; Solana is set to devnet by default. Start on a testnet to practice for free.</div></div>
+  <div class="warnbar"><span class="diamond"></span><div><b style="font-family:'Chakra Petch'">Live on mainnet.</b> Token creation works on BNB, Solana and other mainnets using real funds. Lock &amp; Vesting stay on testnet until the contracts are audited. New here? Switch to a testnet (top-left) to practice for free.</div></div>
 
   <div class="tabs" id="tabs">
     <div class="tab active" data-tab="create"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 2v20M12 2c-3 2-3 5 0 7s3 5 0 7M12 2c3 2 3 5 0 7s-3 5 0 7"/></svg>Create Token</div>
@@ -179,7 +179,7 @@ a{color:var(--crimson-2);text-decoration:none}
         <div class="card">
           <h3><span class="diamond"></span> Preview</h3>
           <div class="prev"><div class="lg" id="cLogo">OH</div><div><b id="cpName">OpenHelix Demo</b><span id="cpSym">OHX</span></div></div>
-          <div class="kv"><span>Network</span><code id="cpNet">BNB Testnet</code></div>
+          <div class="kv"><span>Network</span><code id="cpNet">BNB Smart Chain</code></div>
           <div class="kv"><span>Standard</span><code id="cpStd">ERC-20</code></div>
           <div class="kv"><span>Decimals</span><code id="cpDec">18</code></div>
           <div class="kv"><span>Supply</span><code id="cpSup">1,000,000</code></div>
@@ -298,7 +298,7 @@ const NETWORKS={
  "avax-mainnet":evm({id:43114,name:"Avalanche",sym:"AVAX",rpc:"https://avalanche-c-chain-rpc.publicnode.com",explorer:"https://snowtrace.io",mainnet:true}),
  "sol-mainnet":svm({cluster:"mainnet-beta",rpc:"https://api.mainnet-beta.solana.com",name:"Solana",mainnet:true})
 };
-let CHAIN=NETWORKS["bnb-testnet"];
+let CHAIN=NETWORKS["bnb-mainnet"];
 
 let provider,signer,account,onChain=false;
 let solPubkey=null;
