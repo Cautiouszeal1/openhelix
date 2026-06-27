@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>OpenHelix — How to Create a Token</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--void:#050310;--void-2:#0a0718;--panel:#0e0a1e;--panel-2:#120c24;--line:rgba(255,255,255,.08);--line-2:rgba(255,255,255,.14);--crimson:#e6103a;--crimson-2:#ff2050;--violet:#7b2bff;--ink:#f4eef3;--ink-2:#b9aec4;--ink-3:#7d7390;--ok:#2bd47a;--warn:#ffb020}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Sora',sans-serif;background:var(--void);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:'Chakra Petch',sans-serif;letter-spacing:-.01em}
+::selection{background:var(--crimson);color:#fff}
+a{color:var(--crimson-2);text-decoration:none}
+.bg{position:fixed;inset:0;z-index:-2;pointer-events:none}
+.bg::before{content:"";position:absolute;top:-20%;right:-10%;width:640px;height:640px;background:radial-gradient(circle,rgba(230,16,58,.3),transparent 65%);filter:blur(22px)}
+.bg::after{content:"";position:absolute;bottom:-25%;left:-15%;width:600px;height:600px;background:radial-gradient(circle,rgba(123,43,255,.18),transparent 62%);filter:blur(30px)}
+.grid{position:fixed;inset:0;z-index:-2;opacity:.32;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:60px 60px;-webkit-mask-image:radial-gradient(ellipse 80% 60% at 60% 0,#000,transparent 70%);mask-image:radial-gradient(ellipse 80% 60% at 60% 0,#000,transparent 70%)}
+.diamond{width:8px;height:8px;background:var(--crimson);transform:rotate(45deg);display:inline-block;flex:none}
+.bevel-sm{clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px)}
+.btn{font-family:'Chakra Petch';font-weight:600;font-size:13.5px;cursor:pointer;border:none;padding:11px 20px;transition:.2s;display:inline-flex;align-items:center;gap:8px;text-decoration:none}
+.btn-primary{background:var(--crimson);color:#fff}.btn-primary:hover{background:var(--crimson-2);transform:translateY(-2px)}
+.btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line-2)}.btn-ghost:hover{border-color:var(--crimson);background:rgba(230,16,58,.08)}
+.topbar{position:sticky;top:0;z-index:40;display:flex;align-items:center;justify-content:space-between;height:66px;padding:0 24px;border-bottom:1px solid var(--line);background:rgba(8,5,18,.72);backdrop-filter:blur(14px)}
+.brand{display:flex;align-items:center;gap:11px;font-family:'Chakra Petch';font-weight:700;font-size:18px}
+.brand img{width:26px;height:26px;filter:drop-shadow(0 0 8px rgba(230,16,58,.5))}
+.brand b{color:var(--crimson-2)}.brand .tag{font-size:10px;letter-spacing:.2em;color:var(--ink-3);border:1px solid var(--line);padding:3px 8px;text-transform:uppercase}
+.topnav{display:flex;gap:22px;margin-left:auto;margin-right:18px}
+.topnav a{color:var(--ink-2);font-family:'Chakra Petch';font-weight:500;font-size:14px}.topnav a:hover{color:#fff}
+.wrap{max-width:820px;margin:0 auto;padding:40px 24px 90px}
+.hero{border:1px solid var(--line);background:linear-gradient(160deg,rgba(230,16,58,.14),rgba(123,43,255,.06));padding:34px 28px;position:relative;overflow:hidden}
+.hero .eyebrow{font-family:'Chakra Petch';font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--crimson-2);border:1px solid var(--line-2);display:inline-block;padding:5px 12px;border-radius:30px;margin-bottom:16px}
+.hero h1{font-size:34px;line-height:1.06;margin-bottom:12px}
+.hero p{color:var(--ink-2);font-size:15px;max-width:640px}
+.hero .actions{margin-top:20px;display:flex;gap:10px;flex-wrap:wrap}
+.sec{margin-top:30px}
+.sec h2{font-size:22px;margin-bottom:6px}
+.sec .num{font-family:'Chakra Petch';font-size:11px;letter-spacing:.2em;color:var(--crimson-2);display:block;margin-bottom:6px}
+.sec .num::before{content:"";display:inline-block;width:30px;height:3px;background:var(--crimson);margin-right:10px;vertical-align:middle}
+.step{display:flex;gap:16px;border:1px solid var(--line);background:var(--panel);padding:18px 20px;margin-top:12px;align-items:flex-start}
+.step .n{font-family:'Chakra Petch';font-weight:700;font-size:20px;color:#fff;background:var(--crimson);width:38px;height:38px;display:flex;align-items:center;justify-content:center;flex:none;border-radius:8px}
+.step h3{font-size:16.5px;margin-bottom:4px}
+.step p{color:var(--ink-2);font-size:14px;margin:0}
+.step code{background:var(--void-2);border:1px solid var(--line);padding:1px 6px;border-radius:4px;font-size:12.5px;color:var(--ink)}
+.block{border:1px solid var(--line);background:var(--panel);padding:20px 22px;margin-top:14px}
+.block h3{font-size:16px;margin-bottom:10px}
+.kv{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--line);font-size:14px}
+.kv:last-child{border-bottom:none}.kv span{color:var(--ink-3)}.kv b{color:var(--ink);font-family:'Chakra Petch'}
+.li{display:flex;gap:11px;align-items:flex-start;margin:9px 0;color:var(--ink-2);font-size:14px}
+.li .diamond{margin-top:6px}
+.note{border:1px solid var(--line-2);background:var(--panel-2);padding:14px 16px;margin-top:14px;font-size:13.5px;color:var(--ink-2);display:flex;gap:11px;align-items:flex-start}
+.note .diamond{margin-top:5px}
+.note.warn{border-color:rgba(255,176,32,.4);background:rgba(255,176,32,.07)}
+.note.warn .diamond{background:var(--warn)}
+.footer{text-align:center;color:var(--ink-3);font-size:12.5px;margin-top:40px;padding-top:20px;border-top:1px solid var(--line)}
+@media(max-width:680px){.topnav{display:none}.topbar .btn{display:none}.topbar{padding:0 16px}.hero{padding:26px 18px}.hero h1{font-size:26px}.hero .actions .btn{width:100%;justify-content:center}.wrap{padding:30px 18px 70px}}
+@media print{
+  .bg,.grid,.topbar,.no-print{display:none!important}
+  body{background:#fff;color:#111}
+  .wrap{max-width:100%;padding:0}
+  .hero{background:#fff;border:1px solid #ddd}
+  .hero h1,.sec h2,.step h3,.block h3,.kv b{color:#111}
+  .hero p,.step p,.li,.kv,.note{color:#333}
+  .step,.block,.note{border:1px solid #ddd;background:#fafafa;break-inside:avoid}
+  .step .n{background:#b00d2e}
+  .eyebrow,.num,a{color:#b00d2e!important}
+}
+</style>
+</head>
+<body>
+<div class="bg"></div><div class="grid"></div>
+
+<div class="topbar">
+  <a href="index.html" class="brand"><img src="data:image/png;base64,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" alt=""/>Open<b>Helix</b><span class="tag">Guide</span></a>
+  <nav class="topnav"><a href="index.html">Home</a><a href="studio.html">Studio</a><a href="docs.html">Docs</a><a href="whitepaper.html">Whitepaper</a></nav>
+  <button class="btn btn-primary bevel-sm no-print" onclick="window.print()">Download PDF ↓</button>
+</div>
+
+<div class="wrap">
+  <section class="hero">
+    <span class="eyebrow">User Guide · Standard Token</span>
+    <h1>How to create a token on OpenHelix.</h1>
+    <p>A step-by-step guide to launching a standard token on BNB Smart Chain or Solana using the OpenHelix Studio — no code required. Your wallet signs everything; OpenHelix never holds your funds.</p>
+    <div class="actions no-print">
+      <button class="btn btn-primary bevel-sm" onclick="window.print()">Download PDF ↓</button>
+      <a href="studio.html" class="btn btn-ghost bevel-sm">Open the Studio</a>
+    </div>
+  </section>
+
+  <!-- BEFORE YOU START -->
+  <section class="sec">
+    <span class="num">Before you start</span>
+    <h2>What you need</h2>
+    <div class="block">
+      <div class="li"><span class="diamond"></span><div><b>A crypto wallet.</b> MetaMask for BNB Smart Chain (and other EVM chains), or Phantom for Solana.</div></div>
+      <div class="li"><span class="diamond"></span><div><b>A little of the network coin for fees.</b> BNB if you're on BNB Chain, or SOL if you're on Solana — to cover network gas plus the small platform fee.</div></div>
+      <div class="li"><span class="diamond"></span><div><b>Your token details ready:</b> a name, a ticker symbol, total supply, and the wallet that should receive the supply.</div></div>
+    </div>
+    <div class="note warn no-print"><span class="diamond"></span><div><b>New to this?</b> Practice for free first. In the Studio's network menu (top-left), pick <b>BNB Testnet</b> or <b>Solana Devnet</b> — these use free test coins so you can rehearse the whole flow before spending anything real.</div></div>
+  </section>
+
+  <!-- STEPS -->
+  <section class="sec">
+    <span class="num">Step by step</span>
+    <h2>Creating your token</h2>
+
+    <div class="step"><div class="n">1</div><div><h3>Open the Studio</h3><p>Go to <b>opnhelix.xyz</b> and click <b>Launch App</b> (or open the Studio page). It opens on <b>BNB Smart Chain</b> by default.</p></div></div>
+
+    <div class="step"><div class="n">2</div><div><h3>Choose your network</h3><p>Use the network menu at the top-left to select <b>BNB Smart Chain</b> (recommended for beginners) or <b>Solana</b>. You can switch any time before creating.</p></div></div>
+
+    <div class="step"><div class="n">3</div><div><h3>Connect your wallet</h3><p>Click <b>Connect Wallet</b> and approve the connection in MetaMask (EVM) or Phantom (Solana). The Studio will show your network as connected.</p></div></div>
+
+    <div class="step"><div class="n">4</div><div><h3>Enter your token details</h3><p>Fill in the <b>Name</b> (e.g. "My Token"), <b>Symbol/Ticker</b> (e.g. "MYT"), <b>Decimals</b> (<code>18</code> for BNB/EVM, <code>0–9</code> for Solana — <code>9</code> is standard), <b>Total Supply</b>, and the <b>recipient wallet</b> that receives the full supply at creation.</p></div></div>
+
+    <div class="step"><div class="n">5</div><div><h3>(Optional) add a logo</h3><p>Paste a direct image URL in the logo field to attach a logo to your token's metadata. You can skip this and add it later.</p></div></div>
+
+    <div class="step"><div class="n">6</div><div><h3>Click Create Token</h3><p>Your wallet will ask you to approve transactions: the small <b>platform fee</b>, then the <b>token deployment</b> (which costs network gas). Review and confirm each in your wallet.</p></div></div>
+
+    <div class="step"><div class="n">7</div><div><h3>Wait for confirmation</h3><p>The activity log shows progress. When it turns green, your token is live on-chain. This usually takes a few seconds to a minute depending on the network.</p></div></div>
+
+    <div class="step"><div class="n">8</div><div><h3>Save your contract address</h3><p>The Studio displays your new token's <b>contract address</b> and a link to the blockchain explorer. <b>Copy and save the address</b> — you'll need it for liquidity, listings, and sharing.</p></div></div>
+  </section>
+
+  <!-- FEES -->
+  <section class="sec">
+    <span class="num">Fees</span>
+    <h2>What it costs</h2>
+    <div class="block">
+      <div class="kv"><span>Network gas (paid to the blockchain)</span><b>Varies</b></div>
+      <div class="kv"><span>Platform fee — BNB / EVM mainnet</span><b>~ $10 in native coin</b></div>
+      <div class="kv"><span>Platform fee — Solana mainnet</span><b>~ $25 in SOL</b></div>
+      <div class="kv"><span>Testnets (practice)</span><b>Free</b></div>
+    </div>
+    <div class="note"><span class="diamond"></span><div>Gas is paid to the network's validators, not to OpenHelix. The platform fee is the OpenHelix service fee and only applies on mainnet — testnets are free.</div></div>
+  </section>
+
+  <!-- AFTER -->
+  <section class="sec">
+    <span class="num">Next steps</span>
+    <h2>After your token is live</h2>
+    <div class="block">
+      <div class="li"><span class="diamond"></span><div><b>Add liquidity</b> so people can trade it — the Liquidity page routes you to PancakeSwap (BNB), Uniswap (other EVM), or Raydium (Solana).</div></div>
+      <div class="li"><span class="diamond"></span><div><b>Verify your contract</b> (EVM) in the Studio's Verify tab so the source code is public on the explorer — a strong trust signal.</div></div>
+      <div class="li"><span class="diamond"></span><div><b>Share your token</b> using its contract address, and consider applying to listing trackers once it has liquidity and activity.</div></div>
+    </div>
+  </section>
+
+  <!-- TROUBLESHOOTING -->
+  <section class="sec">
+    <span class="num">Troubleshooting</span>
+    <h2>Common issues</h2>
+    <div class="block">
+      <div class="kv"><span><b>Wallet won't connect</b></span><b></b></div>
+      <div class="li"><span class="diamond"></span><div>Make sure MetaMask/Phantom is installed and unlocked. On mobile, open the Studio inside your wallet's built-in browser, or use a desktop browser with the extension.</div></div>
+      <div class="li" style="margin-top:14px"><span class="diamond"></span><div><b>"Insufficient funds":</b> you need enough of the network coin (BNB/SOL) to cover both gas and the platform fee. Top up your wallet and retry.</div></div>
+      <div class="li" style="margin-top:14px"><span class="diamond"></span><div><b>Wrong network:</b> confirm the network menu (top-left) matches the wallet network. Approve any "switch network" prompt your wallet shows.</div></div>
+      <div class="li" style="margin-top:14px"><span class="diamond"></span><div><b>Solana decimals rejected:</b> Solana supports <code>0–9</code> decimals. If you entered 18, change it to <code>9</code>.</div></div>
+    </div>
+  </section>
+
+  <!-- SAFETY -->
+  <section class="sec">
+    <div class="note warn"><span class="diamond"></span><div><b>Mainnet uses real funds.</b> Once you confirm in your wallet, transactions can't be reversed. If it's your first time, create one small test token on a testnet first to learn the flow. OpenHelix is non-custodial — you sign and control every action, and OpenHelix never holds your funds.</div></div>
+  </section>
+
+  <div class="footer">© 2026 OpenHelix · Live on BNB Chain &amp; Solana · <a href="index.html">openhelix</a></div>
+</div>
+</body>
+</html>
