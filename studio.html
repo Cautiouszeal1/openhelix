@@ -108,13 +108,39 @@ a{color:var(--crimson-2);text-decoration:none}
   .net-sel{font-size:11px;padding:7px 8px}
   .kv code{font-size:11px}
 }
+
+/* mobile hamburger menu */
+.hamburger{display:none;background:none;border:1px solid var(--line-2);width:42px;height:42px;border-radius:8px;cursor:pointer;flex-direction:column;gap:4px;align-items:center;justify-content:center;flex:none}
+.hamburger span{width:18px;height:2px;background:var(--ink);transition:.3s;display:block}
+.hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.mobile-menu{position:fixed;top:66px;left:0;right:0;background:rgba(8,5,18,.98);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);padding:10px 22px 18px;display:none;flex-direction:column;z-index:39}
+.mobile-menu.open{display:flex}
+.mobile-menu a{padding:14px 4px;color:var(--ink);font-family:'Chakra Petch';font-weight:500;font-size:16px;border-bottom:1px solid var(--line)}
+.mobile-menu a:last-child{border-bottom:none}
+.mobile-menu a:hover{color:var(--crimson-2)}
+@media(max-width:680px){.hamburger{display:flex}}
+@media(min-width:681px){.mobile-menu{display:none!important}}
 </style>
 </head>
 <body>
 <div class="bg"></div><div class="grid"></div>
 
 <div class="topbar">
-  <div class="brand"><img src="logo-white.png" alt=""/>Open<b>Helix</b><span class="tag">Studio</span></div>
+  <div class="brand"><img src="logo-white.png" alt=""/>Open<b>Helix</b><span class="tag">Studio</span>  <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</div>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="studio.html">Studio</a>
+  <a href="guide.html">Guide</a>
+  <a href="docs.html">Docs</a>
+  <a href="whitepaper.html">Whitepaper</a>
+  <a href="trust.html">Trust</a>
+  <a href="liquidity.html">Liquidity</a>
+</div>
+
   <nav class="topnav"><a href="index.html">Home</a><a href="docs.html">Docs</a><a href="index.html#faq">FAQ</a></nav>
   <div class="bar-right">
     <select class="net-sel" id="netSel">
@@ -624,6 +650,14 @@ $("vfDo").onclick=verify;
 $("netSel").onchange=changeNetwork;
 applyNetworkUI();refreshPreviewMeta();
 cRender();
+</script>
+
+<script>
+(function(){
+  var h=document.getElementById('hamburger'),m=document.getElementById('mobileMenu');
+  if(h&&m){h.addEventListener('click',function(){h.classList.toggle('open');m.classList.toggle('open');});
+  m.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){h.classList.remove('open');m.classList.remove('open');});});}
+})();
 </script>
 </body>
 </html>

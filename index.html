@@ -273,6 +273,7 @@ footer{border-top:1px solid var(--line);padding:70px 0 40px;background:var(--voi
   .stats{grid-template-columns:1fr 1fr;gap:40px}
   .foot-top{grid-template-columns:1fr 1fr}
   .nav-links{display:none}
+  .menu-btn{display:block}
 }
 @media(max-width:560px){
   .steps,.trust-list,.f-wide-grid,.stats,.foot-top{grid-template-columns:1fr}
@@ -299,6 +300,20 @@ footer{border-top:1px solid var(--line);padding:70px 0 40px;background:var(--voi
 .rbadge{font-family:'Chakra Petch';font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:3px 9px;border:1px solid var(--line-2);color:var(--ink-3)}
 .rbadge.done{color:var(--ok);border-color:rgba(43,212,122,.4)}
 .rbadge.active{color:var(--crimson-2);border-color:rgba(255,32,80,.4)}
+
+/* mobile hamburger menu */
+.hamburger{display:none;background:none;border:1px solid var(--line-2);width:42px;height:42px;border-radius:8px;cursor:pointer;flex-direction:column;gap:4px;align-items:center;justify-content:center;flex:none}
+.hamburger span{width:18px;height:2px;background:var(--ink);transition:.3s;display:block}
+.hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.mobile-menu{position:fixed;top:66px;left:0;right:0;background:rgba(8,5,18,.98);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);padding:10px 22px 18px;display:none;flex-direction:column;z-index:39}
+.mobile-menu.open{display:flex}
+.mobile-menu a{padding:14px 4px;color:var(--ink);font-family:'Chakra Petch';font-weight:500;font-size:16px;border-bottom:1px solid var(--line)}
+.mobile-menu a:last-child{border-bottom:none}
+.mobile-menu a:hover{color:var(--crimson-2)}
+@media(max-width:680px){.hamburger{display:flex}}
+@media(min-width:681px){.mobile-menu{display:none!important}}
 </style>
 </head>
 <body>
@@ -328,6 +343,17 @@ footer{border-top:1px solid var(--line);padding:70px 0 40px;background:var(--voi
     </div>
   </nav>
 </header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="studio.html">Studio</a>
+  <a href="guide.html">Guide</a>
+  <a href="docs.html">Docs</a>
+  <a href="whitepaper.html">Whitepaper</a>
+  <a href="trust.html">Trust</a>
+  <a href="liquidity.html">Liquidity</a>
+</div>
+
 
 <!-- ===== HERO ===== -->
 <section id="top" class="hero wrap">
@@ -695,11 +721,9 @@ const header=document.getElementById('header');
 addEventListener('scroll',()=>header.classList.toggle('scrolled',scrollY>30));
 
 /* mobile menu (simple) */
-document.getElementById('menuBtn').addEventListener('click',()=>{
-  const l=document.querySelector('.nav-links');
-  const open=l.style.display==='flex';
-  l.style.cssText=open?'':'display:flex;position:absolute;top:74px;left:0;right:0;flex-direction:column;background:#0a0718;padding:24px;border-bottom:1px solid rgba(255,255,255,.08);gap:20px';
-});
+(function(){var btn=document.getElementById('menuBtn'),m=document.getElementById('mobileMenu');
+if(btn&&m){btn.addEventListener('click',function(){m.classList.toggle('open');});
+m.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){m.classList.remove('open');});});}})();
 
 /* reveal on scroll */
 const io=new IntersectionObserver((es)=>es.forEach(e=>{
@@ -726,5 +750,7 @@ const sObs=new IntersectionObserver((es)=>es.forEach(e=>{
 }),{threshold:.5});
 document.querySelectorAll('.stat').forEach(s=>sObs.observe(s));
 </script>
+
+
 </body>
 </html>
