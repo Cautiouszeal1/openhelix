@@ -345,6 +345,9 @@ async function connectSolana(){
 async function guard(){if(!signer){log("Connect your wallet first.","log-err");return false;}if(!onChain){const ok=await ensureChain();if(!ok){log("Switch network in your wallet to continue.","log-err");return false;}}return true;}
 function applyNetworkUI(){
   const svm=CHAIN.kind==="svm";
+  // Solana supports 0-9 decimals; EVM up to 18. Cap the input + value to avoid failed mints.
+  const dEl=$("cDec");
+  if(dEl){ if(svm){ dEl.max="9"; if(parseInt(dEl.value)>9){dEl.value="9";} } else { dEl.max="18"; } if(typeof cRender==="function")cRender(); }
   const lockVestOff = svm || CHAIN.mainnet;     // fund-holding features: off on any mainnet, and on Solana
   $("lockGate").classList.toggle("show",lockVestOff);
   $("vestGate").classList.toggle("show",lockVestOff);
@@ -402,19 +405,20 @@ async function createToken(){
     const tx=c.deploymentTransaction();log("Tx: "+tx.hash,"log-info");
     await c.waitForDeployment();const addr=await c.getAddress();
     log("✓ Token deployed: "+addr,"log-ok");
-    $("cResult").innerHTML=`<div class="result"><b>✓ Token live on BNB Testnet</b>
+    $("cResult").innerHTML=`<div class="result"><b>✓ Token live on ${CHAIN.name}</b>
       <div class="kv"><span>Contract</span><code>${addr}</code></div>
+      <div class="hint" style="font-size:12.5px;color:var(--ink-2);margin:8px 0 4px">Your full supply is in your wallet. Tap <b>Add to Wallet</b> below to make it show in MetaMask (new tokens stay hidden until imported).</div>
       <div class="acts">
-        <a class="btn btn-ghost btn-sm" href="${addrLink(addr)}" target="_blank">BscScan ↗</a>
-        <button class="btn btn-ghost btn-sm" onclick="addToken('${addr}','${sym}',${dec})">Add to Wallet</button>
-        <button class="btn btn-primary btn-sm" onclick="toVerify('${addr}','${name}','${sym}',${dec},'${$("cSup").value}')">Verify it →</button>
+        <a class="btn btn-ghost btn-sm" href="${addrLink(addr)}" target="_blank">View on explorer ↗</a>
+        <button class="btn btn-primary btn-sm" onclick="addToken('${addr}','${sym}',${dec})">Add to Wallet</button>
+        <button class="btn btn-ghost btn-sm" onclick="toVerify('${addr}','${name}','${sym}',${dec},'${$("cSup").value}')">Verify it →</button>
       </div></div>`;
   }catch(e){let m=e.shortMessage||e.message||String(e);
     if(/insufficient funds|missing revert data/i.test(m)) m="Not enough "+(CHAIN.params?CHAIN.params.nativeCurrency.symbol:"coin")+" for gas. Top up your wallet (use the faucet on testnets) and try again.";
     log("✗ "+m,"log-err");}
   finally{$("cDeploy").disabled=false;$("cDeploy").textContent="Deploy Token";}
 }
-async function addToken(address,symbol,decimals){try{await window.ethereum.request({method:"wallet_watchAsset",params:{type:"ERC20",options:{address,symbol,decimals}}});}catch(e){}}
+async function addToken(address,symbol,decimals){try{const ok=await window.ethereum.request({method:"wallet_watchAsset",params:{type:"ERC20",options:{address,symbol,decimals}}});log(ok?"✓ Added to wallet — check your token list.":"Add to wallet was dismissed.","log-info");}catch(e){log("Could not auto-add. In MetaMask: Import tokens → paste "+address,"log-info");}}
 function toVerify(addr,name,sym,dec,sup){
   document.querySelector('.tab[data-tab="verify"]').click();
   $("vfAddr").value=addr;$("vfName").value=name;$("vfSym").value=sym;$("vfDec").value=dec;$("vfSup").value=sup;$("vfMint").value=account;
@@ -610,7 +614,8 @@ async function createTokenSOL(){
     const ex=`${CHAIN.explorer}/address/${addr}?cluster=${CHAIN.cluster}`;
     $("cResult").innerHTML=`<div class="result"><b>✓ SPL token live on ${CHAIN.name}</b>
       <div class="kv"><span>Mint</span><code>${addr}</code></div>
-      <div class="acts"><a class="btn btn-ghost btn-sm" href="${ex}" target="_blank">Solana Explorer ↗</a></div></div>`;
+      <div class="hint" style="font-size:12.5px;color:var(--ink-2);margin:8px 0 4px">Your full supply is in your wallet. In Phantom it may appear under <b>unverified / hidden tokens</b> — enable it there, or search this mint address to see your balance.</div>
+      <div class="acts"><a class="btn btn-ghost btn-sm" href="${ex}" target="_blank">View on Solana Explorer ↗</a></div></div>`;
   }catch(e){log("✗ "+(e.message||e),"log-err");}
   finally{$("cDeploy").disabled=false;$("cDeploy").textContent="Deploy Token";}
 }
