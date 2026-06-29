@@ -391,20 +391,24 @@ async function createToken(){
   if(!name||!sym){log("Name and symbol required.","log-err");return;}
   $("cDeploy").disabled=true;$("cDeploy").textContent="Deploying…";$("cResult").innerHTML="";
   try{
-    if(CHAIN.mainnet){
-      const cgId=coingeckoId(CHAIN);const px=await coinUsd(cgId);
-      const coins=FEE.evmUsd/px;const feeWei=ethers.parseEther(coins.toFixed(8));
-      const symN=CHAIN.params.nativeCurrency.symbol;
-      log(`Platform fee ~$${FEE.evmUsd} ≈ ${coins.toFixed(6)} ${symN} — approve in wallet…`,"log-info");
-      const ftx=await signer.sendTransaction({to:FEE.evmTo,value:feeWei});
-      log("Fee tx: "+ftx.hash,"log-info");await ftx.wait();log("✓ Fee paid.","log-ok");
-    }else{ log("Test network — no platform fee (fees apply on mainnet only).","log-info"); }
+    // Deploy the token FIRST. The platform fee is charged only AFTER a successful
+    // deployment, so a failed deploy can never cost the user a fee.
     log(`Deploying token "${name}" (${sym})…`,"log-info");
     const f=new ethers.ContractFactory(TOKEN_ABI,TOKEN_BYTE,signer);
     const c=await f.deploy(name,sym,dec,sup,account);
     const tx=c.deploymentTransaction();log("Tx: "+tx.hash,"log-info");
     await c.waitForDeployment();const addr=await c.getAddress();
     log("✓ Token deployed: "+addr,"log-ok");
+    if(CHAIN.mainnet){
+      try{
+        const cgId=coingeckoId(CHAIN);const px=await coinUsd(cgId);
+        const coins=FEE.evmUsd/px;const feeWei=ethers.parseEther(coins.toFixed(8));
+        const symN=CHAIN.params.nativeCurrency.symbol;
+        log(`Platform fee ~$${FEE.evmUsd} ≈ ${coins.toFixed(6)} ${symN} — approve in wallet…`,"log-info");
+        const ftx=await signer.sendTransaction({to:FEE.evmTo,value:feeWei});
+        log("Fee tx: "+ftx.hash,"log-info");await ftx.wait();log("✓ Fee paid.","log-ok");
+      }catch(fe){ log("Note: your token was created successfully, but the platform fee step didn't complete.","log-warn"); }
+    }else{ log("Test network — no platform fee (fees apply on mainnet only).","log-info"); }
     $("cResult").innerHTML=`<div class="result"><b>✓ Token live on ${CHAIN.name}</b>
       <div class="kv"><span>Contract</span><code>${addr}</code></div>
       <div class="hint" style="font-size:12.5px;color:var(--ink-2);margin:8px 0 4px">Your full supply is in your wallet. Tap <b>Add to Wallet</b> below to make it show in MetaMask (new tokens stay hidden until imported).</div>
