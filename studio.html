@@ -527,7 +527,10 @@ function coingeckoId(c){
 const FALLBACK_USD={binancecoin:600,ethereum:3000,"matic-network":0.5,"avalanche-2":30,solana:150};
 async function coinUsd(id){
   try{
-    const r=await(await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${id}&vs_currencies=usd`)).json();
+    const ctl=new AbortController();const to=setTimeout(()=>ctl.abort(),6000);
+    const res=await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${id}&vs_currencies=usd`,{signal:ctl.signal});
+    clearTimeout(to);
+    const r=await res.json();
     const p=r&&r[id]&&r[id].usd;
     if(p)return p;
     throw new Error("no price");
