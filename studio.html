@@ -320,9 +320,39 @@ async function ensureChain(){const n=await provider.getNetwork();if(n.chainId===
   setNet("wrong","Wrong network");try{await window.ethereum.request({method:"wallet_switchEthereumChain",params:[{chainId:CHAIN.hex}]});}
   catch(e){if(e.code===4902)await window.ethereum.request({method:"wallet_addEthereumChain",params:[CHAIN.params]});}
   const n2=await provider.getNetwork();onChain=n2.chainId===CHAIN.dec;setNet(onChain?"on":"wrong",onChain?CHAIN.params.chainName:"Wrong network");return onChain;}
+// ---- environment detection & connection help ----
+function isMobile(){return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);}
+function isTelegram(){return !!(window.Telegram&&window.Telegram.WebApp)|| /Telegram/i.test(navigator.userAgent);}
+function hasEth(){return typeof window.ethereum!=="undefined";}
+function hasPhantom(){return !!getPhantom();}
+function showConnectHelp(kind){
+  // kind: 'evm' or 'svm'
+  const site="opnhelix.xyz";
+  let msg="", btns="";
+  if(isTelegram()){
+    msg="Wallets don't work inside Telegram's browser. Open this page in your normal browser (Chrome or Safari), then connect.";
+    btns=`<a class="btn btn-primary btn-sm" href="https://${site}/studio.html" target="_blank" rel="noopener">Open in browser ↗</a>`;
+  }else if(isMobile()){
+    if(kind==="svm"){
+      msg="On mobile, open this page inside your Phantom app's browser to connect.";
+      btns=`<a class="btn btn-primary btn-sm" href="https://phantom.app/ul/browse/https%3A%2F%2F${site}%2Fstudio.html?ref=${site}">Open in Phantom ↗</a>`;
+    }else{
+      msg="On mobile, open this page inside your wallet app's browser (e.g. MetaMask) to connect.";
+      btns=`<a class="btn btn-primary btn-sm" href="https://metamask.app.link/dapp/${site}/studio.html">Open in MetaMask ↗</a>`;
+    }
+  }else{
+    if(kind==="svm"){msg="No Solana wallet detected. Install the Phantom extension, then reload this page.";btns=`<a class="btn btn-ghost btn-sm" href="https://phantom.app/" target="_blank" rel="noopener">Get Phantom ↗</a>`;}
+    else{msg="No EVM wallet detected. Install the MetaMask extension, then reload this page.";btns=`<a class="btn btn-ghost btn-sm" href="https://metamask.io/download/" target="_blank" rel="noopener">Get MetaMask ↗</a>`;}
+  }
+  const g=$("gate");
+  if(g){g.innerHTML=`<p style="color:var(--ink);margin-bottom:8px;font-weight:600">Can't connect a wallet here</p>
+    <p style="color:var(--ink-2);font-size:13.5px;margin-bottom:12px">${msg}</p>
+    <div class="acts">${btns}</div>`; g.style.display="block";}
+  log(msg,"log-err");
+}
 async function connect(){
   if(CHAIN.kind==="svm")return connectSolana();
-  if(!window.ethereum){alert("No EVM wallet found. Install MetaMask and reload.");log("No EVM wallet detected.","log-err");return;}
+  if(!hasEth()){showConnectHelp("evm");return;}
   try{provider=new ethers.BrowserProvider(window.ethereum);await provider.send("eth_requestAccounts",[]);
     signer=await provider.getSigner();account=await signer.getAddress();solPubkey=null;
     $("connectBtn").textContent=short(account);log("Connected: "+account,"log-ok");
@@ -334,7 +364,7 @@ async function connect(){
 function getPhantom(){return (window.phantom&&window.phantom.solana)||(window.solana&&window.solana.isPhantom?window.solana:null);}
 async function connectSolana(){
   const ph=getPhantom();
-  if(!ph){alert("No Solana wallet found. Install Phantom and reload.");log("No Phantom wallet detected.","log-err");return;}
+  if(!ph){showConnectHelp("svm");return;}
   if(!window.solanaWeb3){log("Solana library still loading — try again in a second.","log-err");return;}
   try{const resp=await ph.connect();solPubkey=resp.publicKey.toString();signer=null;account=null;onChain=true;
     $("connectBtn").textContent=short(solPubkey);setNet("on",CHAIN.name);
@@ -636,6 +666,16 @@ $("vfDo").onclick=verify;
 $("netSel").onchange=changeNetwork;
 applyNetworkUI();refreshPreviewMeta();
 cRender();
+
+// proactive environment hint on load
+window.addEventListener("load",function(){
+  try{
+    if(typeof isTelegram==="function" && isTelegram()){
+      var g=document.getElementById("gate");
+      if(g){g.innerHTML='<p style="color:var(--ink);font-weight:600;margin-bottom:8px">Open in your browser to connect a wallet</p><p style="color:var(--ink-2);font-size:13.5px;margin-bottom:12px">Telegram\'s built-in browser can\'t connect crypto wallets. Tap below to open OpenHelix in Chrome or Safari, then connect.</p><div class="acts"><a class="btn btn-primary btn-sm" href="https://opnhelix.xyz/studio.html" target="_blank" rel="noopener">Open in browser \u2197</a></div>';}
+    }
+  }catch(e){}
+});
 </script>
 </body>
 </html>
