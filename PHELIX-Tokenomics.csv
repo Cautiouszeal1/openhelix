@@ -1,16 +1,22 @@
-PHELIX — Tokenomics,,,
-,,,
-Token name,PHELIX,,
-Network,BNB Chain (BEP-20),,
-Contract,To be published at TGE,,
-,,,
-Total supply,3000000000,,
-,,,
-Allocation,% of Supply,Tokens,Notes
-Ecosystem Growth,35%,1050000000,"Grants, integrations, ecosystem programs"
-Community Incentives,20%,600000000,"Rewards, campaigns, engagement"
-Treasury,15%,450000000,"Audits, infrastructure, operations reserve"
-Team & Advisors,15%,450000000,Subject to vesting / lockup
-Strategic Partners,10%,300000000,Partnerships and integrations
-Liquidity Reserve,5%,150000000,DEX liquidity provisioning
-TOTAL,100%,3000000000,
+PHELIX — Tokenomics (4-Year Schedule)
+
+Token name,PHELIX
+Network,BNB Chain (BEP-20)
+Contract,To be published at TGE
+Total supply,600000000
+Initial circulating supply (TGE),12%
+
+Allocation,% of Supply,Tokens,TGE Unlock %,TGE Tokens,Cliff (months),Linear Vesting (months),Fully Unlocked (month),Purpose
+Ecosystem Growth,25%,150000000,8%,12000000,3,45,48,"Grants, integrations, builder programs, platform growth"
+Community & Rewards,20%,120000000,8%,9600000,0,48,48,"User rewards, staking/participation incentives, campaigns"
+Team & Advisors,15%,90000000,0%,0,12,36,48,Core contributors and advisors; 12-month cliff aligns the team long term
+Treasury Reserve,13%,78000000,0%,0,6,42,48,"Audits, infrastructure, operations; governance-reviewed spending"
+Strategic / Private Sale,10%,60000000,5%,3000000,6,18,24,Strategic investors and partners
+Marketing & Partnerships,7%,42000000,10%,4200000,0,24,24,"Listings, KOLs, partnerships, launch campaigns"
+Liquidity Provision,6%,36000000,100%,36000000,0,0,0,DEX liquidity at TGE (LP to be locked)
+Public Sale,4%,24000000,30%,7200000,0,6,6,Community/public sale participants
+TOTAL,100%,600000000,12%,72000000,,,48,
+
+Circulating supply milestones,TGE,Month 12,Month 24,Month 36,Month 48
+Circulating tokens,72000000,193042857,366628571,483314286,600000000
+% of supply,12.0%,32.2%,61.1%,80.6%,100.0%
