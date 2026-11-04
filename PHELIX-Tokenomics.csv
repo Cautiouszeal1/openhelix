@@ -3,19 +3,26 @@ PHELIX — Tokenomics (4-Year Schedule)
 Token name,PHELIX
 Network,BNB Chain (BEP-20)
 Contract,To be published at TGE
-Total supply,600000000
+Total supply,1000000000
 Initial circulating supply (TGE),12%
+Initial FDV (USD),50000000
+Listing price at FDV (USD),0.05
+Initial market cap at TGE (USD),6000000
+Strategic/private round raised (USD),5000000
+Round price (USD),0.025
+Tokens sold in round,200000000
 
 Allocation,% of Supply,Tokens,TGE Unlock %,TGE Tokens,Cliff (months),Linear Vesting (months),Fully Unlocked (month),Purpose
-Ecosystem Growth,25%,150000000,8%,12000000,3,45,48,"Grants, integrations, builder programs, platform growth"
-Community & Rewards,20%,120000000,8%,9600000,0,48,48,"User rewards, staking/participation incentives, campaigns"
-Team & Advisors,15%,90000000,0%,0,12,36,48,Core contributors and advisors; 12-month cliff aligns the team long term
-Treasury Reserve,13%,78000000,0%,0,6,42,48,"Audits, infrastructure, operations; governance-reviewed spending"
-Strategic / Private Sale,10%,60000000,5%,3000000,6,18,24,Strategic investors and partners
-Liquidity Provision,10%,60000000,72%,43200000,0,6,6,Seeds DEX pools at TGE (LP locked); remaining 28% added over 6 months to deepen pools and new listings
-Marketing & Partnerships,7%,42000000,10%,4200000,0,24,24,"Listings, KOLs, partnerships, launch campaigns"
-TOTAL,100%,600000000,12%,72000000,,,48,
+Ecosystem Growth,22%,220000000,8%,17600000,3,45,48,"Grants, integrations, builder programs, platform growth"
+Community & Rewards,18%,180000000,8%,14400000,0,48,48,"User rewards, staking/participation incentives, campaigns"
+Team & Advisors,14%,140000000,0%,0,12,36,48,Core contributors and advisors; 12-month cliff aligns the team long term
+Treasury Reserve,11%,110000000,0%,0,6,42,48,"Audits, infrastructure, operations; governance-reviewed spending"
+Strategic / Private Sale,20%,200000000,5%,10000000,6,18,24,Strategic/private round: $5M raised at $0.025 per PHELIX (200M tokens)
+Liquidity Provision,9%,90000000,80%,72000000,0,6,6,Seeds DEX pools at TGE (LP locked); remaining 20% added over 6 months to deepen pools and new listings
+Marketing & Partnerships,6%,60000000,10%,6000000,0,24,24,"Listings, KOLs, partnerships, launch campaigns"
+TOTAL,100%,1000000000,12%,120000000,,,48,
 
 Circulating supply milestones,TGE,Month 12,Month 24,Month 36,Month 48
-Circulating tokens,72000000,193042857,366628571,483314286,600000000
-% of supply,12.0%,32.2%,61.1%,80.6%,100.0%
+Circulating tokens,120000000,325927619,653062857,826531429,1000000000
+% of supply,12.0%,32.6%,65.3%,82.7%,100.0%
+Market cap at initial price (USD),6000000,16296381,32653143,41326571,50000000

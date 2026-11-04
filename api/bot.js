@@ -63,19 +63,21 @@ export default async function handler(req, res) {
       reply = {
         text:
           "<b>PHELIX Tokenomics</b>\n\n" +
-          "Total supply: <b>600,000,000</b> (fixed, BNB Chain)\n" +
-          "Circulating at TGE: <b>72,000,000 (12%)</b>\n" +
-          "Full unlock: <b>48 months</b>\n\n" +
-          "• Ecosystem Growth — 25% (150M)\n" +
-          "• Community &amp; Rewards — 20% (120M)\n" +
-          "• Team &amp; Advisors — 15% (90M), 12-month cliff\n" +
-          "• Treasury Reserve — 13% (78M)\n" +
-          "• Strategic / Private Sale — 10% (60M)\n" +
-          "• Liquidity Provision — 10% (60M), 72% at TGE\n" +
-          "• Marketing &amp; Partnerships — 7% (42M)\n\n" +
-          "Circulating supply: 12% at TGE → 32% Y1 → 61% Y2 → 81% Y3 → 100% Y4.",
+          "Total supply: <b>1,000,000,000</b> (fixed, BNB Chain)\n" +
+          "Initial FDV: <b>$50M</b> (listing price $0.05)\n" +
+          "Strategic round: <b>$5M raised at $0.025</b> (200M PHELIX)\n" +
+          "Circulating at TGE: <b>120,000,000 (12%)</b> · $6M market cap\n" +
+          "Full unlock: <b>48 months</b> · no public sale\n\n" +
+          "• Ecosystem Growth — 22% (220M)\n" +
+          "• Strategic / Private Sale — 20% (200M), 6-mo cliff\n" +
+          "• Community &amp; Rewards — 18% (180M)\n" +
+          "• Team &amp; Advisors — 14% (140M), 12-mo cliff\n" +
+          "• Treasury Reserve — 11% (110M)\n" +
+          "• Liquidity Provision — 9% (90M), 80% at TGE\n" +
+          "• Marketing &amp; Partnerships — 6% (60M)\n\n" +
+          "Circulating supply: 12% at TGE → 33% Y1 → 65% Y2 → 83% Y3 → 100% Y4.",
         reply_markup: { inline_keyboard: [
-          [{ text: "📄 Full tokenomics", url: `${SITE}/whitepaper.html#tokenomics` }],
+          [{ text: "📄 Full 4-year schedule", url: `${SITE}/tokenomics.html` }],
           [{ text: "📊 Download schedule (Excel)", url: `${SITE}/PHELIX-Tokenomics.xlsx` }],
         ] },
       };
