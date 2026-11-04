@@ -44,7 +44,7 @@ export default async function handler(req, res) {
       reply = {
         text:
           "<b>Welcome to OpenHelix</b> — the Web3 launch operating system.\n\n" +
-          "Create tokens, add liquidity, and build trusted projects on BNB Chain & Solana — no code required.\n\n" +
+          "Create tokens, add liquidity, and build trusted projects on BNB Chain and 6 more EVM networks — no code required.\n\n" +
           "Tap below to launch the app.",
         reply_markup: openAppButton,
       };
@@ -58,6 +58,29 @@ export default async function handler(req, res) {
     case "/whitepaper":
       reply = { text: "📄 Read the OpenHelix whitepaper:", reply_markup: { inline_keyboard: [[{ text: "Open whitepaper", url: `${SITE}/whitepaper.html` }]] } };
       break;
+    case "/tokenomics":
+    case "/phelix":
+      reply = {
+        text:
+          "<b>PHELIX Tokenomics</b>\n\n" +
+          "Total supply: <b>600,000,000</b> (fixed, BNB Chain)\n" +
+          "Circulating at TGE: <b>72,000,000 (12%)</b>\n" +
+          "Full unlock: <b>48 months</b>\n\n" +
+          "• Ecosystem Growth — 25% (150M)\n" +
+          "• Community &amp; Rewards — 20% (120M)\n" +
+          "• Team &amp; Advisors — 15% (90M), 12-month cliff\n" +
+          "• Treasury Reserve — 13% (78M)\n" +
+          "• Strategic / Private Sale — 10% (60M)\n" +
+          "• Marketing &amp; Partnerships — 7% (42M)\n" +
+          "• Liquidity Provision — 6% (36M)\n" +
+          "• Public Sale — 4% (24M)\n\n" +
+          "Circulating supply: 12% at TGE → 32% Y1 → 61% Y2 → 81% Y3 → 100% Y4.",
+        reply_markup: { inline_keyboard: [
+          [{ text: "📄 Full tokenomics", url: `${SITE}/whitepaper.html#tokenomics` }],
+          [{ text: "📊 Download schedule (Excel)", url: `${SITE}/PHELIX-Tokenomics.xlsx` }],
+        ] },
+      };
+      break;
     case "/help":
       reply = {
         text:
@@ -65,7 +88,8 @@ export default async function handler(req, res) {
           "/start — Welcome & launch button\n" +
           "/app — Open the Studio\n" +
           "/website — Visit the website\n" +
-          "/whitepaper — Read the whitepaper\n\n" +
+          "/whitepaper — Read the whitepaper\n" +
+          "/tokenomics — PHELIX supply &amp; vesting\n\n" +
           "Questions? Reach us on X or Telegram, linked from the site.",
         reply_markup: openAppButton,
       };
@@ -73,7 +97,7 @@ export default async function handler(req, res) {
     default:
       // Unknown command or plain text
       if (cmd.startsWith("/")) {
-        reply = { text: "I didn't recognize that. Try /start, /app, /website, /whitepaper or /help.", reply_markup: openAppButton };
+        reply = { text: "I didn't recognize that. Try /start, /app, /website, /whitepaper, /tokenomics or /help.", reply_markup: openAppButton };
       } else {
         return res.status(200).json({ ok: true }); // ignore non-commands silently
       }
