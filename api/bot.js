@@ -71,9 +71,8 @@ export default async function handler(req, res) {
           "• Team &amp; Advisors — 15% (90M), 12-month cliff\n" +
           "• Treasury Reserve — 13% (78M)\n" +
           "• Strategic / Private Sale — 10% (60M)\n" +
-          "• Marketing &amp; Partnerships — 7% (42M)\n" +
-          "• Liquidity Provision — 6% (36M)\n" +
-          "• Public Sale — 4% (24M)\n\n" +
+          "• Liquidity Provision — 10% (60M), 72% at TGE\n" +
+          "• Marketing &amp; Partnerships — 7% (42M)\n\n" +
           "Circulating supply: 12% at TGE → 32% Y1 → 61% Y2 → 81% Y3 → 100% Y4.",
         reply_markup: { inline_keyboard: [
           [{ text: "📄 Full tokenomics", url: `${SITE}/whitepaper.html#tokenomics` }],
