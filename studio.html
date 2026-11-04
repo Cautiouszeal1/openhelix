@@ -322,6 +322,33 @@ function ctorArgs(t){
  try{return ethers.AbiCoder.defaultAbiCoder().encode(['string','string','uint8','uint256','address','bool','bool'],[t.name,t.symbol,t.decimals,ethers.parseUnits(String(t.supply0||t.supply),t.decimals),t.owner,!!t.mintable,!!t.burnable]).slice(2)}catch(e){return''}
 }
 
+/* ---------------- automatic verification (server: /api/verify) ---------------- */
+const canAutoVerify=()=>/^https?:$/.test(location.protocol);
+async function vPost(body){const r=await fetch('/api/verify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});const j=await r.json().catch(()=>null);if(!j)throw new Error('Verification service unavailable');return j}
+// Submits, waits for the explorer to index the contract, then polls. onStep(text) reports progress.
+async function autoVerify(t,onStep=()=>{}){
+ if(!canAutoVerify())throw new Error('Automatic verification works on the hosted site only.');
+ let sub=null;
+ for(let i=0;i<8;i++){
+  onStep(i?'Waiting for the explorer to index the contract…':'Submitting source code…');
+  sub=await vPost({mode:'submit',chainid:t.chain,address:t.addr,txHash:t.tx||undefined});
+  if(sub.ok)break;
+  if(!/not found yet|unable to locate|no bytecode|does not have|try again/i.test(sub.error||''))throw new Error(sub.error||'Verification failed');
+  await new Promise(r=>setTimeout(r,8000));
+ }
+ if(!sub||!sub.ok)throw new Error((sub&&sub.error)||'Verification failed');
+ if(sub.already)return sub.provider;
+ for(let i=0;i<30;i++){
+  onStep('Explorer is compiling and checking the code…');
+  await new Promise(r=>setTimeout(r,4000));
+  const s=await vPost({mode:'status',provider:sub.provider,chainid:t.chain,id:sub.id});
+  if(s.ok)return sub.provider;
+  if(s.status!=='pending')throw new Error(s.error||'Verification failed');
+ }
+ throw new Error('Still processing. Check the explorer in a few minutes.');
+}
+function markVerified(t,prov){const rec=S.tokens.find(x=>key(x)===key(t));if(rec){rec.verified=prov;save()}t.verified=prov}
+
 /* ---------------- networks ---------------- */
 const NETS=[
  {id:56,name:'BNB Chain',short:'BNB',sym:'BNB',color:'#e0a313',rpc:'https://bsc-dataseed.bnbchain.org',exp:'https://bscscan.com',dex:'PancakeSwap',dexUrl:a=>`https://pancakeswap.finance/v2/add/BNB/${a}?chain=bsc`},
@@ -592,10 +619,14 @@ async function runDeploy(){
   F.name='';F.symbol='';F.touched={};
   $('#pout').innerHTML=`<div style="display:flex;flex-direction:column;gap:10px">${note('ok','<b>'+esc(rec.symbol)+' is live on '+esc(n.name)+'.</b> The full supply is in your wallet.')}
    <div class="links">${extLink(n.exp+'/token/'+addr,'View on explorer')}<button class="btn sm" id="wa">Add to wallet</button><button class="btn sm" id="cpa">${ICON.copy} Copy address</button></div>
+   <div class="note info" id="vstat">${ICON.info}<div>${canAutoVerify()?'Verifying the source code on the explorer…':'Open the hosted site to verify automatically, or use <b>Download verification file</b> in My tokens.'}</div></div>
    <div class="links"><a class="btn primary" href="#liquidity" id="gl">Add liquidity</a><a class="btn" href="#tokens" id="gt">Manage token</a><button class="btn" id="gc">Close</button></div></div>`;
   $('#wa').onclick=()=>watch(rec);$('#cpa').onclick=()=>copy(addr);
   $('#gl').onclick=()=>{liqSel=key(rec);closeModal()};$('#gt').onclick=()=>{selected=key(rec);closeModal()};
   $('#gc').onclick=()=>{closeModal();render()};
+  if(canAutoVerify()){const vs=d=>{const el=$('#vstat div');if(el)el.innerHTML=d};
+   autoVerify(rec,s=>vs(esc(s))).then(p=>{markVerified(rec,p);const el=$('#vstat');if(el){el.className='note ok';el.innerHTML=ICON.ok+'<div><b>Source verified</b> '+(p==='sourcify'?'on Sourcify':'on '+esc(n.name)+' explorer')+'.</div>'}})
+   .catch(e=>vs('Automatic verification didn\'t finish: '+esc(errMsg(e))+' You can retry from <b>My tokens</b>.'));}
  }catch(e){
   set(cur,'fail',`<span style="color:var(--bad)">${esc(errMsg(e))}</span>`);
   $('#pout').innerHTML=`<div class="links"><button class="btn" id="cl">Close</button><button class="btn primary" id="rt">Try again</button></div>`;
@@ -636,7 +667,8 @@ function detail(t){
   <div class="card-b" style="border-top:1px solid var(--line)">
    <h3>Verify source on ${esc(n.name)}</h3>
    <p class="muted" style="font-size:13px">On the explorer choose <b>Verify and Publish → Solidity (Standard-JSON-Input)</b>, compiler <span class="mono">v0.8.24+commit.e11b9ed9</span>, license MIT, then upload the file below. Contract name: <span class="mono">OpenHelixToken.sol:OpenHelixToken</span>.</p>
-   <div class="links"><button class="btn sm" id="dvj">Download verification file</button>${extLink(n.exp+'/address/'+t.addr+'#code','Open explorer')}${t.owner?`<button class="btn sm" id="dca">${ICON.copy} Copy constructor args</button>`:''}</div>
+   ${t.verified?note('ok','<b>Source verified</b> '+(t.verified==='sourcify'?'on Sourcify (<a href="https://repo.sourcify.dev/'+t.chain+'/'+t.addr+'" target="_blank" rel="noopener">view</a>)':'on the explorer')+'.'):''}
+   <div class="links">${canAutoVerify()?`<button class="btn primary sm" id="dav">${t.verified?'Verify again':'Verify automatically'}</button>`:''}<button class="btn sm" id="dvj">Download verification file</button>${extLink(n.exp+'/address/'+t.addr+'#code','Open explorer')}${t.owner?`<button class="btn sm" id="dca">${ICON.copy} Copy constructor args</button>`:''}</div>
   </div></div>`;
 }
 async function loadDetail(t){
@@ -658,6 +690,9 @@ MOUNTS.tokens=()=>{
  const t=S.tokens.find(x=>key(x)===selected);if(!t)return;
  $('#dx').onclick=()=>{selected=null;render()};$('#dcp').onclick=()=>copy(t.addr);$('#dw')&&($('#dw').onclick=()=>watch(t));
  $('#dvj').onclick=downloadVerifyInput;
+ $('#dav')&&($('#dav').onclick=async()=>{const b=$('#dav');b.disabled=true;
+  try{const p=await autoVerify(t,s=>{b.textContent=s.length>34?'Verifying…':s});markVerified(t,p);toast(p==='sourcify'?'Verified on Sourcify':'Verified on the explorer');render()}
+  catch(e){toast(errMsg(e),1);b.disabled=false;b.textContent='Verify automatically'}});
  $('#dca')&&($('#dca').onclick=()=>{const a=ctorArgs(t);a?copy(a):toast('Could not encode the constructor arguments for this token.',1)});
  $('#dsw')&&($('#dsw').onclick=async()=>{try{await ensureChain(t.chain);render()}catch(e){toast(errMsg(e),1)}});
  if(!W.addr||W.chain!==t.chain)return;
