@@ -108,7 +108,7 @@ a{color:var(--crimson-2);text-decoration:none}
   <section class="hero">
     <span class="eyebrow">User Guide · Standard Token</span>
     <h1>How to create a token on OpenHelix.</h1>
-    <p>A step-by-step guide to launching a standard token on BNB Smart Chain or Solana using the OpenHelix Studio — no code required. Your wallet signs everything; OpenHelix never holds your funds.</p>
+    <p>A step-by-step guide to launching a standard token on BNB Chain (or six other EVM networks) using the OpenHelix Studio — no code required. Your wallet signs everything; OpenHelix never holds your funds.</p>
     <div class="actions no-print">
       <button class="btn btn-primary bevel-sm" onclick="window.print()">Download PDF ↓</button>
       <a href="studio.html" class="btn btn-ghost bevel-sm">Open the Studio</a>
@@ -120,11 +120,11 @@ a{color:var(--crimson-2);text-decoration:none}
     <span class="num">Before you start</span>
     <h2>What you need</h2>
     <div class="block">
-      <div class="li"><span class="diamond"></span><div><b>A crypto wallet.</b> MetaMask for BNB Smart Chain (and other EVM chains), or Phantom for Solana.</div></div>
-      <div class="li"><span class="diamond"></span><div><b>A little of the network coin for fees.</b> BNB if you're on BNB Chain, or SOL if you're on Solana — to cover network gas plus the small platform fee.</div></div>
-      <div class="li"><span class="diamond"></span><div><b>Your token details ready:</b> a name, a ticker symbol, total supply, and the wallet that should receive the supply.</div></div>
+      <div class="li"><span class="diamond"></span><div><b>A crypto wallet.</b> MetaMask, Rabby, Trust Wallet or Coinbase Wallet.</div></div>
+      <div class="li"><span class="diamond"></span><div><b>A little of the network coin for gas.</b> BNB on BNB Chain, ETH on Ethereum/Base/Arbitrum/Optimism, POL on Polygon, AVAX on Avalanche. OpenHelix charges no fee.</div></div>
+      <div class="li"><span class="diamond"></span><div><b>Your token details ready:</b> a name, a ticker symbol and a total supply. The full supply goes to the wallet you connect.</div></div>
     </div>
-    <div class="note warn no-print"><span class="diamond"></span><div><b>New to this?</b> Practice for free first. In the Studio's network menu (top-left), pick <b>BNB Testnet</b> or <b>Solana Devnet</b> — these use free test coins so you can rehearse the whole flow before spending anything real.</div></div>
+    <div class="note warn no-print"><span class="diamond"></span><div><b>New to this?</b> Practice for free first. In the Studio, click <b>Show testnets</b> and pick <b>BNB Testnet</b>, <b>Sepolia</b> or <b>Base Sepolia</b> — these use free test coins so you can rehearse the whole flow before spending anything real.</div></div>
   </section>
 
   <!-- STEPS -->
@@ -132,21 +132,21 @@ a{color:var(--crimson-2);text-decoration:none}
     <span class="num">Step by step</span>
     <h2>Creating your token</h2>
 
-    <div class="step"><div class="n">1</div><div><h3>Open the Studio</h3><p>Go to <b>opnhelix.xyz</b> and click <b>Launch App</b> (or open the Studio page). It opens on <b>BNB Smart Chain</b> by default.</p></div></div>
+    <div class="step"><div class="n">1</div><div><h3>Open the Studio</h3><p>Go to <b>opnhelix.xyz</b> and click <b>Launch App</b>. The Studio opens on the <b>Create token</b> tab with <b>BNB Chain</b> selected.</p></div></div>
 
-    <div class="step"><div class="n">2</div><div><h3>Choose your network</h3><p>Use the network menu at the top-left to select <b>BNB Smart Chain</b> (recommended for beginners) or <b>Solana</b>. You can switch any time before creating.</p></div></div>
+    <div class="step"><div class="n">2</div><div><h3>Connect your wallet</h3><p>Click <b>Connect wallet</b> (top-right) and approve in your wallet. Your address appears in the button when connected.</p></div></div>
 
-    <div class="step"><div class="n">3</div><div><h3>Connect your wallet</h3><p>Click <b>Connect Wallet</b> and approve the connection in MetaMask (EVM) or Phantom (Solana). The Studio will show your network as connected.</p></div></div>
+    <div class="step"><div class="n">3</div><div><h3>Choose your network</h3><p>Click a network card — BNB Chain, Ethereum, Base, Arbitrum, Optimism, Polygon or Avalanche. Click <b>Show testnets</b> to practice for free.</p></div></div>
 
-    <div class="step"><div class="n">4</div><div><h3>Enter your token details</h3><p>Fill in the <b>Name</b> (e.g. "My Token"), <b>Symbol/Ticker</b> (e.g. "MYT"), <b>Decimals</b> (<code>18</code> for BNB/EVM, <code>0–9</code> for Solana — <code>9</code> is standard), <b>Total Supply</b>, and the <b>recipient wallet</b> that receives the full supply at creation.</p></div></div>
+    <div class="step"><div class="n">4</div><div><h3>Enter your token details</h3><p><b>Name</b> (e.g. "My Token"), <b>Symbol</b> (2–11 letters/numbers, e.g. "MYT"), <b>Total supply</b>, and <b>Decimals</b> (<code>18</code> is standard). The summary panel updates as you type.</p></div></div>
 
-    <div class="step"><div class="n">5</div><div><h3>(Optional) add a logo</h3><p>Paste a direct image URL in the logo field to attach a logo to your token's metadata. You can skip this and add it later.</p></div></div>
+    <div class="step"><div class="n">5</div><div><h3>Set permissions</h3><p>Leave <b>Allow minting</b> off for a fixed supply (buyers prefer this). <b>Allow holders to burn</b> is on by default. Both are permanent once deployed.</p></div></div>
 
-    <div class="step"><div class="n">6</div><div><h3>Click Create Token</h3><p>Your wallet will ask you to approve transactions: the small <b>platform fee (~$0.50)</b>, then the <b>token deployment</b> (which costs network gas). Review and confirm each in your wallet.</p></div></div>
+    <div class="step"><div class="n">6</div><div><h3>Deploy</h3><p>Click <b>Deploy</b>, check the review window (including the estimated network fee), tick the confirmation on mainnet, then <b>Confirm in wallet</b>. Your wallet switches network if needed.</p></div></div>
 
-    <div class="step"><div class="n">7</div><div><h3>Wait for confirmation</h3><p>The activity log shows progress. When it turns green, your token is live on-chain. This usually takes a few seconds to a minute depending on the network.</p></div></div>
+    <div class="step"><div class="n">7</div><div><h3>Wait for confirmation</h3><p>The progress list turns green when the token is live — usually a few seconds to a minute.</p></div></div>
 
-    <div class="step"><div class="n">8</div><div><h3>Save your contract address</h3><p>The Studio displays your new token's <b>contract address</b> and a link to the blockchain explorer. <b>Copy and save the address</b> — you'll need it for liquidity, listings, and sharing.</p></div></div>
+    <div class="step"><div class="n">8</div><div><h3>Save your contract address</h3><p>Copy the <b>contract address</b>, click <b>Add to wallet</b>, and open it on the explorer. You'll find the token again any time under <b>My tokens</b>.</p></div></div>
   </section>
 
   <!-- FEES -->
@@ -154,12 +154,11 @@ a{color:var(--crimson-2);text-decoration:none}
     <span class="num">Fees</span>
     <h2>What it costs</h2>
     <div class="block">
-      <div class="kv"><span>Network gas (paid to the blockchain)</span><b>Varies</b></div>
-      <div class="kv"><span>Platform fee — BNB / EVM mainnet</span><b>~ $0.50 in native coin</b></div>
-      <div class="kv"><span>Platform fee — Solana mainnet</span><b>~ $0.50 in SOL</b></div>
-      <div class="kv"><span>Testnets (practice)</span><b>Free</b></div>
+      <div class="kv"><span>Network gas (paid to the blockchain, ~800,000 gas)</span><b>Varies — shown before you confirm</b></div>
+      <div class="kv"><span>OpenHelix platform fee</span><b>Free</b></div>
+      <div class="kv"><span>Testnets (practice)</span><b>Free (faucet coins)</b></div>
     </div>
-    <div class="note"><span class="diamond"></span><div>Gas is paid to the network's validators, not to OpenHelix. The platform fee is the OpenHelix service fee and only applies on mainnet — testnets are free.</div></div>
+    <div class="note"><span class="diamond"></span><div>Gas is paid to the network's validators, not to OpenHelix. On BNB Chain, Base, Arbitrum, Optimism and Polygon it is usually under a few dollars; Ethereum mainnet can cost much more.</div></div>
   </section>
 
   <!-- AFTER -->
@@ -167,8 +166,8 @@ a{color:var(--crimson-2);text-decoration:none}
     <span class="num">Next steps</span>
     <h2>After your token is live</h2>
     <div class="block">
-      <div class="li"><span class="diamond"></span><div><b>Add liquidity</b> so people can trade it — the Liquidity page routes you to PancakeSwap (BNB), Uniswap (other EVM), or Raydium (Solana).</div></div>
-      <div class="li"><span class="diamond"></span><div><b>Verify your contract</b> (EVM) in the Studio's Verify tab so the source code is public on the explorer — a strong trust signal.</div></div>
+      <div class="li"><span class="diamond"></span><div><b>Add liquidity</b> so people can trade it — the Studio's Liquidity tab routes you to PancakeSwap (BNB) or Uniswap (other EVM chains), then to an LP locker.</div></div>
+      <div class="li"><span class="diamond"></span><div><b>Your contract is verified automatically</b> right after deploy — a strong trust signal. If it didn't finish, click <b>Verify automatically</b> in My tokens.</div></div>
       <div class="li"><span class="diamond"></span><div><b>Share your token</b> using its contract address, and consider applying to listing trackers once it has liquidity and activity.</div></div>
     </div>
   </section>
@@ -179,10 +178,10 @@ a{color:var(--crimson-2);text-decoration:none}
     <h2>Common issues</h2>
     <div class="block">
       <div class="kv"><span><b>Wallet won't connect</b></span><b></b></div>
-      <div class="li"><span class="diamond"></span><div>Make sure MetaMask/Phantom is installed and unlocked. On mobile, open the Studio inside your wallet's built-in browser, or use a desktop browser with the extension.</div></div>
-      <div class="li" style="margin-top:14px"><span class="diamond"></span><div><b>"Insufficient funds":</b> you need enough of the network coin (BNB/SOL) to cover both gas and the platform fee. Top up your wallet and retry.</div></div>
-      <div class="li" style="margin-top:14px"><span class="diamond"></span><div><b>Wrong network:</b> confirm the network menu (top-left) matches the wallet network. Approve any "switch network" prompt your wallet shows.</div></div>
-      <div class="li" style="margin-top:14px"><span class="diamond"></span><div><b>Solana decimals rejected:</b> Solana supports <code>0–9</code> decimals. If you entered 18, change it to <code>9</code>.</div></div>
+      <div class="li"><span class="diamond"></span><div>Make sure your wallet extension is installed and unlocked. On mobile, open the Studio inside your wallet's built-in browser, or use a desktop browser with the extension.</div></div>
+      <div class="li" style="margin-top:14px"><span class="diamond"></span><div><b>"Insufficient funds":</b> you need enough of the network coin (BNB, ETH, POL or AVAX) to cover gas. Top up your wallet and retry.</div></div>
+      <div class="li" style="margin-top:14px"><span class="diamond"></span><div><b>Wrong network:</b> the Studio asks your wallet to switch to the network you picked. Approve any "switch network" prompt your wallet shows.</div></div>
+      <div class="li" style="margin-top:14px"><span class="diamond"></span><div><b>Deploy button greyed out:</b> connect your wallet and fix any field marked in red (symbol must be 2–11 letters/numbers, supply a whole number above zero).</div></div>
     </div>
   </section>
 
@@ -191,7 +190,7 @@ a{color:var(--crimson-2);text-decoration:none}
     <div class="note warn"><span class="diamond"></span><div><b>Mainnet uses real funds.</b> Once you confirm in your wallet, transactions can't be reversed. If it's your first time, create one small test token on a testnet first to learn the flow. OpenHelix is non-custodial — you sign and control every action, and OpenHelix never holds your funds.</div></div>
   </section>
 
-  <div class="footer">© 2026 OpenHelix · Live on BNB Chain &amp; Solana · <a href="index.html">openhelix</a></div>
+  <div class="footer">© 2026 OpenHelix · Live on BNB Chain + 6 EVM networks · <a href="index.html">openhelix</a></div>
 </div>
 
 <script>

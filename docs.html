@@ -54,10 +54,12 @@ a{color:var(--crimson-2);text-decoration:none}
 .note.danger{border-color:rgba(255,32,80,.35);background:rgba(255,32,80,.07);color:#ffd0d8}.note.danger .diamond{background:var(--crimson-2)}
 .note b{font-family:'Chakra Petch'}
 table{width:100%;border-collapse:collapse;margin:8px 0 14px;font-size:13px}
+@media(max-width:560px){table{display:block;overflow-x:auto}th,td{padding:8px}}
 th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line)}
 th{font-family:'Chakra Petch';color:var(--ink-3);font-size:11px;letter-spacing:.12em;text-transform:uppercase}
 td{color:var(--ink-2)}
-@media(max-width:860px){.shell{grid-template-columns:1fr;gap:24px}.toc{position:static;border-left:none;border-top:1px solid var(--line);padding:16px 0 0;max-height:none}.topnav{display:none}}
+@media(max-width:860px){.shell{grid-template-columns:1fr;gap:24px}.toc{position:static;border-left:none;border-top:1px solid var(--line);padding:16px 0 0;max-height:none}}
+@media(max-width:680px){.topnav{display:none}.topbar .btn{display:none}}
 
 /* mobile hamburger menu */
 .hamburger{display:none;background:none;border:1px solid var(--line-2);width:42px;height:42px;border-radius:8px;cursor:pointer;flex-direction:column;gap:4px;align-items:center;justify-content:center;flex:none}
@@ -103,90 +105,106 @@ td{color:var(--ink-2)}
     <a href="#wallet">Connecting a wallet</a>
     <a href="#networks">Supported networks</a>
     <a href="#token">Creating a token</a>
-    <a href="#lock">Locking</a>
-    <a href="#vesting">Vesting</a>
+    <a href="#manage">Managing a token</a>
+    <a href="#liquidity">Adding liquidity</a>
     <a href="#verify">Verifying source</a>
+    <a href="#phelix">PHELIX token</a>
     <a href="#security">Security &amp; safety</a>
     <a href="#trouble">Troubleshooting</a>
   </aside>
 
   <main class="content">
     <h1>OpenHelix Docs</h1>
-    <p class="lead">Everything you need to create and manage tokens with OpenHelix Studio — no code required.</p>
+    <p class="lead">Everything you need to create, manage and launch tokens with OpenHelix Studio — no code required.</p>
 
     <section id="intro" class="sec">
       <h2><span class="diamond"></span> Introduction</h2>
-      <p>OpenHelix is a browser-based Web3 toolkit. From the Studio you can create tokens, lock tokens/LP, set up vesting, and verify contract source — across several EVM chains and Solana. You sign every action in your own wallet; OpenHelix never holds your keys or funds.</p>
+      <p>OpenHelix is a browser-based Web3 toolkit. From the Studio you can create ERC-20 tokens, manage them (transfer, burn, mint, renounce ownership), set up liquidity on a DEX, and download everything you need to verify the contract on the explorer — across seven EVM mainnets plus free testnets. You sign every action in your own wallet; OpenHelix never holds your keys or funds.</p>
     </section>
 
     <section id="start" class="sec">
       <h2><span class="diamond"></span> Getting started</h2>
       <p>You need three things:</p>
       <ul>
-        <li>A wallet extension — <b>MetaMask</b> for EVM chains, <b>Phantom</b> for Solana.</li>
+        <li>An EVM browser wallet — <b>MetaMask</b>, <b>Rabby</b>, <b>Trust Wallet</b> or <b>Coinbase Wallet</b>.</li>
         <li>A little of the network's native coin for gas (free on testnets via a faucet).</li>
         <li>The Studio open in your browser. <a href="studio.html">Open the Studio →</a></li>
       </ul>
-      <div class="note"><span class="diamond"></span><div><b>Always practice on a testnet first.</b> Testnets behave like the real chains but use free, valueless coins, so you can do a full dry run before spending anything.</div></div>
+      <div class="note"><span class="diamond"></span><div><b>Always practice on a testnet first.</b> In the Studio, click <b>Show testnets</b> and pick BNB Testnet, Sepolia or Base Sepolia. Testnets behave like the real chains but use free, valueless coins.</div></div>
     </section>
 
     <section id="wallet" class="sec">
       <h2><span class="diamond"></span> Connecting a wallet</h2>
       <ol>
-        <li>Pick your network from the dropdown in the top-left of the Studio.</li>
-        <li>Click <b>Connect Wallet</b>. EVM networks prompt MetaMask; Solana networks prompt Phantom.</li>
-        <li>Approve the connection. The button shows your shortened address when connected, and the status dot turns green.</li>
+        <li>Click <b>Connect wallet</b> in the top-right of the Studio.</li>
+        <li>If you have more than one wallet installed, pick the one you want.</li>
+        <li>Approve the connection. The button shows your shortened address and the bar shows the network your wallet is on.</li>
       </ol>
-      <p>Switching to a network of the other type (e.g. from BNB to Solana) will ask you to reconnect with the matching wallet.</p>
+      <p>Click your address at any time to see your balance, open it on the explorer, or disconnect. On a phone, open the site inside your wallet app's built-in browser.</p>
     </section>
 
     <section id="networks" class="sec">
       <h2><span class="diamond"></span> Supported networks</h2>
       <table>
-        <tr><th>Family</th><th>Testnet</th><th>Mainnet</th></tr>
-        <tr><td>BNB Chain</td><td>BNB Testnet</td><td>BNB Smart Chain</td></tr>
-        <tr><td>Ethereum</td><td>Sepolia</td><td>Ethereum</td></tr>
-        <tr><td>Base</td><td>Base Sepolia</td><td>Base</td></tr>
-        <tr><td>Arbitrum</td><td>Arbitrum Sepolia</td><td>Arbitrum One</td></tr>
-        <tr><td>Optimism</td><td>OP Sepolia</td><td>Optimism</td></tr>
-        <tr><td>Polygon</td><td>Amoy</td><td>Polygon</td></tr>
-        <tr><td>Avalanche</td><td>Fuji</td><td>Avalanche</td></tr>
-        <tr><td>Solana</td><td>Devnet</td><td>Solana</td></tr>
+        <tr><th>Network</th><th>Mainnet</th><th>Free testnet</th><th>DEX for liquidity</th></tr>
+        <tr><td>BNB Chain</td><td>Yes</td><td>BNB Testnet</td><td>PancakeSwap</td></tr>
+        <tr><td>Ethereum</td><td>Yes</td><td>Sepolia</td><td>Uniswap</td></tr>
+        <tr><td>Base</td><td>Yes</td><td>Base Sepolia</td><td>Uniswap</td></tr>
+        <tr><td>Arbitrum</td><td>Yes</td><td>—</td><td>Uniswap</td></tr>
+        <tr><td>Optimism</td><td>Yes</td><td>—</td><td>Uniswap</td></tr>
+        <tr><td>Polygon</td><td>Yes</td><td>—</td><td>Uniswap</td></tr>
+        <tr><td>Avalanche</td><td>Yes</td><td>—</td><td>LFJ</td></tr>
+        <tr><td>Solana</td><td colspan="3">In progress — see the Studio roadmap</td></tr>
       </table>
-      <p>Token creation is available on all of them. Locking, vesting and verification have network limits — see those sections below.</p>
     </section>
 
     <section id="token" class="sec">
       <h2><span class="diamond"></span> Creating a token</h2>
-      <p>Open the <b>Create Token</b> tab, fill in the form, and deploy:</p>
+      <p>Open the <b>Create token</b> tab, pick a network, fill in the form, and deploy:</p>
       <ol>
-        <li><b>Name</b> — the full display name (e.g. "OpenHelix Demo").</li>
-        <li><b>Symbol</b> — the ticker (2–6 characters).</li>
-        <li><b>Decimals</b> — how divisible the token is. <code>18</code> is standard on EVM; Solana allows <code>0–9</code>.</li>
+        <li><b>Name</b> — the full display name (up to 40 characters).</li>
+        <li><b>Symbol</b> — the ticker, 2–11 letters or numbers.</li>
         <li><b>Total supply</b> — whole tokens, minted in full to your wallet at creation.</li>
+        <li><b>Decimals</b> — <code>18</code> is standard.</li>
+        <li><b>Permissions</b> — optionally allow the owner to mint more later, and/or let holders burn their own tokens. These are fixed forever at deploy.</li>
       </ol>
-      <p>Click <b>Deploy Token</b> and approve in your wallet. On success you get the contract/mint address, an explorer link, and (on EVM) an "Add to Wallet" button.</p>
-      <h3>EVM vs Solana</h3>
-      <p>On EVM chains, each token is its own ERC-20 contract. On Solana, the token is an SPL mint created through Solana's Token Program — there's no per-token contract to deploy.</p>
-      <div class="note warn"><span class="diamond"></span><div>On mainnet, creating a token spends real gas (or SOL for rent). Do a free testnet run first to confirm the flow in your wallet.</div></div>
+      <p>Click <b>Deploy</b>, review the summary, and confirm in your wallet. The Studio shows the estimated network fee first. OpenHelix charges no fee of its own. On success you get the contract address, an explorer link, and an <b>Add to wallet</b> button.</p>
+      <div class="note warn"><span class="diamond"></span><div>On mainnet, creating a token spends real gas and cannot be undone. Do a free testnet run first to confirm the flow in your wallet.</div></div>
     </section>
 
-    <section id="lock" class="sec">
-      <h2><span class="diamond"></span> Locking tokens / LP</h2>
-      <p>The <b>Lock</b> tab time-locks any token (including LP tokens) until a date you choose — a common trust signal for investors. Deploy a locker once (or paste an existing one), enter the token, amount and unlock date, then approve and lock. After the unlock time you can withdraw by lock id.</p>
-      <div class="note"><span class="diamond"></span><div><b>Available on test networks today.</b> Because this contract safeguards real funds, it goes live on mainnet once its security audit is complete — a standard step we take seriously. (EVM feature; not applicable to Solana.)</div></div>
+    <section id="manage" class="sec">
+      <h2><span class="diamond"></span> Managing a token</h2>
+      <p>The <b>My tokens</b> tab lists tokens you created in this browser. Click one to see live supply, your balance and the owner, and to:</p>
+      <ul>
+        <li><b>Transfer</b> tokens to another address.</li>
+        <li><b>Burn</b> tokens from your balance (if burning was enabled).</li>
+        <li><b>Mint</b> new tokens and <b>Renounce ownership</b> (if minting was enabled). Renouncing disables minting forever and is a strong trust signal.</li>
+      </ul>
+      <p>Created a token on another device? Use <b>Import token</b> and paste its address while your wallet is on the same network.</p>
     </section>
 
-    <section id="vesting" class="sec">
-      <h2><span class="diamond"></span> Vesting</h2>
-      <p>The <b>Vesting</b> tab releases tokens to a beneficiary gradually over time, with an optional cliff. Deploy a vesting contract, set token, beneficiary, amount, start, cliff (days) and duration (days), then approve and create. The beneficiary calls <b>Release</b> to claim what has vested.</p>
-      <div class="note"><span class="diamond"></span><div><b>Available on test networks today.</b> Like locking, it handles real funds, so it ships to mainnet right after audit.</div></div>
+    <section id="liquidity" class="sec">
+      <h2><span class="diamond"></span> Adding liquidity</h2>
+      <p>The <b>Liquidity</b> tab walks you through it: use the calculator to see the starting price your deposit creates, open PancakeSwap or Uniswap with your token pre-selected, then lock the LP tokens with an established locker (UNCX Network, Team Finance or PinkLock) for at least 90 days.</p>
+      <div class="note"><span class="diamond"></span><div>Built-in LP locking and vesting are in development and will reach mainnet only after an independent security audit.</div></div>
     </section>
 
     <section id="verify" class="sec">
       <h2><span class="diamond"></span> Verifying source</h2>
-      <p>The <b>Verify</b> tab publishes your token's source code on the block explorer (the "Verified" badge), so anyone can read exactly what it does. Paste a free Etherscan API key (works across EVM chains), confirm the constructor values, and submit.</p>
-      <div class="note"><span class="diamond"></span><div>Verification is an EVM/explorer feature. Solana SPL tokens use on-chain metadata (Metaplex) instead, so this tab is EVM-only. If your browser blocks the call (CORS), use the repo's <code>verifier</code> service, which does the same job reliably.</div></div>
+      <p>Verification publishes your token's source code so anyone can read exactly what it does. <b>It happens automatically right after you deploy</b> — the success window shows when it's done. If it didn't finish, open the token in <b>My tokens</b> and click <b>Verify automatically</b>.</p>
+      <p>To verify by hand instead (always works, free on every explorer): click <b>Download verification file</b>, then on the explorer:</p>
+      <ol>
+        <li>Choose <b>Verify and Publish</b> → <b>Solidity (Standard-JSON-Input)</b>.</li>
+        <li>Compiler <code>v0.8.24+commit.e11b9ed9</code>, license <b>MIT</b>.</li>
+        <li>Upload the file. If asked for the contract name, use <code>OpenHelixToken.sol:OpenHelixToken</code>.</li>
+        <li>Constructor arguments are usually detected automatically; if not, click <b>Copy constructor args</b> on the token page and paste them.</li>
+      </ol>
+      <div class="note"><span class="diamond"></span><div>Every OpenHelix token uses the same contract, so explorers often match new tokens automatically once one on that chain is verified.</div></div>
+    </section>
+
+    <section id="phelix" class="sec">
+      <h2><span class="diamond"></span> PHELIX token</h2>
+      <p>PHELIX is the OpenHelix platform token: <b>600,000,000</b> fixed supply on BNB Chain, <b>12% (72M)</b> circulating at TGE, and the rest released monthly over 48 months. Team tokens have a 12-month cliff. See the <a href="whitepaper.html#tokenomics">whitepaper</a> or download the <a href="PHELIX-Tokenomics.xlsx" download>full schedule (Excel)</a>.</p>
     </section>
 
     <section id="security" class="sec">
@@ -195,7 +213,7 @@ td{color:var(--ink-2)}
         <li><b>Your keys stay yours.</b> Every action is signed in your wallet. OpenHelix never sees your seed phrase or private key — and you should never paste it anywhere.</li>
         <li><b>Use a dev/burner wallet</b> while testing.</li>
         <li><b>Testnet first, always.</b> Confirm the whole flow for free before touching mainnet.</li>
-        <li><b>Audits before mainnet money.</b> Fund-holding contracts (lock, vesting) need a professional audit before they go live with real value.</li>
+        <li><b>Audits before mainnet money.</b> Fund-holding contracts (built-in locks, vesting, sales) will only go live after a professional audit.</li>
         <li><b>Not legal or financial advice.</b> Launching tokens or raising funds can carry legal and tax duties that vary by country — consult professionals.</li>
       </ul>
     </section>
@@ -203,13 +221,13 @@ td{color:var(--ink-2)}
     <section id="trouble" class="sec">
       <h2><span class="diamond"></span> Troubleshooting</h2>
       <h3>"No wallet found"</h3>
-      <p>Install MetaMask (EVM) or Phantom (Solana), then reload the page.</p>
+      <p>Install MetaMask, Rabby, Trust Wallet or Coinbase Wallet, then reload the page. Wallets can't connect to pages shown inside preview frames — use the hosted site.</p>
       <h3>"Wrong network"</h3>
-      <p>The Studio tries to switch your wallet automatically; if it doesn't, approve the network-switch prompt, or add the network manually in your wallet.</p>
+      <p>The Studio asks your wallet to switch (and adds the network if it's missing). Approve the prompt, or switch manually in your wallet.</p>
       <h3>Transaction fails or "insufficient funds"</h3>
       <p>You need the network's native coin for gas. On testnets, get free coins from that network's faucet and try again.</p>
       <h3>Something else</h3>
-      <p>Check the <b>Activity log</b> at the bottom of the Studio — it shows the exact error message, which is the fastest way to diagnose the issue.</p>
+      <p>The deploy window and the pop-up messages show the exact error from your wallet or the network — that is the fastest way to diagnose the issue. Still stuck? Ask on <a href="https://t.me/openhelix" target="_blank" rel="noopener">Telegram</a>.</p>
     </section>
   </main>
 </div>

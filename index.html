@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>OpenHelix — The Web3 Launch Operating System</title>
-<meta name="description" content="Create tokens, add liquidity, raise capital and build trusted blockchain projects on BNB Chain and Solana — all from one dashboard." />
+<meta name="description" content="Create tokens, add liquidity and build trusted blockchain projects on BNB Chain and other EVM networks — all from one dashboard." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -26,6 +26,7 @@
   --ink:#f4eef3;
   --ink-2:#b9aec4;
   --ink-3:#7d7390;
+  --ok:#2bd47a;
   --bevel:18px;
   --maxw:1240px;
 }
@@ -83,7 +84,8 @@ nav{display:flex;align-items:center;justify-content:space-between;height:74px;ma
 .brand{display:flex;align-items:center;gap:12px;font-family:'Chakra Petch';font-weight:700;font-size:20px;letter-spacing:-.02em}
 .brand img{width:30px;height:30px;filter:drop-shadow(0 0 10px rgba(230,16,58,.5))}
 .brand b{color:var(--crimson-2)}
-.nav-links{display:flex;gap:34px;font-size:14px;color:var(--ink-2)}
+.nav-links{display:flex;gap:22px;font-size:14px;color:var(--ink-2);white-space:nowrap}
+@media(max-width:1180px){.nav-links{gap:16px;font-size:13px}}
 .nav-links a{position:relative;transition:.25s}
 .nav-links a:hover{color:var(--ink)}
 .nav-links a::after{content:"";position:absolute;left:0;bottom:-6px;width:0;height:1px;background:var(--crimson);transition:.3s}
@@ -301,19 +303,48 @@ footer{border-top:1px solid var(--line);padding:70px 0 40px;background:var(--voi
 .rbadge.done{color:var(--ok);border-color:rgba(43,212,122,.4)}
 .rbadge.active{color:var(--crimson-2);border-color:rgba(255,32,80,.4)}
 
+/* tokenomics */
+.tkn{display:grid;grid-template-columns:.85fr 1.15fr;gap:40px;align-items:start}
+.tkn-left{border:1px solid var(--line);background:var(--panel);padding:40px 30px;display:flex;flex-direction:column;align-items:center;gap:30px;clip-path:polygon(var(--bevel) 0,100% 0,100% calc(100% - var(--bevel)),calc(100% - var(--bevel)) 100%,0 100%,0 var(--bevel))}
+.donut{width:min(300px,70vw);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;box-shadow:0 0 70px rgba(230,16,58,.25)}
+.donut .hole{width:62%;aspect-ratio:1;border-radius:50%;background:var(--panel);display:flex;flex-direction:column;align-items:center;justify-content:center}
+.donut .hole b{font-family:'Chakra Petch';font-size:34px;color:#fff;line-height:1}
+.donut .hole span{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:6px}
+.tkn-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:100%}
+.tkn-stats div{border:1px solid var(--line);padding:12px;text-align:center}
+.tkn-stats b{display:block;font-family:'Chakra Petch';font-size:19px;color:#fff}
+.tkn-stats span{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.alloc{list-style:none;border:1px solid var(--line);background:var(--panel)}
+.alloc li{display:grid;grid-template-columns:12px 1fr auto;gap:14px;align-items:center;padding:13px 18px;border-bottom:1px solid var(--line)}
+.alloc li:last-child{border-bottom:none}
+.alloc li i{width:11px;height:11px;transform:rotate(45deg)}
+.alloc b{font-family:'Chakra Petch';font-weight:600;font-size:15px;display:block}
+.alloc span{font-size:12.5px;color:var(--ink-3)}
+.alloc em{font-style:normal;font-family:'Chakra Petch';font-weight:600;color:#fff;text-align:right;font-size:15px}
+.alloc em small{display:block;color:var(--crimson-2);font-size:12px}
+.curve{border:1px solid var(--line);background:var(--panel);padding:18px 20px;margin-top:18px}
+.cv-h{font-family:'Chakra Petch';font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3);margin-bottom:14px}
+.cv-bars{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;align-items:end}
+.cv-bars div{display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:6px}
+.cv-bars i{display:block;width:100%;background:linear-gradient(180deg,var(--crimson-2),rgba(230,16,58,.35))}
+.cv-bars b{font-family:'Chakra Petch';font-size:13px;order:-1}
+.cv-bars span{font-size:11px;color:var(--ink-3)}
+.tkn-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:20px}
+@media(max-width:980px){.tkn{grid-template-columns:1fr}}
+@media(max-width:560px){.alloc li{padding:12px 14px}.tkn-left{padding:28px 18px}}
 /* mobile hamburger menu */
 .hamburger{display:none;background:none;border:1px solid var(--line-2);width:42px;height:42px;border-radius:8px;cursor:pointer;flex-direction:column;gap:4px;align-items:center;justify-content:center;flex:none}
 .hamburger span{width:18px;height:2px;background:var(--ink);transition:.3s;display:block}
 .hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
 .hamburger.open span:nth-child(2){opacity:0}
 .hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
-.mobile-menu{position:fixed;top:66px;left:0;right:0;background:rgba(8,5,18,.98);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);padding:10px 22px 18px;display:none;flex-direction:column;z-index:39}
+.mobile-menu{position:fixed;top:74px;left:0;right:0;background:rgba(8,5,18,.98);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);padding:10px 22px 18px;display:none;flex-direction:column;z-index:39}
 .mobile-menu.open{display:flex}
 .mobile-menu a{padding:14px 4px;color:var(--ink);font-family:'Chakra Petch';font-weight:500;font-size:16px;border-bottom:1px solid var(--line)}
 .mobile-menu a:last-child{border-bottom:none}
 .mobile-menu a:hover{color:var(--crimson-2)}
 @media(max-width:680px){.hamburger{display:flex}}
-@media(min-width:681px){.mobile-menu{display:none!important}}
+@media(min-width:981px){.mobile-menu{display:none!important}}
 </style>
 </head>
 <body>
@@ -329,6 +360,7 @@ footer{border-top:1px solid var(--line);padding:70px 0 40px;background:var(--voi
       <a href="#top">Home</a>
       <a href="#features">Features</a>
       <a href="#how">How it works</a>
+      <a href="#tokenomics">Tokenomics</a>
       <a href="#roadmap">Roadmap</a>
       <a href="trust.html">Trust</a>
       <a href="whitepaper.html">Whitepaper</a>
@@ -339,7 +371,7 @@ footer{border-top:1px solid var(--line);padding:70px 0 40px;background:var(--voi
     <div class="nav-cta">
       <a href="docs.html" class="btn btn-ghost">Docs</a>
       <a href="studio.html" class="btn btn-primary">Launch App <span class="btn-arrow">→</span></a>
-      <button class="menu-btn" id="menuBtn">☰</button>
+      <button class="menu-btn" id="menuBtn" aria-label="Menu" aria-expanded="false">☰</button>
     </div>
   </nav>
 </header>
@@ -350,15 +382,17 @@ footer{border-top:1px solid var(--line);padding:70px 0 40px;background:var(--voi
   <a href="guide.html">Guide</a>
   <a href="docs.html">Docs</a>
   <a href="whitepaper.html">Whitepaper</a>
+  <a href="#tokenomics">Tokenomics</a>
   <a href="trust.html">Trust</a>
   <a href="liquidity.html">Liquidity</a>
+  <a href="#faq">FAQ</a>
 </div>
 
 
 <!-- ===== HERO ===== -->
 <section id="top" class="hero wrap">
   <div class="hero-copy">
-    <div class="hero-badge reveal"><span class="dot"></span> Live on BNB Chain &amp; Solana</div>
+    <div class="hero-badge reveal"><span class="dot"></span> Live on BNB Chain + 6 EVM networks · Solana soon</div>
     <h1 class="reveal">Turn an idea into a <span class="em">funded</span> blockchain project.</h1>
     <p class="lead reveal">OpenHelix is the Web3 launch operating system. Create tokens, add liquidity, raise capital and build trusted projects — without juggling six different tools or writing a line of code.</p>
     <div class="hero-actions reveal">
@@ -373,14 +407,14 @@ footer{border-top:1px solid var(--line);padding:70px 0 40px;background:var(--voi
       </span>
       <span class="chip">
         <svg viewBox="0 0 24 24" fill="none"><path d="M5 7.5h13l-2.5 2.5H2.5zM5 14h13l-2.5 2.5H2.5zM2.5 7.5l2.5-2.5h13l-2.5 2.5z" fill="url(#sol)"/><defs><linearGradient id="sol" x1="2" y1="5" x2="18" y2="17"><stop stop-color="#9945FF"/><stop offset="1" stop-color="#14F195"/></linearGradient></defs></svg>
-        Solana
+        Solana <small style="font-size:10px;letter-spacing:.12em;color:var(--ink-3);border:1px solid var(--line-2);padding:1px 6px">SOON</small>
       </span>
     </div>
   </div>
   <div class="hero-visual reveal">
     <div class="monument"><img src="hero-monument.jpg" alt="OpenHelix monument"/></div>
     <div class="float-card fc-1"><div class="k">No&nbsp;code</div><div class="v">Token deploy</div></div>
-    <div class="float-card fc-2"><div class="k">100%</div><div class="v">On-chain raises</div></div>
+    <div class="float-card fc-2"><div class="k">7&nbsp;chains</div><div class="v">EVM mainnets live</div></div>
     <div class="float-card fc-3"><div class="k">LP&nbsp;Locked</div><div class="v">Investor trust</div></div>
   </div>
 </section>
@@ -437,9 +471,9 @@ footer{border-top:1px solid var(--line);padding:70px 0 40px;background:var(--voi
       <div class="glow"></div>
       <div class="f-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2v20M12 2c-3 2-3 5 0 7s3 5 0 7M12 2c3 2 3 5 0 7s-3 5 0 7" stroke-linecap="round"/></svg></div>
       <h3>Create Tokens</h3>
-      <p>Mint production-grade tokens on BNB Chain or Solana with battle-tested, audited templates.</p>
+      <p>Mint production-grade ERC-20 tokens on BNB Chain and six more EVM networks, built on OpenZeppelin's battle-tested contracts.</p>
       <ul class="f-tags">
-        <li><i class="diamond"></i> Launch on BNB Chain &amp; Solana</li>
+        <li><i class="diamond"></i> BNB Chain, Ethereum, Base, Arbitrum, Optimism, Polygon, Avalanche</li>
         <li><i class="diamond"></i> Generate tokenomics with built-in tools</li>
         <li><i class="diamond"></i> Deploy without writing any code</li>
       </ul>
@@ -452,7 +486,7 @@ footer{border-top:1px solid var(--line);padding:70px 0 40px;background:var(--voi
       <p>Spin up a trading pool in a few clicks — prepared by OpenHelix, confirmed on the exchange you already trust.</p>
       <ul class="f-tags">
         <li><i class="diamond"></i> Guided pool setup, pre-filled</li>
-        <li><i class="diamond"></i> Routes to PancakeSwap, Uniswap &amp; Raydium</li>
+        <li><i class="diamond"></i> Routes to PancakeSwap &amp; Uniswap</li>
         <li><i class="diamond"></i> Lock LP for investor confidence</li>
       </ul>
     </div>
@@ -504,7 +538,7 @@ footer{border-top:1px solid var(--line);padding:70px 0 40px;background:var(--voi
         <div class="f-wide-grid">
           <div class="mini"><i class="diamond" style="margin-top:5px"></i><div><b>Unified treasury</b>Funds, allocations and vesting in one ledger.</div></div>
           <div class="mini"><i class="diamond" style="margin-top:5px"></i><div><b>Wallet-native</b>Connect once, operate everything.</div></div>
-          <div class="mini"><i class="diamond" style="margin-top:5px"></i><div><b>Cross-chain</b>Switch between BNB &amp; Solana freely.</div></div>
+          <div class="mini"><i class="diamond" style="margin-top:5px"></i><div><b>Multi-chain</b>Seven EVM networks today, Solana next.</div></div>
           <div class="mini"><i class="diamond" style="margin-top:5px"></i><div><b>Verifiable</b>Public, on-chain proof at every step.</div></div>
         </div>
       </div>
@@ -531,7 +565,7 @@ footer{border-top:1px solid var(--line);padding:70px 0 40px;background:var(--voi
       <div class="no">02 //</div>
       <svg class="stp-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l8 5-8 5-8-5z" stroke-linejoin="round"/><path d="M4 13l8 5 8-5" stroke-linejoin="round"/></svg>
       <h3>Deploy</h3>
-      <p>Push live to BNB Chain or Solana, then create and lock liquidity.</p>
+      <p>Push live to BNB Chain or another EVM network, then create and lock liquidity.</p>
     </div>
     <div class="step">
       <div class="no">03 //</div>
@@ -608,7 +642,7 @@ footer{border-top:1px solid var(--line);padding:70px 0 40px;background:var(--voi
 <!-- ===== STATS ===== -->
 <section class="sec-pad wrap" style="padding-top:0">
   <div class="stats">
-    <div class="stat reveal"><div class="num" data-target="2">0</div><div class="cap">Chains supported</div></div>
+    <div class="stat reveal"><div class="num" data-target="7">0</div><div class="cap">Chains supported</div></div>
     <div class="stat reveal"><div class="num" data-target="6">0</div><div class="cap">Modules, one OS</div></div>
     <div class="stat reveal"><div class="num"><span>0</span></div><div class="cap">Lines of code needed</div></div>
     <div class="stat reveal"><div class="num" data-target="100" data-suffix="%">0</div><div class="cap">On-chain &amp; verifiable</div></div>
@@ -617,6 +651,51 @@ footer{border-top:1px solid var(--line);padding:70px 0 40px;background:var(--voi
 
 <!-- ===== CTA ===== -->
 <!-- ===== FAQ ===== -->
+<!-- ===== TOKENOMICS ===== -->
+<section id="tokenomics" class="sec-pad wrap">
+  <div class="sec-head reveal">
+    <div class="eyebrow">PHELIX token</div>
+    <h2>Tokenomics built for the long game.</h2>
+    <p>600 million PHELIX, fixed forever. Only 12% circulates at launch; everything else unlocks month by month over four years, with the team locked for the first twelve.</p>
+  </div>
+  <div class="tkn">
+    <div class="tkn-left reveal">
+      <div class="donut" style="background:conic-gradient(#e6103a 0% 25%,#ff4d73 25% 45%,#b30d2f 45% 60%,#7b2bff 60% 73%,#a066ff 73% 83%,#ff8aa3 83% 90%,#3aa0ff 90% 96%,#ffb020 96% 100%)"><div class="hole"><b>600M</b><span>Total supply</span></div></div>
+      <div class="tkn-stats">
+        <div><b>72M</b><span>At TGE · 12%</span></div>
+        <div><b>48 mo</b><span>Full unlock</span></div>
+        <div><b>BEP-20</b><span>BNB Chain</span></div>
+      </div>
+    </div>
+    <div class="tkn-right reveal">
+      <ul class="alloc">
+          <li><i style="background:#e6103a"></i><div><b>Ecosystem Growth</b><span>8% at TGE · 3-mo cliff · 45-mo linear</span></div><em>150M<small>25%</small></em></li>
+          <li><i style="background:#ff4d73"></i><div><b>Community &amp; Rewards</b><span>8% at TGE · 48-mo linear</span></div><em>120M<small>20%</small></em></li>
+          <li><i style="background:#b30d2f"></i><div><b>Team &amp; Advisors</b><span>0% at TGE · 12-mo cliff · 36-mo linear</span></div><em>90M<small>15%</small></em></li>
+          <li><i style="background:#7b2bff"></i><div><b>Treasury Reserve</b><span>0% at TGE · 6-mo cliff · 42-mo linear</span></div><em>78M<small>13%</small></em></li>
+          <li><i style="background:#a066ff"></i><div><b>Strategic / Private Sale</b><span>5% at TGE · 6-mo cliff · 18-mo linear</span></div><em>60M<small>10%</small></em></li>
+          <li><i style="background:#ff8aa3"></i><div><b>Marketing &amp; Partnerships</b><span>10% at TGE · 24-mo linear</span></div><em>42M<small>7%</small></em></li>
+          <li><i style="background:#3aa0ff"></i><div><b>Liquidity Provision</b><span>100% at TGE · LP locked</span></div><em>36M<small>6%</small></em></li>
+          <li><i style="background:#ffb020"></i><div><b>Public Sale</b><span>30% at TGE · 6-mo linear</span></div><em>24M<small>4%</small></em></li>
+      </ul>
+      <div class="curve">
+        <div class="cv-h">Circulating supply</div>
+        <div class="cv-bars">
+          <div><i style="height:12px"></i><b>12%</b><span>TGE</span></div>
+          <div><i style="height:32px"></i><b>32%</b><span>Year 1</span></div>
+          <div><i style="height:61px"></i><b>61%</b><span>Year 2</span></div>
+          <div><i style="height:81px"></i><b>81%</b><span>Year 3</span></div>
+          <div><i style="height:100px"></i><b>100%</b><span>Year 4</span></div>
+        </div>
+      </div>
+      <div class="tkn-actions">
+        <a href="whitepaper.html#tokenomics" class="btn btn-primary">Full tokenomics <span class="btn-arrow">→</span></a>
+        <a href="PHELIX-Tokenomics.xlsx" class="btn btn-ghost" download>Download schedule (Excel)</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ===== ROADMAP ===== -->
 <section id="roadmap" class="sec-pad wrap">
   <div class="sec-head reveal">
@@ -625,11 +704,12 @@ footer{border-top:1px solid var(--line);padding:70px 0 40px;background:var(--voi
     <p>Built in the open, in the right order — product first on testnet, audits and legal before any real money moves.</p>
   </div>
   <div class="road">
-    <div class="road-item done reveal"><h3>Token creation <span class="rbadge done">Live</span></h3><p>No-code token deployment across BNB, Ethereum, Base, Arbitrum, Optimism, Polygon, Avalanche and Solana.</p></div>
-    <div class="road-item done reveal"><h3>Automatic source verification <span class="rbadge done">Live</span></h3><p>Every EVM token's source published on the explorer, so anyone can read the code.</p></div>
-    <div class="road-item active reveal"><h3>Liquidity &amp; LP locking <span class="rbadge active">In progress</span></h3><p>Create pools and lock LP for investor confidence. Working on testnet.</p></div>
-    <div class="road-item active reveal"><h3>Vesting &amp; team locks <span class="rbadge active">In progress</span></h3><p>Scheduled, on-chain token release with cliffs. Working on testnet.</p></div>
-    <div class="road-item active reveal"><h3>Solana parity <span class="rbadge active">In progress</span></h3><p>Bringing Solana modules (token metadata and more) in line with the EVM feature set.</p></div>
+    <div class="road-item done reveal"><h3>Token creation <span class="rbadge done">Live</span></h3><p>No-code token deployment across BNB Chain, Ethereum, Base, Arbitrum, Optimism, Polygon and Avalanche, plus free testnets.</p></div>
+    <div class="road-item done reveal"><h3>Guided liquidity &amp; source verification <span class="rbadge done">Live</span></h3><p>Starting-price calculator, one-click hand-off to PancakeSwap/Uniswap, links to established LP lockers, and a one-file explorer verification kit for every token.</p></div>
+    <div class="road-item done reveal"><h3>Automatic source verification <span class="rbadge done">Live</span></h3><p>Each token's source is published automatically right after deploy, so anyone can read the code.</p></div>
+    <div class="road-item active reveal"><h3>Built-in LP locking <span class="rbadge active">In progress</span></h3><p>Lock liquidity inside OpenHelix. Until it is audited, use an established third-party locker.</p></div>
+    <div class="road-item active reveal"><h3>Vesting &amp; team locks <span class="rbadge active">In progress</span></h3><p>Scheduled, on-chain token release with cliffs — the same model PHELIX itself uses.</p></div>
+    <div class="road-item active reveal"><h3>Solana tokens <span class="rbadge active">In progress</span></h3><p>SPL token creation with Phantom and Solflare, including name and logo metadata.</p></div>
     <div class="road-item reveal"><h3>Security audits <span class="rbadge">Planned</span></h3><p>Professional audits of all fund-holding contracts — the gate before any mainnet release of locking, vesting or sales.</p></div>
     <div class="road-item reveal"><h3>Fundraising &amp; token sales <span class="rbadge">Planned</span></h3><p>Private and public sales with on-chain contributions — pending audit and legal review.</p></div>
     <div class="road-item reveal"><h3>Full mainnet launch <span class="rbadge">Planned</span></h3><p>The complete suite live on mainnet, once audited and cleared.</p></div>
@@ -644,19 +724,19 @@ footer{border-top:1px solid var(--line);padding:70px 0 40px;background:var(--voi
   </div>
   <div class="faq-list">
     <details class="faq-item reveal"><summary>What is OpenHelix?<span class="pm">+</span></summary>
-      <div class="a">OpenHelix is a Web3 launch toolkit. From one dashboard you can create tokens, lock liquidity, set up vesting, and verify contracts — without writing code. It's the on-ramp for turning an idea into a real on-chain project.</div></details>
+      <div class="a">OpenHelix is a Web3 launch toolkit. From one dashboard you can create and manage tokens, set up liquidity, and verify contracts — without writing code. Vesting, built-in locks and token sales follow after audit. It's the on-ramp for turning an idea into a real on-chain project.</div></details>
     <details class="faq-item reveal"><summary>Which blockchains are supported?<span class="pm">+</span></summary>
-      <div class="a">Token creation works across BNB Chain, Ethereum, Base, Arbitrum, Optimism, Polygon and Avalanche (each with a free testnet and mainnet), plus Solana. You pick the network from the dropdown in the Studio.</div></details>
+      <div class="a">Token creation works on BNB Chain, Ethereum, Base, Arbitrum, Optimism, Polygon and Avalanche, plus free testnets (BNB Testnet, Sepolia, Base Sepolia). Solana is in progress. You pick the network in the Studio.</div></details>
     <details class="faq-item reveal"><summary>Do I need to know how to code?<span class="pm">+</span></summary>
       <div class="a">No. You fill in a short form — name, symbol, supply — and your wallet does the rest. The Studio builds and sends the transaction for you.</div></details>
     <details class="faq-item reveal"><summary>Does OpenHelix hold my funds or private keys?<span class="pm">+</span></summary>
-      <div class="a">Never. Every action is signed in your own wallet (MetaMask for EVM chains, Phantom for Solana). OpenHelix has no access to your keys and never takes custody of your funds.</div></details>
+      <div class="a">Never. Every action is signed in your own wallet (MetaMask, Rabby, Trust Wallet, Coinbase Wallet or any EVM browser wallet). OpenHelix has no access to your keys and never takes custody of your funds.</div></details>
     <details class="faq-item reveal"><summary>Is it safe to use on mainnet?<span class="pm">+</span></summary>
-      <div class="a">Token creation is a standard, well-understood operation and is fine on mainnet. The fund-holding features (liquidity locking and vesting) are kept testnet-only until they've had a professional security audit — they hold real value, so we don't rush them onto mainnet. Always do a free testnet run first.</div></details>
+      <div class="a">Token creation is a standard, well-understood operation and is fine on mainnet. The fund-holding features (built-in liquidity locking and vesting) stay off mainnet until they've had a professional security audit — they hold real value, so we don't rush them onto mainnet. Always do a free testnet run first.</div></details>
     <details class="faq-item reveal"><summary>What does it cost?<span class="pm">+</span></summary>
       <div class="a">OpenHelix itself is the tooling — you only pay the blockchain's own network (gas) fees, which go to the network, not to us. On testnets those fees are free using faucet funds, so you can practice the whole flow at no cost.</div></details>
     <details class="faq-item reveal"><summary>Can I try it for free first?<span class="pm">+</span></summary>
-      <div class="a">Yes — start on any testnet (BNB Testnet, Sepolia, Solana Devnet, etc.). Grab free test funds from that network's faucet, create a token, and confirm everything works before spending anything real.</div></details>
+      <div class="a">Yes — start on any testnet (BNB Testnet, Sepolia or Base Sepolia). In the Studio, click “Show testnets”. Grab free test funds from that network's faucet, create a token, and confirm everything works before spending anything real.</div></details>
     <details class="faq-item reveal"><summary>Is this financial or legal advice?<span class="pm">+</span></summary>
       <div class="a">No. OpenHelix is software tooling. Launching tokens and raising funds can carry legal and tax obligations that vary by country — talk to a qualified lawyer and accountant before doing anything involving real money or public fundraising.</div></details>
   </div>
@@ -666,7 +746,7 @@ footer{border-top:1px solid var(--line);padding:70px 0 40px;background:var(--voi
   <div class="cta-band reveal">
     <div class="eyebrow" style="justify-content:center">Launch with OpenHelix</div>
     <h2>Your project starts with one click.</h2>
-    <p>Create tokens, add liquidity, raise capital and build trust — all from a single dashboard, on BNB Chain and Solana.</p>
+    <p>Create tokens, add liquidity, raise capital and build trust — all from a single dashboard, starting on BNB Chain.</p>
     <div class="cta-actions">
       <a href="studio.html" class="btn btn-primary">Launch App <span class="btn-arrow">→</span></a>
       <a href="docs.html" class="btn btn-ghost">Read the docs</a>
@@ -690,7 +770,7 @@ footer{border-top:1px solid var(--line);padding:70px 0 40px;background:var(--voi
         <h4>Platform</h4>
         <a href="#features">Create Tokens</a>
         <a href="#features">Liquidity</a>
-        <a href="#features">Fundraising</a>
+        <a href="#tokenomics">PHELIX Tokenomics</a>
         <a href="#trust">Vesting &amp; Locks</a>
       </div>
       <div class="fcol">
@@ -710,7 +790,7 @@ footer{border-top:1px solid var(--line);padding:70px 0 40px;background:var(--voi
       </div>
     </div>
     <div class="foot-bottom">
-      <span>© 2026 OpenHelix. Build on BNB Chain &amp; Solana.</span>
+      <span>© 2026 OpenHelix. Built on BNB Chain.</span>
       <span style="display:flex;gap:24px"><a href="whitepaper.html#privacy" style="color:var(--ink-3)">Privacy</a><a href="whitepaper.html#terms" style="color:var(--ink-3)">Terms</a><a href="whitepaper.html" style="color:var(--ink-3)">Whitepaper</a><a href="https://iq.wiki/wiki/openhelix" target="_blank" rel="noopener" style="color:var(--ink-3)">IQ.wiki</a></span>
     </div>
   </div>
@@ -723,8 +803,8 @@ addEventListener('scroll',()=>header.classList.toggle('scrolled',scrollY>30));
 
 /* mobile menu (simple) */
 (function(){var btn=document.getElementById('menuBtn'),m=document.getElementById('mobileMenu');
-if(btn&&m){btn.addEventListener('click',function(){m.classList.toggle('open');});
-m.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){m.classList.remove('open');});});}})();
+if(btn&&m){btn.addEventListener('click',function(){var o=m.classList.toggle('open');btn.setAttribute('aria-expanded',String(o));btn.textContent=o?'✕':'☰';});
+m.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){m.classList.remove('open');btn.textContent='☰';btn.setAttribute('aria-expanded','false');});});}})();
 
 /* reveal on scroll */
 const io=new IntersectionObserver((es)=>es.forEach(e=>{
