@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-NHSCGMCB');</script>
+<!-- End Google Tag Manager -->
+<script>
+/* OpenHelix analytics events -> GTM dataLayer. No wallet addresses or personal data are sent. */
+window.ohTrack=function(e,p){try{(window.dataLayer=window.dataLayer||[]).push(Object.assign({event:e},p||{}))}catch(_){}};
+document.addEventListener('click',function(ev){var a=ev.target&&ev.target.closest&&ev.target.closest('a[href]');if(!a)return;var h=a.href||'';
+ try{if(/pancakeswap\.finance|app\.uniswap\.org|lfj\.gg|traderjoexyz\.com/.test(h))ohTrack('add_liquidity_click',{dex:new URL(h).hostname});
+ else if(/\.(xlsx|csv|pptx|json)(\?|$)/i.test(h))ohTrack('file_download_click',{file_name:h.split('/').pop().split('?')[0]});}catch(_){}},true);
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>OpenHelix Studio</title>
@@ -277,6 +287,9 @@ pre{background:var(--void);border:1px solid var(--line);padding:14px;overflow-x:
 </style>
 </head>
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NHSCGMCB" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 
 
 <div class="bg-fx"></div><div class="grid-fx"></div><div class="grain"></div>
@@ -415,6 +428,7 @@ async function connectWith(p){
   if(!acc||!acc[0])throw new Error('The wallet returned no account. Unlock it and try again.');
   W.eth=p.provider;W.info=p.info;W.addr=ethers.getAddress(acc[0]);W.chain=parseInt(await W.eth.request({method:'eth_chainId'}),16);
   bindEvents(W.eth);rememberWallet(p.info);closeModal();render();toast('Connected '+short(W.addr));
+  window.ohTrack&&ohTrack('wallet_connected',{chain_id:W.chain,wallet_name:(p.info&&p.info.name)||'unknown'});
  }catch(e){toast(errMsg(e),1)}
 }
 function connect(){
@@ -616,6 +630,7 @@ async function runDeploy(){
   set('mine','done');set('done','done',`<span class="mono">${addr}</span>`);
   const rec={addr,chain:snap.chain,name:snap.name.trim(),symbol:snap.symbol,decimals:+snap.decimals,supply:snap.supply,supply0:snap.supply,mintable:snap.mintable,burnable:snap.burnable,tx:tx.hash,ts:Date.now(),owner:W.addr};
   S.tokens=S.tokens.filter(t=>!(t.addr===addr&&t.chain===snap.chain));S.tokens.unshift(rec);save();
+  window.ohTrack&&ohTrack('token_deployed',{chain_id:snap.chain,network:n.name,is_testnet:!!n.test,mintable:!!snap.mintable,burnable:!!snap.burnable});
   F.name='';F.symbol='';F.touched={};
   $('#pout').innerHTML=`<div style="display:flex;flex-direction:column;gap:10px">${note('ok','<b>'+esc(rec.symbol)+' is live on '+esc(n.name)+'.</b> The full supply is in your wallet.')}
    <div class="links">${extLink(n.exp+'/token/'+addr,'View on explorer')}<button class="btn sm" id="wa">Add to wallet</button><button class="btn sm" id="cpa">${ICON.copy} Copy address</button></div>
@@ -625,7 +640,7 @@ async function runDeploy(){
   $('#gl').onclick=()=>{liqSel=key(rec);closeModal()};$('#gt').onclick=()=>{selected=key(rec);closeModal()};
   $('#gc').onclick=()=>{closeModal();render()};
   if(canAutoVerify()){const vs=d=>{const el=$('#vstat div');if(el)el.innerHTML=d};
-   autoVerify(rec,s=>vs(esc(s))).then(p=>{markVerified(rec,p);const el=$('#vstat');if(el){el.className='note ok';el.innerHTML=ICON.ok+'<div><b>Source verified</b> '+(p==='sourcify'?'on Sourcify':'on '+esc(n.name)+' explorer')+'.</div>'}})
+   autoVerify(rec,s=>vs(esc(s))).then(p=>{markVerified(rec,p);window.ohTrack&&ohTrack('token_verified',{chain_id:rec.chain,provider:p});const el=$('#vstat');if(el){el.className='note ok';el.innerHTML=ICON.ok+'<div><b>Source verified</b> '+(p==='sourcify'?'on Sourcify':'on '+esc(n.name)+' explorer')+'.</div>'}})
    .catch(e=>vs('Automatic verification didn\'t finish: '+esc(errMsg(e))+' You can retry from <b>My tokens</b>.'));}
  }catch(e){
   set(cur,'fail',`<span style="color:var(--bad)">${esc(errMsg(e))}</span>`);

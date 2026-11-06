@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-NHSCGMCB');</script>
+<!-- End Google Tag Manager -->
+<script>
+/* OpenHelix analytics events -> GTM dataLayer. No wallet addresses or personal data are sent. */
+window.ohTrack=function(e,p){try{(window.dataLayer=window.dataLayer||[]).push(Object.assign({event:e},p||{}))}catch(_){}};
+document.addEventListener('click',function(ev){var a=ev.target&&ev.target.closest&&ev.target.closest('a[href]');if(!a)return;var h=a.href||'';
+ try{if(/pancakeswap\.finance|app\.uniswap\.org|lfj\.gg|traderjoexyz\.com/.test(h))ohTrack('add_liquidity_click',{dex:new URL(h).hostname});
+ else if(/\.(xlsx|csv|pptx|json)(\?|$)/i.test(h))ohTrack('file_download_click',{file_name:h.split('/').pop().split('?')[0]});}catch(_){}},true);
+</script>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>OpenHelix — Whitepaper</title>
@@ -123,6 +133,9 @@ table.vt{width:100%;border-collapse:collapse;font-size:13.5px;min-width:560px}
 </style>
 </head>
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NHSCGMCB" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 <div class="bg"></div><div class="grid"></div>
 
 <div class="topbar">
@@ -416,7 +429,7 @@ table.vt{width:100%;border-collapse:collapse;font-size:13.5px;min-width:560px}
       <p>The platform may rely on third parties such as hosting providers, block explorers, price data sources, RPC endpoints, and decentralized exchanges. These parties process data under their own privacy policies, which we encourage you to review.</p>
 
       <h4>6. Cookies &amp; analytics</h4>
-      <p>We aim to keep tracking minimal. If analytics or cookies are introduced, their purpose and any choices available to you will be disclosed here.</p>
+      <p>We use Google Tag Manager and Google Analytics to understand how the site is used: pages visited, approximate location (country/city), device and browser type, and product actions such as connecting a wallet, creating a token, verifying a contract or opening a DEX to add liquidity. We do not send wallet addresses, private keys or personal identity information to these tools. Google may set cookies to measure visits; you can block them in your browser settings or with the <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">Google Analytics opt-out add-on</a>. Google processes this data under its own <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">privacy policy</a>.</p>
 
       <h4>7. Your rights</h4>
       <p>Depending on your jurisdiction (for example under the EU GDPR), you may have rights to access, correct, or delete personal data we hold about you, and to object to certain processing. To exercise these, contact us through the project's official channels. Note that data already published on public blockchains cannot be altered or deleted by OpenHelix.</p>

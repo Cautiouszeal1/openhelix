@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-NHSCGMCB');</script>
+<!-- End Google Tag Manager -->
+<script>
+/* OpenHelix analytics events -> GTM dataLayer. No wallet addresses or personal data are sent. */
+window.ohTrack=function(e,p){try{(window.dataLayer=window.dataLayer||[]).push(Object.assign({event:e},p||{}))}catch(_){}};
+document.addEventListener('click',function(ev){var a=ev.target&&ev.target.closest&&ev.target.closest('a[href]');if(!a)return;var h=a.href||'';
+ try{if(/pancakeswap\.finance|app\.uniswap\.org|lfj\.gg|traderjoexyz\.com/.test(h))ohTrack('add_liquidity_click',{dex:new URL(h).hostname});
+ else if(/\.(xlsx|csv|pptx|json)(\?|$)/i.test(h))ohTrack('file_download_click',{file_name:h.split('/').pop().split('?')[0]});}catch(_){}},true);
+</script>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>OpenHelix — Docs</title>
@@ -77,6 +87,9 @@ td{color:var(--ink-2)}
 </style>
 </head>
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NHSCGMCB" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 <div class="bg"></div><div class="grid"></div>
 
 <div class="topbar">
