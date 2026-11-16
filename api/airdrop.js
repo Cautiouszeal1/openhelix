@@ -1,5 +1,5 @@
 // PHELIX airdrop registration.
-// POST /api/airdrop  {telegram, address}            -> register
+// POST /api/airdrop  {telegram, x, address}         -> register
 // GET  /api/airdrop                                   -> {open, count, opens, closes, drop}
 // GET  /api/airdrop?export=csv&key=AIRDROP_ADMIN_KEY  -> CSV of all entries (admin only)
 //
@@ -27,6 +27,7 @@ async function redis(cmds) {
 
 const TG_RE = /^[A-Za-z][A-Za-z0-9_]{4,31}$/;
 const ADDR_RE = /^0x[0-9a-fA-F]{40}$/;
+const X_RE = /^[A-Za-z0-9_]{1,15}$/;
 const csvCell = v => '"' + String(v ?? '').replace(/"/g, '""') + '"';
 
 async function notify(entry, n) {
@@ -35,7 +36,7 @@ async function notify(entry, n) {
   try {
     await fetch(`https://api.telegram.org/bot${bot}/sendMessage`, {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ chat_id: chat, text: `New airdrop entry #${n}\n@${entry.telegram}\n${entry.address}` }),
+      body: JSON.stringify({ chat_id: chat, text: `New airdrop entry #${n}\nTelegram: @${entry.telegram}\nX: @${entry.x}\n${entry.address}` }),
     });
   } catch (_) { /* notification is best effort */ }
 }
@@ -61,8 +62,8 @@ export default async function handler(req, res) {
         const rows = [];
         for (let i = 0; i < (all || []).length; i += 2) rows.push(JSON.parse(all[i + 1]));
         rows.sort((a, b) => a.ts - b.ts);
-        const csv = ['#,telegram,evm_address,registered_utc']
-          .concat(rows.map((r, i) => [i + 1, '@' + r.telegram, r.address, new Date(r.ts).toISOString()].map(csvCell).join(',')))
+        const csv = ['#,telegram,x,evm_address,registered_utc']
+          .concat(rows.map((r, i) => [i + 1, '@' + r.telegram, r.x ? '@' + r.x : '', r.address, new Date(r.ts).toISOString()].map(csvCell).join(',')))
           .join('\n');
         res.setHeader('Content-Type', 'text/csv; charset=utf-8');
         res.setHeader('Content-Disposition', 'attachment; filename="phelix-airdrop-entries.csv"');
@@ -80,8 +81,10 @@ export default async function handler(req, res) {
     const body = typeof req.body === 'string' ? JSON.parse(req.body || '{}') : (req.body || {});
     if (body.website) return res.status(200).json({ ok: true }); // honeypot
     const telegram = String(body.telegram || '').trim().replace(/^@/, '').replace(/^https?:\/\/t\.me\//i, '');
+    const x = String(body.x || '').trim().replace(/^@/, '').replace(/^https?:\/\/(www\.)?(x|twitter)\.com\//i, '').replace(/[/?].*$/, '');
     const address = String(body.address || '').trim();
     if (!TG_RE.test(telegram)) return res.status(400).json({ ok: false, error: 'Enter a valid Telegram username (5–32 letters, numbers or _).' });
+    if (!X_RE.test(x)) return res.status(400).json({ ok: false, error: 'Enter a valid X username (up to 15 letters, numbers or _).' });
     if (!ADDR_RE.test(address)) return res.status(400).json({ ok: false, error: 'Enter a valid EVM wallet address (0x followed by 40 characters).' });
 
     const ip = String(req.headers['x-forwarded-for'] || '').split(',')[0].trim() || 'unknown';
@@ -94,7 +97,7 @@ export default async function handler(req, res) {
     if (tgOwner && tgOwner !== addrKey) {
       return res.status(409).json({ ok: false, error: 'This Telegram username is already registered with another wallet.' });
     }
-    const entry = { telegram, address, ts: now };
+    const entry = { telegram, x, address, ts: now };
     const [added] = await redis([['HSETNX', 'airdrop:entries', addrKey, JSON.stringify(entry)]]);
     if (!added) return res.status(409).json({ ok: false, error: 'This wallet is already registered.' });
     const [, n] = await redis([['HSETNX', 'airdrop:tg', tgKey, addrKey], ['HLEN', 'airdrop:entries']]);
