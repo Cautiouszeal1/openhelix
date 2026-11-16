@@ -9,9 +9,9 @@
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#050310">
 <title>PHELIX + USDT Rewards for Creators &amp; Early Users — OpenHelix</title>
-<meta name="description" content="OpenHelix creators and early users earn PHELIX + USDT rewards. Register your Telegram, X and EVM wallet. Rewards drop on 16 December 2026.">
+<meta name="description" content="OpenHelix creators and early users earn PHELIX + USDT rewards. Register your Telegram, X and EVM wallet. Rewards drop on 17 December 2026.">
 <meta property="og:title" content="PHELIX + USDT Rewards for Creators &amp; Early Users — OpenHelix">
-<meta property="og:description" content="OpenHelix creators and early users earn PHELIX + USDT. Register your Telegram, X and wallet. Rewards drop on 16 December 2026.">
+<meta property="og:description" content="OpenHelix creators and early users earn PHELIX + USDT. Register your Telegram, X and wallet. Rewards drop on 17 December 2026.">
 <meta property="og:image" content="https://opnhelix.xyz/banner.jpg">
 <link rel="icon" href="logo-mark.jpg">
 <style>
@@ -78,7 +78,8 @@ h1 em{font-style:normal;background:linear-gradient(90deg,#ff2050,#b04dff,#3aa0ff
 .chip{font-size:13px;font-weight:700;padding:7px 12px;border-radius:99px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--ink2)}
 .chip b{color:var(--ink)}
 .chip.hl{border-color:rgba(230,16,58,.55);background:rgba(230,16,58,.12)}
-.cd{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:16px 0 20px}
+.cdl{margin-top:18px;font-size:11px;font-weight:800;letter-spacing:.16em;color:var(--ink3)}
+.cd{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:8px 0 20px}
 .cd div{text-align:center;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:9px 0;backdrop-filter:blur(8px)}
 .cd b{display:block;font-size:24px;font-variant-numeric:tabular-nums;line-height:1.2}
 .cd b.t{animation:tk .35s}
@@ -183,9 +184,9 @@ label.l{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:800;c
   </div>
 
   <h1><em>PHELIX + USDT</em> rewards for our creators &amp; early users 🎁</h1>
-  <p class="lede">Add your Telegram, X and wallet, then tap <b style="color:var(--ink)">Register</b>. Your PHELIX and USDT land in your wallet on 16 December.</p>
-  <div class="chips"><span class="chip">Opened <b>25 Sep</b></span><span class="chip">Closes <b>15 Dec</b></span><span class="chip hl">Rewards <b>16 Dec 2026</b></span></div>
-  <div class="cd"><div><b id="cdD">--</b><span>DAYS</span></div><div><b id="cdH">--</b><span>HOURS</span></div><div><b id="cdM">--</b><span>MIN</span></div><div><b id="cdS">--</b><span>SEC</span></div></div>
+  <p class="lede">Add your Telegram, X and wallet, then tap <b style="color:var(--ink)">Register</b>. Your PHELIX and USDT land in your wallet on 17 December.</p>
+  <div class="chips"><span class="chip">Opens <b>25 Nov</b></span><span class="chip">Closes <b>15 Dec</b></span><span class="chip hl">Rewards <b>17 Dec 2026</b></span></div>
+  <div class="cdl" id="cdl">REWARDS IN</div><div class="cd"><div><b id="cdD">--</b><span>DAYS</span></div><div><b id="cdH">--</b><span>HOURS</span></div><div><b id="cdM">--</b><span>MIN</span></div><div><b id="cdS">--</b><span>SEC</span></div></div>
 
   <div class="steps" id="steps"><div class="st on"><i>1</i>Telegram</div><div class="st"><i>2</i>X</div><div class="st"><i>3</i>Wallet</div><div class="st"><i>4</i>Register</div></div>
   <div class="card">
@@ -209,7 +210,7 @@ label.l{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:800;c
     <div class="done" id="done">
       <div class="tick"><svg width="42" height="42" viewBox="0 0 16 16"><path d="M3 8.5l3.2 3L13 4.5" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       <h2>You're in! 🎉</h2>
-      <p>Your PHELIX + USDT rewards will be sent to your wallet on 16 December 2026.</p>
+      <p>Your PHELIX + USDT rewards will be sent to your wallet on 17 December 2026.</p>
       <div class="w" id="dw"></div>
       <a class="share" id="share" target="_blank" rel="noopener">Share on X 🚀</a>
     </div>
@@ -226,7 +227,7 @@ label.l{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:800;c
 </div>
 <script>
 (function(){
-  var OPENS=Date.parse('2026-09-25T00:00:00Z'),CLOSES=Date.parse('2026-12-15T23:59:59Z'),DROP=Date.parse('2026-12-16T00:00:00Z');
+  var OPENS=Date.parse('2026-11-25T00:00:00Z'),CLOSES=Date.parse('2026-12-15T23:59:59Z'),DROP=Date.parse('2026-12-17T00:00:00Z');
   var $=function(i){return document.getElementById(i)};
   var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
   /* snow */
@@ -234,7 +235,7 @@ label.l{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:800;c
   /* countdown */
   function pad(n){return n<10?'0'+n:''+n}
   var last={};function setv(id,v){if(last[id]!==v){var e=$(id);e.textContent=v;e.classList.remove('t');void e.offsetWidth;e.classList.add('t');last[id]=v;}}
-  function tick(){var s=Math.floor(Math.max(0,DROP-Date.now())/1000);setv('cdD',''+Math.floor(s/86400));setv('cdH',pad(Math.floor(s%86400/3600)));setv('cdM',pad(Math.floor(s%3600/60)));setv('cdS',pad(s%60));}
+  function tick(){var n=Date.now(),tgt=n<OPENS?OPENS:DROP;$('cdl').textContent=n<OPENS?'REGISTRATION OPENS IN':'REWARDS IN';var s=Math.floor(Math.max(0,tgt-n)/1000);setv('cdD',''+Math.floor(s/86400));setv('cdH',pad(Math.floor(s%86400/3600)));setv('cdM',pad(Math.floor(s%3600/60)));setv('cdS',pad(s%60));}
   tick();setInterval(tick,1000);
   /* typing bubble */
   var say=$('say'),peng=$('peng'),typeT=null,loopT=null;
@@ -276,12 +277,12 @@ label.l{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:800;c
   /* states */
   function showDone(tg,x,ad){$('f').style.display='none';$('steps').style.display='none';$('done').style.display='block';
     $('dw').innerHTML='';[['TELEGRAM','@'+tg],['X','@'+x],['WALLET',ad]].forEach(function(r){if(!r[1]||r[1]==='@')return;var d=document.createElement('div');d.style.marginTop='6px';var b=document.createElement('b');b.textContent=r[0];d.appendChild(b);d.appendChild(document.createTextNode(r[1]));$('dw').appendChild(d)});
-    $('share').href='https://x.com/intent/tweet?text='+encodeURIComponent('I just registered for @Openhelixx creator & early user rewards: $PHELIX + $USDT 🎁 Rewards drop on 16 December!');
-    clearTimeout(loopT);current='';say2('You’re in! See you on 16 Dec 🎁','wave');}
-  function setClosed(t,b){$('f').style.display='none';$('steps').style.display='none';var c=$('closed');c.style.display='block';c.textContent=t;$('live').style.display='none';clearTimeout(loopT);say2(b,'tilt');}
+    $('share').href='https://x.com/intent/tweet?text='+encodeURIComponent('I just registered for @Openhelixx creator & early user rewards: $PHELIX + $USDT 🎁 Rewards drop on 17 December!');
+    clearTimeout(loopT);current='';say2('You’re in! See you on 17 Dec 🎁','wave');}
+  function setClosed(t,b){$('f').style.display='none';$('bar').parentNode.style.display='none';$('steps').style.display='none';var c=$('closed');c.style.display='block';c.textContent=t;$('live').style.display='none';clearTimeout(loopT);say2(b,'tilt');}
   var now=Date.now();
-  if(now<OPENS)setClosed('Registration has not opened yet.','Registration opens soon. Stay tuned! 👀');
-  else if(now>CLOSES)setClosed('Registration is closed. Rewards are sent on 16 December 2026.','Registration is closed. Rewards are on the way! 🎁');
+  if(now<OPENS){setClosed('Registration opens on 25 November 2026. Come back then!','Registration opens 25 November. Stay tuned! 👀');$('live').style.display='flex';$('live').innerHTML='<i></i>OPENS 25 NOV';}
+  else if(now>CLOSES)setClosed('Registration is closed. Rewards are sent on 17 December 2026.','Registration is closed. Rewards are on the way! 🎁');
   else{var saved=null;try{saved=JSON.parse(localStorage.getItem('phelix-airdrop')||'null')}catch(e){}
     if(saved&&saved.a)showDone(saved.t,saved.x,saved.a);else introLoop();}
   function showCount(n){if(n>0)$('count').innerHTML='<b>'+n.toLocaleString('en-US')+'</b> '+(n===1?'wallet':'wallets')+' registered';}

@@ -7,9 +7,9 @@
 // or UPSTASH_REDIS_REST_URL / UPSTASH_REDIS_REST_TOKEN.
 // Optional: AIRDROP_CHAT_ID (+ TELEGRAM_BOT_TOKEN) posts each new entry to a Telegram chat.
 
-const OPENS = Date.parse('2026-09-25T00:00:00Z');
+const OPENS = Date.parse('2026-11-25T00:00:00Z');
 const CLOSES = Date.parse('2026-12-15T23:59:59Z');
-const DROP = '2026-12-16';
+const DROP = '2026-12-17';
 
 const URL_ = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
 const TOKEN = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
