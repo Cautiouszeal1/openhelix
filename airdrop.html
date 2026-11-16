@@ -8,10 +8,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#050310">
-<title>PHELIX Airdrop — OpenHelix</title>
-<meta name="description" content="Register your Telegram, X and EVM wallet for the PHELIX airdrop. Rewards drop on 16 December 2026.">
-<meta property="og:title" content="PHELIX Airdrop — OpenHelix">
-<meta property="og:description" content="Register your Telegram, X and EVM wallet. Rewards drop on 16 December 2026.">
+<title>PHELIX + USDT Rewards for Creators &amp; Early Users — OpenHelix</title>
+<meta name="description" content="OpenHelix creators and early users earn PHELIX + USDT rewards. Register your Telegram, X and EVM wallet. Rewards drop on 16 December 2026.">
+<meta property="og:title" content="PHELIX + USDT Rewards for Creators &amp; Early Users — OpenHelix">
+<meta property="og:description" content="OpenHelix creators and early users earn PHELIX + USDT. Register your Telegram, X and wallet. Rewards drop on 16 December 2026.">
 <meta property="og:image" content="https://opnhelix.xyz/banner.jpg">
 <link rel="icon" href="logo-mark.jpg">
 <style>
@@ -70,7 +70,7 @@ body{background:var(--void);color:var(--ink);font:16px/1.5 Inter,system-ui,-appl
 .flake{position:absolute;top:-10px;border-radius:50%;background:#fff;animation:fall linear infinite}
 @keyframes fall{to{transform:translate(20px,300px)}}
 /* text */
-h1{font-size:34px;line-height:1.08;letter-spacing:-.03em;margin:22px 0 8px;font-weight:900}
+h1{font-size:30px;line-height:1.08;letter-spacing:-.03em;margin:22px 0 8px;font-weight:900}
 h1 em{font-style:normal;background:linear-gradient(90deg,#ff2050,#b04dff,#3aa0ff,#ff2050);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 6s linear infinite}
 @keyframes shine{to{background-position:300% 0}}
 .lede{color:var(--ink2);font-size:16px}
@@ -153,7 +153,7 @@ label.l{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:800;c
 <div class="bg"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="grid"></div></div>
 <canvas id="fx"></canvas>
 <div class="wrap">
-  <div class="top"><div class="logo"><img src="logo-mark.jpg" alt="">OpenHelix</div><div class="live" id="live"><i></i>AIRDROP LIVE</div></div>
+  <div class="top"><div class="logo"><img src="logo-mark.jpg" alt="">OpenHelix</div><div class="live" id="live"><i></i>REWARDS LIVE</div></div>
 
   <div class="stage" id="stage">
     <div class="ground"></div>
@@ -182,8 +182,8 @@ label.l{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:800;c
     <div class="bubble"><span id="say"></span><i class="caret"></i></div>
   </div>
 
-  <h1>Free <em>PHELIX</em> for our community 🎁</h1>
-  <p class="lede">Add your Telegram, X and wallet, then tap <b style="color:var(--ink)">Register</b>. Rewards land in your wallet on 16 December.</p>
+  <h1><em>PHELIX + USDT</em> rewards for our creators &amp; early users 🎁</h1>
+  <p class="lede">Add your Telegram, X and wallet, then tap <b style="color:var(--ink)">Register</b>. Your PHELIX and USDT land in your wallet on 16 December.</p>
   <div class="chips"><span class="chip">Opened <b>25 Sep</b></span><span class="chip">Closes <b>15 Dec</b></span><span class="chip hl">Rewards <b>16 Dec 2026</b></span></div>
   <div class="cd"><div><b id="cdD">--</b><span>DAYS</span></div><div><b id="cdH">--</b><span>HOURS</span></div><div><b id="cdM">--</b><span>MIN</span></div><div><b id="cdS">--</b><span>SEC</span></div></div>
 
@@ -199,7 +199,7 @@ label.l{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:800;c
         <div class="hint">Follow <a href="https://x.com/Openhelixx" target="_blank" rel="noopener">@Openhelixx</a> to stay eligible.</div></div>
       <div class="fld"><label class="l" for="addr"><span class="ico" style="background:linear-gradient(135deg,#ff2050,#7b2bff)">◆</span>EVM wallet address</label>
         <div class="in" id="inAd"><input id="addr" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="0x…" maxlength="42"></div>
-        <div class="hint">MetaMask, Trust Wallet, OKX… Not an exchange deposit address.</div></div>
+        <div class="hint">BNB Chain wallet (MetaMask, Trust Wallet, OKX…). Not an exchange deposit address.</div></div>
       <input class="hp" id="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
       <label class="chk"><input type="checkbox" id="ok"> <span>This is my own wallet, Telegram and X account.</span></label>
       <button class="go" id="btn" type="submit">Register <span class="arr">→</span></button>
@@ -209,7 +209,7 @@ label.l{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:800;c
     <div class="done" id="done">
       <div class="tick"><svg width="42" height="42" viewBox="0 0 16 16"><path d="M3 8.5l3.2 3L13 4.5" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       <h2>You're in! 🎉</h2>
-      <p>Your PHELIX rewards will be sent to your wallet on 16 December 2026.</p>
+      <p>Your PHELIX + USDT rewards will be sent to your wallet on 16 December 2026.</p>
       <div class="w" id="dw"></div>
       <a class="share" id="share" target="_blank" rel="noopener">Share on X 🚀</a>
     </div>
@@ -220,7 +220,7 @@ label.l{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:800;c
   <ul class="rules">
     <li>One registration per wallet and per Telegram account.</li>
     <li>OpenHelix will never ask for your seed phrase, private key or any payment.</li>
-    <li>Rewards are sent straight to your wallet. Nothing to claim, nothing to pay.</li>
+    <li>PHELIX and USDT are sent straight to your wallet (BNB Chain). Nothing to claim, nothing to pay.</li>
   </ul>
   <div class="foot">© OpenHelix · <a href="https://opnhelix.xyz">opnhelix.xyz</a></div>
 </div>
@@ -240,7 +240,7 @@ label.l{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:800;c
   var say=$('say'),peng=$('peng'),typeT=null,loopT=null;
   function type(t){clearTimeout(typeT);if(reduce){say.textContent=t;return}var chars=Array.from(t),i=0;say.textContent='';(function step(){say.textContent=chars.slice(0,++i).join('');if(i<chars.length)typeT=setTimeout(step,32)})();}
   function pose(p){peng.classList.remove('wave','point','tilt');if(p)p.split(' ').forEach(function(c){peng.classList.add(c)});}
-  var intro=['Hey! 👋 Free PHELIX is waiting for you.','Add your Telegram, X and wallet 👇','Then tap Register! 🚀'],ii=0,current='';
+  var intro=['Hey! 👋 Creators & early users earn PHELIX + USDT.','Add your Telegram, X and wallet 👇','Then tap Register! 🚀'],ii=0,current='';
   function say2(t,p){if(t===current)return;current=t;type(t);pose(p);}
   function introLoop(){clearTimeout(loopT);say2(intro[ii%3],ii%3===0?'wave':ii%3===1?'point tilt':'point');ii++;loopT=setTimeout(introLoop,3600);}
   /* validation */
@@ -276,7 +276,7 @@ label.l{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:800;c
   /* states */
   function showDone(tg,x,ad){$('f').style.display='none';$('steps').style.display='none';$('done').style.display='block';
     $('dw').innerHTML='';[['TELEGRAM','@'+tg],['X','@'+x],['WALLET',ad]].forEach(function(r){if(!r[1]||r[1]==='@')return;var d=document.createElement('div');d.style.marginTop='6px';var b=document.createElement('b');b.textContent=r[0];d.appendChild(b);d.appendChild(document.createTextNode(r[1]));$('dw').appendChild(d)});
-    $('share').href='https://x.com/intent/tweet?text='+encodeURIComponent('I just registered for the $PHELIX airdrop by @Openhelixx 🎁 Rewards drop on 16 December!');
+    $('share').href='https://x.com/intent/tweet?text='+encodeURIComponent('I just registered for @Openhelixx creator & early user rewards: $PHELIX + $USDT 🎁 Rewards drop on 16 December!');
     clearTimeout(loopT);current='';say2('You’re in! See you on 16 Dec 🎁','wave');}
   function setClosed(t,b){$('f').style.display='none';$('steps').style.display='none';var c=$('closed');c.style.display='block';c.textContent=t;$('live').style.display='none';clearTimeout(loopT);say2(b,'tilt');}
   var now=Date.now();
