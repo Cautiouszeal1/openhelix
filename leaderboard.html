@@ -144,7 +144,6 @@ h1 em{font-style:normal;background:linear-gradient(100deg,#ff2050,#b04dff,#3aa0f
  <div class="stats">
   <div class="stat"><small>RANKED</small><b id="cnt">0</b></div>
   <div class="stat"><small>REWARDS</small><b>PHELIX + USDT</b></div>
-  <div class="stat"><small>REWARDS IN</small><b class="cd"><span id="d">--</span>d <span id="h">--</span>h <span id="m">--</span>m</b></div>
  </div>
 </section>
 <div class="podium" id="podium"></div>
@@ -183,7 +182,7 @@ h1 em{font-style:normal;background:linear-gradient(100deg,#ff2050,#b04dff,#3aa0f
 </div>
 <script>
 const CREATORS=[{"r": 1, "n": "Queenshy", "h": "@Queensley21", "img": "leaderboard/a01.jpg"}, {"r": 2, "n": "Josh", "h": "@bigjoshh__", "img": "leaderboard/a02.jpg"}, {"r": 3, "n": "Anselma", "h": "@Anselma47", "img": "leaderboard/a03.jpg"}, {"r": 4, "n": "debirah_chi", "h": "@debirah_chi", "img": "leaderboard/a04.jpg"}, {"r": 5, "n": "BlackbirD", "h": "@aimblackbird_", "img": "leaderboard/a05.jpg"}, {"r": 6, "n": "Immaculate.eth", "h": "@Ifeanyi54788138", "img": "leaderboard/a06.jpg"}, {"r": 7, "n": "Bruce Compton", "h": "@Bruce64942", "img": "leaderboard/a07.jpg"}, {"r": 8, "n": "LEKINZ", "h": "@Lekinzx", "img": "leaderboard/a08.jpg"}, {"r": 9, "n": "HEI$VINE", "h": "@heisvineee", "img": "leaderboard/a09.jpg"}, {"r": 10, "n": "SUGARcane", "h": "@SUGARcane_HQ", "img": "leaderboard/a10.jpg"}, {"r": 11, "n": "Wilzow", "h": "@wilzowishere", "img": "leaderboard/a11.jpg"}, {"r": 12, "n": "Vincent", "h": "@VincentOkw96990", "img": "leaderboard/a12.jpg"}, {"r": 13, "n": "school data. olayinka", "h": "@samuelschooldat", "img": "leaderboard/a13.jpg"}, {"r": 14, "n": "FAVOURITE", "h": "@FAVOURITEze4U", "img": "leaderboard/a14.jpg"}];
-const UPDATING=3, DROP=Date.parse('2026-12-17T00:00:00Z');
+const UPDATING=3;
 const $=i=>document.getElementById(i);
 const xurl=h=>'https://x.com/'+h.replace('@','');
 const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -209,8 +208,7 @@ $('q').addEventListener('input',e=>draw(e.target.value));
 const N=CREATORS.length;let c0=null;(function cu(ts){if(c0===null)c0=ts;const k=Math.min(1,(ts-c0)/1400);$('cnt').textContent=Math.round(N*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(cu)})(performance.now());
 requestAnimationFrame(function cu(ts){});
 // countdown
-function tick(){const s=Math.max(0,Math.floor((DROP-Date.now())/1000));$('d').textContent=Math.floor(s/86400);$('h').textContent=String(Math.floor(s%86400/3600)).padStart(2,'0');$('m').textContent=String(Math.floor(s%3600/60)).padStart(2,'0')}
-tick();setInterval(tick,20000);
+
 // confetti when podium appears
 const cv=$('fx'),cx=cv.getContext('2d');let parts=[];function rs(){cv.width=innerWidth*devicePixelRatio;cv.height=innerHeight*devicePixelRatio}rs();addEventListener('resize',rs);
 function confetti(){if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;const cols=['#ff2050','#7b2bff','#3aa0ff','#2bd47a','#ffcf4a','#fff'],W=cv.width,H=cv.height,d=devicePixelRatio;
