@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-5LTFRSCD');</script>
+<!-- End Google Tag Manager -->
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OpenHelix Creator Leaderboard</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="description" content="Top OpenHelix creators earning PHELIX + USDT rewards.">
+<meta property="og:title" content="OpenHelix Creator Leaderboard">
+<meta property="og:description" content="Top OpenHelix creators earning PHELIX + USDT rewards.">
+<meta property="og:image" content="https://opnhelix.xyz/banner.jpg">
+<link rel="icon" href="logo-mark.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--void:#050310;--panel:rgba(18,12,38,.78);--line:rgba(255,255,255,.1);--cr:#e6103a;--cr2:#ff2050;--vi:#7b2bff;--ice:#3aa0ff;--ink:#f4eef3;--ink2:#b9aec4;--ink3:#7d7390;--ok:#2bd47a;--gold:#ffcf4a}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{background:var(--void);color:var(--ink);font:16px/1.5 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.blob{position:absolute;border-radius:50%;filter:blur(80px);opacity:.5}
+.b1{width:480px;height:480px;background:var(--cr);left:-160px;top:-160px;animation:d1 16s ease-in-out infinite alternate}
+.b2{width:520px;height:520px;background:var(--vi);right:-200px;top:40%;animation:d2 18s ease-in-out infinite alternate}
+.b3{width:320px;height:320px;background:var(--ice);left:30%;bottom:-160px;opacity:.25;animation:d3 20s ease-in-out infinite alternate}
+@keyframes d1{to{transform:translate(160px,200px) scale(1.15)}}@keyframes d2{to{transform:translate(-160px,-180px)}}@keyframes d3{to{transform:translate(120px,-220px) scale(1.3)}}
+.grid{position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.07) 1px,transparent 1px);background-size:30px 30px;mask-image:linear-gradient(180deg,#000 30%,transparent)}
+.coin{position:absolute;width:26px;height:26px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ff7a95,#e6103a 55%,#7b2bff);display:grid;place-items:center;box-shadow:0 0 18px rgba(255,32,80,.6);animation:fl 7s ease-in-out infinite;opacity:.8}
+.coin:before{content:"";width:9px;height:9px;background:#fff;transform:rotate(45deg);border-radius:2px}
+@keyframes fl{50%{transform:translateY(-26px) rotate(25deg)}}
+.wrap{position:relative;z-index:1;max-width:880px;margin:0 auto;padding:18px 18px 80px;overflow-x:clip}
+nav{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:19px;text-decoration:none}
+.logo img{width:36px;height:36px;border-radius:10px}
+.live{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:800;letter-spacing:.12em;padding:7px 12px;border-radius:99px;background:rgba(43,212,122,.12);border:1px solid rgba(43,212,122,.4);color:#7cf0b0;white-space:nowrap}
+.live i{width:8px;height:8px;border-radius:50%;background:var(--ok);animation:ping 1.6s infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(43,212,122,.7)}70%{box-shadow:0 0 0 10px rgba(43,212,122,0)}100%{box-shadow:0 0 0 0 rgba(43,212,122,0)}}
+.hero{text-align:center;padding:46px 0 10px}
+.eyebrow{display:inline-block;font-size:12px;letter-spacing:.2em;font-weight:800;color:var(--cr2);border:1px solid rgba(230,16,58,.45);background:rgba(230,16,58,.12);padding:7px 14px;border-radius:99px;animation:rise .7s both}
+h1{font-size:clamp(40px,9vw,78px);line-height:1;letter-spacing:-.04em;font-weight:900;margin:18px 0 12px;animation:rise .8s .1s both}
+h1 em{font-style:normal;background:linear-gradient(100deg,#ff2050,#b04dff,#3aa0ff,#ff2050);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 6s linear infinite}
+@keyframes shine{to{background-position:300% 0}}
+.lede{color:var(--ink2);font-size:18px;max-width:560px;margin:0 auto;animation:rise .8s .2s both}
+@keyframes rise{from{opacity:0;transform:translateY(24px)}}
+.stats{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:24px;animation:rise .8s .3s both}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:12px 18px;min-width:120px;backdrop-filter:blur(10px)}
+.stat small{display:block;font-size:11px;letter-spacing:.14em;color:var(--ink3);font-weight:800}
+.stat b{font-size:22px}
+.cd{display:flex;gap:6px;justify-content:center}
+.cd span{font-variant-numeric:tabular-nums}
+/* podium */
+.podium{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr) minmax(0,1fr);align-items:end;gap:12px;margin:56px auto 0;max-width:640px}
+.pc{text-align:center;opacity:0;transform:translateY(60px);min-width:0}
+.pc.in{animation:pop .9s cubic-bezier(.2,1.3,.4,1) forwards}
+.pc.p2.in{animation-delay:.25s}.pc.p1.in{animation-delay:.55s}
+@keyframes pop{to{opacity:1;transform:none}}
+.ring{position:relative;display:inline-block;border-radius:50%;padding:5px;margin-bottom:10px}
+.ring img{position:relative;z-index:1;display:block;border-radius:50%;width:min(21vw,128px);height:min(21vw,128px);object-fit:cover;border:3px solid var(--void)}
+.p1 .ring img{width:min(26vw,164px);height:min(26vw,164px)}
+.p1 .ring{box-shadow:0 0 50px rgba(255,200,60,.45);overflow:visible}
+.p1 .ring:before{content:"";position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 0deg,#fff3b0,#e09a1a,#fff3b0,#e09a1a,#fff3b0);animation:spin 6s linear infinite}
+.p2 .ring{background:linear-gradient(135deg,#f2f4f8,#8f97a8)}.p3 .ring{background:linear-gradient(135deg,#ffd0a8,#a8582a)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.crown{position:absolute;z-index:2;left:50%;top:-44px;transform:translateX(-50%);font-size:46px;animation:bob 2.2s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,-8px) rotate(6deg)}}
+.pn{font-weight:900;font-size:clamp(16px,3.6vw,22px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ph{font-size:13px;color:var(--ink2);text-decoration:none;display:block;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ph:hover{color:var(--ink)}
+.step{margin-top:14px;border-radius:18px 18px 0 0;display:flex;align-items:flex-start;justify-content:center;padding-top:14px;font-size:clamp(40px,9vw,64px);font-weight:900;color:rgba(255,255,255,.95);text-shadow:0 6px 20px rgba(0,0,0,.35);transform-origin:50% 100%;transform:scaleY(0)}
+.pc.in .step{animation:grow .9s cubic-bezier(.2,1.2,.4,1) forwards;animation-delay:inherit}
+@keyframes grow{to{transform:scaleY(1)}}
+.p1 .step{height:190px;background:linear-gradient(180deg,#ffd75e,#e09a1a)}
+.p2 .step{height:140px;background:linear-gradient(180deg,#e2e6ee,#8f97a8)}
+.p3 .step{height:104px;background:linear-gradient(180deg,#f0a36a,#a8582a)}
+/* list */
+.tools{display:flex;gap:10px;align-items:center;margin:48px 0 14px}
+.tools h2{font-size:24px;letter-spacing:-.02em;margin-right:auto}
+.search{display:flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:0 12px;height:44px;width:min(260px,52vw)}
+.search input{background:none;border:0;outline:0;color:var(--ink);font:500 15px Inter,sans-serif;width:100%}
+.list{display:flex;flex-direction:column;gap:10px}
+.row{display:flex;align-items:center;gap:14px;padding:12px 14px;border-radius:18px;background:var(--panel);border:1px solid var(--line);text-decoration:none;backdrop-filter:blur(10px);opacity:0;transform:translateX(-40px);transition:transform .25s,border-color .25s,box-shadow .25s,background .25s}
+.row:nth-child(even){transform:translateX(40px)}
+.row.in{animation:slide .7s cubic-bezier(.2,1.1,.4,1) forwards}
+@keyframes slide{to{opacity:1;transform:none}}
+.row:hover{border-color:rgba(255,32,80,.55);box-shadow:0 10px 30px rgba(230,16,58,.18);background:rgba(28,18,56,.9)}
+.rk{width:46px;height:40px;flex:none;border-radius:11px;display:grid;place-items:center;font-weight:900;font-size:19px;background:rgba(230,16,58,.15);color:#ff5574;font-variant-numeric:tabular-nums}
+.row img{width:48px;height:48px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,.2);flex:none}
+.who{min-width:0}
+.rn{font-weight:800;font-size:17px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rh{font-size:13px;color:var(--ink2)}
+.xbtn{margin-left:auto;flex:none;font-size:13px;font-weight:800;padding:8px 12px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.05);white-space:nowrap}
+.row:hover .xbtn{background:var(--cr);border-color:var(--cr)}
+.row.up{pointer-events:none}
+.row.up .rk{background:rgba(255,255,255,.06);color:var(--ink3)}
+.sk{border-radius:8px;background:linear-gradient(90deg,rgba(255,255,255,.06),rgba(255,255,255,.18),rgba(255,255,255,.06));background-size:200% 100%;animation:sh 1.4s linear infinite}
+@keyframes sh{to{background-position:-200% 0}}
+.upd{margin-left:auto;font-size:12px;letter-spacing:.12em;font-weight:800;color:var(--ink3);display:flex;align-items:center;gap:8px}
+.upd i{width:8px;height:8px;border-radius:50%;background:var(--ok);animation:ping 1.6s infinite}
+.empty{display:none;text-align:center;color:var(--ink2);padding:20px}
+/* climb */
+.climb{margin-top:60px}
+.climb h2{font-size:28px;letter-spacing:-.02em;text-align:center}
+.climb p.c{color:var(--ink2);text-align:center;margin-top:6px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:22px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:20px;opacity:0;transform:translateY(30px)}
+.card.in{animation:pop .8s cubic-bezier(.2,1.2,.4,1) forwards}
+.card:nth-child(2).in{animation-delay:.12s}.card:nth-child(3).in{animation-delay:.24s}
+.card .ic{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;font-size:22px;background:linear-gradient(135deg,rgba(230,16,58,.35),rgba(123,43,255,.35));margin-bottom:12px}
+.card b{font-size:18px;display:block}
+.card span{color:var(--ink2);font-size:15px}
+/* mascot */
+.cta{position:relative;margin-top:60px;border-radius:26px;overflow:hidden;border:1px solid var(--line);background:radial-gradient(500px 300px at 25% 30%,#1c1550,#0a0720 75%);min-height:300px;display:flex;align-items:center}
+.ground{position:absolute;left:-10%;right:-10%;bottom:-170px;height:240px;border-radius:50%;background:linear-gradient(180deg,#eaf5ff,#b8d7f4 45%,#86aedb)}
+.peng{position:absolute;left:4%;bottom:26px;width:170px;height:193px;animation:pb 2.6s ease-in-out infinite;transform-origin:50% 100%}
+.peng svg{width:100%;height:100%;overflow:visible}
+@keyframes pb{50%{transform:translateY(-7px)}}
+#flR{transform-box:view-box;transform-origin:232px 170px;animation:wave .5s ease-in-out infinite alternate}
+@keyframes wave{from{transform:rotate(-150deg)}to{transform:rotate(-112deg)}}
+#eyL,#eyR{transform-box:fill-box;transform-origin:50% 50%;animation:blink 4.5s infinite}
+@keyframes blink{0%,94%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
+#glo{animation:glow 1.6s ease-in-out infinite alternate}@keyframes glow{from{opacity:.4}}
+.ctx{position:relative;margin-left:max(210px,34%);padding:28px 24px 28px 0}
+.bub{display:inline-block;background:#fff;color:#120c24;border-radius:20px;padding:12px 18px;font-weight:900;font-size:19px;position:relative;margin-bottom:14px}
+.bub:after{content:"";position:absolute;left:-12px;bottom:14px;border:10px solid transparent;border-right:16px solid #fff;border-left:0}
+.ctx h3{font-size:26px;letter-spacing:-.02em;line-height:1.15}
+.btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.btn{display:inline-flex;align-items:center;gap:8px;height:48px;padding:0 18px;border-radius:13px;font-weight:800;text-decoration:none;border:1px solid var(--line);background:rgba(255,255,255,.06)}
+.btn.p{background:linear-gradient(180deg,var(--cr2),var(--cr));border:0;box-shadow:0 10px 26px rgba(230,16,58,.35)}
+.foot{margin-top:40px;text-align:center;color:var(--ink3);font-size:13px}
+#fx{position:fixed;inset:0;pointer-events:none;z-index:50}
+@media (max-width:560px){.ctx{margin-left:0;padding:24px 20px 230px}.peng{left:50%;margin-left:-85px;bottom:20px}.bub:after{display:none}.tools{flex-wrap:wrap}.tools h2{width:100%}.search{width:100%}.xbtn{display:none}}
+@media (prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}.pc,.row,.card{opacity:1;transform:none}.step{transform:none}}
+</style></head><body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5LTFRSCD" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<div class="bg"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="grid"></div>
+<div class="coin" style="left:8%;top:30%"></div><div class="coin" style="right:10%;top:18%;animation-delay:-2s"></div><div class="coin" style="right:6%;top:62%;animation-delay:-4s;width:20px;height:20px"></div><div class="coin" style="left:12%;top:76%;animation-delay:-5s;width:18px;height:18px"></div></div>
+<canvas id="fx"></canvas>
+<div class="wrap">
+<nav><a class="logo" href="https://x.com/Openhelixx" target="_blank" rel="noopener"><img src="logo-mark.jpg" alt="">OpenHelix</a><div class="live"><i></i>LIVE RANKINGS</div></nav>
+<section class="hero">
+ <span class="eyebrow">CREATOR LEADERBOARD</span>
+ <h1>Top <em>OpenHelix</em> creators</h1>
+ <p class="lede">The creators spreading the word about OpenHelix, earning <b style="color:var(--ink)">PHELIX + USDT</b> rewards.</p>
+ <div class="stats">
+  <div class="stat"><small>RANKED</small><b id="cnt">0</b></div>
+  <div class="stat"><small>REWARDS</small><b>PHELIX + USDT</b></div>
+  <div class="stat"><small>REWARDS IN</small><b class="cd"><span id="d">--</span>d <span id="h">--</span>h <span id="m">--</span>m</b></div>
+ </div>
+</section>
+<div class="podium" id="podium"></div>
+<div class="tools"><h2>Full rankings</h2><label class="search"><span>🔍</span><input id="q" placeholder="Search name or @handle" autocomplete="off"></label></div>
+<div class="list" id="list"></div><div class="empty" id="empty">No creator found.</div>
+<section class="climb"><h2>Want to climb the board? 🚀</h2><p class="c">Rank 15 and up is updating. Here's how to get noticed.</p>
+<div class="cards">
+ <div class="card"><div class="ic">✍️</div><b>Create about OpenHelix</b><span>Threads, videos, graphics and guides about the Token Studio.</span></div>
+ <div class="card"><div class="ic">🏷️</div><b>Tag @Openhelixx</b><span>Tag us on X so we see your work and can share it.</span></div>
+ <div class="card"><div class="ic">💬</div><b>Join the community</b><span>Be active in our Telegram and help new builders.</span></div>
+</div></section>
+<section class="cta"><div class="ground"></div><div class="peng"><svg viewBox="0 0 300 340" style="overflow:visible">
+<defs><linearGradient id="bd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2d2458"/><stop offset="1" stop-color="#140f30"/></linearGradient>
+<linearGradient id="sc" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ff2050"/><stop offset="1" stop-color="#7b2bff"/></linearGradient>
+<radialGradient id="gl"><stop offset="0" stop-color="#7fd0ff"/><stop offset="1" stop-color="#3aa0ff" stop-opacity="0"/></radialGradient></defs>
+<ellipse id="ftL" cx="118" cy="318" rx="28" ry="11" fill="#ffae35"/><ellipse id="ftR" cx="182" cy="318" rx="28" ry="11" fill="#ffae35"/>
+<g id="flL"><path d="M66 168 Q28 205 36 266 Q58 246 74 200 Z" fill="#1d1640"/></g>
+<g id="flR"><path d="M234 168 Q272 205 264 266 Q242 246 226 200 Z" fill="#1d1640"/></g>
+<path d="M150 36 C230 36 252 140 252 210 C252 282 212 314 150 314 C88 314 48 282 48 210 C48 140 70 36 150 36 Z" fill="url(#bd)"/>
+<path d="M150 120 C206 120 224 182 224 226 C224 282 190 302 150 302 C110 302 76 282 76 226 C76 182 94 120 150 120 Z" fill="#f4f1fa"/>
+<g id="head"><ellipse cx="150" cy="112" rx="68" ry="52" fill="#f4f1fa"/>
+<g id="eyL"><ellipse cx="124" cy="106" rx="13" ry="17" fill="#140f30"/><circle cx="128.5" cy="99" r="4.6" fill="#fff"/></g>
+<g id="eyR"><ellipse cx="176" cy="106" rx="13" ry="17" fill="#140f30"/><circle cx="180.5" cy="99" r="4.6" fill="#fff"/></g>
+<ellipse cx="104" cy="130" rx="11" ry="6.5" fill="#ff7aa0" opacity=".55"/><ellipse cx="196" cy="130" rx="11" ry="6.5" fill="#ff7aa0" opacity=".55"/>
+<path d="M136 124 Q150 116 164 124 Q157 142 150 144 Q143 142 136 124 Z" fill="#ffae35"/><path d="M140 125 Q150 121 160 125" stroke="#e08a1a" stroke-width="2" fill="none"/></g>
+<path d="M74 160 Q150 184 226 160 L230 184 Q150 210 70 184 Z" fill="url(#sc)"/>
+<path d="M186 182 L214 176 L224 240 L196 246 Z" fill="url(#sc)"/>
+<path d="M199 246 l-2 9 M206 245 l-1 9 M213 243 l0 9 M220 241 l1 9" stroke="#b01a6a" stroke-width="3" stroke-linecap="round"/>
+<circle cx="150" cy="232" r="30" fill="url(#gl)" id="glo"/>
+<circle cx="150" cy="232" r="17" fill="#0a0718" stroke="#3aa0ff" stroke-width="3"/>
+<polygon points="150,221 161,232 150,243 139,232" fill="#7fd0ff"/>
+</svg></div>
+ <div class="ctx"><div class="bub">Your name could be next! 🎉</div><h3>Keep creating. Your spot on the board is waiting.</h3>
+ <div class="btns"><a class="btn p" href="https://x.com/Openhelixx" target="_blank" rel="noopener">Follow @Openhelixx</a><a class="btn" href="https://t.me/openhelix" target="_blank" rel="noopener">Join Telegram</a></div></div></section>
+<div class="foot">Last updated 17 Nov 2026 · Rank 15+ updating · opnhelix.xyz</div>
+</div>
+<script>
+const CREATORS=[{"r": 1, "n": "Queenshy", "h": "@Queensley21", "img": "leaderboard/a01.jpg"}, {"r": 2, "n": "Josh", "h": "@bigjoshh__", "img": "leaderboard/a02.jpg"}, {"r": 3, "n": "Anselma", "h": "@Anselma47", "img": "leaderboard/a03.jpg"}, {"r": 4, "n": "debirah_chi", "h": "@debirah_chi", "img": "leaderboard/a04.jpg"}, {"r": 5, "n": "BlackbirD", "h": "@aimblackbird_", "img": "leaderboard/a05.jpg"}, {"r": 6, "n": "Immaculate.eth", "h": "@Ifeanyi54788138", "img": "leaderboard/a06.jpg"}, {"r": 7, "n": "Bruce Compton", "h": "@Bruce64942", "img": "leaderboard/a07.jpg"}, {"r": 8, "n": "LEKINZ", "h": "@Lekinzx", "img": "leaderboard/a08.jpg"}, {"r": 9, "n": "HEI$VINE", "h": "@heisvineee", "img": "leaderboard/a09.jpg"}, {"r": 10, "n": "SUGARcane", "h": "@SUGARcane_HQ", "img": "leaderboard/a10.jpg"}, {"r": 11, "n": "Wilzow", "h": "@wilzowishere", "img": "leaderboard/a11.jpg"}, {"r": 12, "n": "Vincent", "h": "@VincentOkw96990", "img": "leaderboard/a12.jpg"}, {"r": 13, "n": "school data. olayinka", "h": "@samuelschooldat", "img": "leaderboard/a13.jpg"}, {"r": 14, "n": "FAVOURITE", "h": "@FAVOURITEze4U", "img": "leaderboard/a14.jpg"}];
+const UPDATING=3, DROP=Date.parse('2026-12-17T00:00:00Z');
+const $=i=>document.getElementById(i);
+const xurl=h=>'https://x.com/'+h.replace('@','');
+const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+// podium
+const top3=[2,1,3].map(r=>CREATORS.find(c=>c.r===r)).filter(Boolean);
+$('podium').innerHTML=top3.map(c=>`<div class="pc p${c.r}"><div class="ring">${c.r===1?'<div class="crown">👑</div>':''}<img src="${c.img}" alt=""></div><div class="pn">${esc(c.n)}</div><a class="ph" href="${xurl(c.h)}" target="_blank" rel="noopener">${esc(c.h)}</a><div class="step">${c.r}</div></div>`).join('');
+// list
+function draw(q){q=(q||'').trim().toLowerCase();
+ const rest=CREATORS.filter(c=>c.r>3&&(!q||c.n.toLowerCase().includes(q)||c.h.toLowerCase().includes(q)));
+ let h=rest.map(c=>`<a class="row" href="${xurl(c.h)}" target="_blank" rel="noopener"><div class="rk">${c.r}</div><img src="${c.img}" alt="" loading="lazy"><div class="who"><div class="rn">${esc(c.n)}</div><div class="rh">${esc(c.h)}</div></div><span class="xbtn">View on X ↗</span></a>`).join('');
+ const max=Math.max(...CREATORS.map(c=>c.r));
+ if(!q)for(let i=1;i<=UPDATING;i++)h+=`<div class="row up"><div class="rk">${max+i}</div><div class="sk" style="width:48px;height:48px;border-radius:50%"></div><div class="who" style="flex:1"><div class="sk" style="height:14px;width:${[60,45,52][i-1]}%"></div><div class="sk" style="height:10px;width:${[35,28,30][i-1]}%;margin-top:8px"></div></div><div class="upd"><i></i>UPDATING…</div></div>`;
+ $('list').innerHTML=h;$('empty').style.display=q&&!rest.length&&!top3.some(c=>c.n.toLowerCase().includes(q)||c.h.toLowerCase().includes(q))?'block':'none';
+ observe(document.querySelectorAll('.row'));
+}
+// reveal on scroll
+const io='IntersectionObserver' in window?new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const el=e.target;const i=[...el.parentNode.children].indexOf(el);if(el.classList.contains('row'))el.style.animationDelay=Math.min(i,10)*.06+'s';el.classList.add('in');io.unobserve(el)}}),{threshold:.15}):null;
+function observe(els){els.forEach(el=>io?io.observe(el):el.classList.add('in'))}
+observe(document.querySelectorAll('.pc,.card'));
+draw('');
+$('q').addEventListener('input',e=>draw(e.target.value));
+// count up
+const N=CREATORS.length;let c0=null;(function cu(ts){if(c0===null)c0=ts;const k=Math.min(1,(ts-c0)/1400);$('cnt').textContent=Math.round(N*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(cu)})(performance.now());
+requestAnimationFrame(function cu(ts){});
+// countdown
+function tick(){const s=Math.max(0,Math.floor((DROP-Date.now())/1000));$('d').textContent=Math.floor(s/86400);$('h').textContent=String(Math.floor(s%86400/3600)).padStart(2,'0');$('m').textContent=String(Math.floor(s%3600/60)).padStart(2,'0')}
+tick();setInterval(tick,20000);
+// confetti when podium appears
+const cv=$('fx'),cx=cv.getContext('2d');let parts=[];function rs(){cv.width=innerWidth*devicePixelRatio;cv.height=innerHeight*devicePixelRatio}rs();addEventListener('resize',rs);
+function confetti(){if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;const cols=['#ff2050','#7b2bff','#3aa0ff','#2bd47a','#ffcf4a','#fff'],W=cv.width,H=cv.height,d=devicePixelRatio;
+ for(let i=0;i<150;i++){const a=-Math.PI/2+(Math.random()-.5)*2.4,sp=(9+Math.random()*13)*d;parts.push({x:W/2,y:H*.45,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,r:Math.random()*6,vr:(Math.random()-.5)*.4,w:(6+Math.random()*7)*d,h:(4+Math.random()*5)*d,c:cols[i%6],l:0})}
+ (function fr(){cx.clearRect(0,0,W,H);parts=parts.filter(p=>p.l<170);parts.forEach(p=>{p.l++;p.vy+=.33*d;p.vx*=.99;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;cx.save();cx.globalAlpha=Math.max(0,1-p.l/170);cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillStyle=p.c;cx.fillRect(-p.w/2,-p.h/2,p.w,p.h);cx.restore()});if(parts.length)requestAnimationFrame(fr)})()}
+setTimeout(confetti,1300);
+</script></body></html>
